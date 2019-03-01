@@ -2,6 +2,7 @@ import React from "react";
 import {LinearGradient, Font} from 'expo';
 import {StyleSheet, View} from "react-native";
 import RoundedButton from './components/RoundedButton';
+import SearchBar from './components/SearchBar';
 
 export default class App extends React.Component {
   constructor(){
@@ -24,7 +25,10 @@ export default class App extends React.Component {
       <View style={styles.container}>
       <LinearGradient style={styles.background} colors={['#FFAFBD', '#FFC3A0']}>
       {this.state.fontLoaded ? (
+        <View>
+          <SearchBar/>
           <RoundedButton clear text="Test Button" onPress={() => console.log("Boop!")}/>
+        </View>
           ) : null}
       </LinearGradient>
       </View>
