@@ -1,11 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {LinearGradient, Font} from 'expo';
+import {StyleSheet, View} from "react-native";
+import RoundedButton from './components/RoundedButton';
 
 export default class App extends React.Component {
+  constructor(){
+    super();
+    this.state= {
+      fontLoaded: false,
+    }
+  }
+
+  async componentDidMount(){
+    await Font.loadAsync({
+      'raleway': require('./assets/fonts/Raleway-Regular.ttf'),
+      'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
+    });
+    this.setState({fontLoaded: true});
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <LinearGradient style={styles.background} colors={['#FFAFBD', '#FFC3A0']}>
+      {this.state.fontLoaded ? (
+          <RoundedButton clear text="Test Button" onPress={() => console.log("Boop!")}/>
+          ) : null}
+      </LinearGradient>
       </View>
     );
   }
@@ -14,7 +35,10 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
+  },
+  background: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   }
