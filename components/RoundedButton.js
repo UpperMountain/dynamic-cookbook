@@ -3,9 +3,9 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo';
 
 
-const styles = ({background, borderColor, textColor, width}) => StyleSheet.create({
+const styles = ({background, borderColor, textColor}, width) => StyleSheet.create({
   button: {
-    width: width || 315,
+    width: width,
     height: 56,
     backgroundColor: background || 'white',
     borderColor: borderColor || 'black',
@@ -30,16 +30,16 @@ const RoundedButton = (props) => {
     currentStyle = styles({
       background: 'transparent',
       textColor: 'white',
-      borderColor: 'white'
-    });
+      borderColor: 'white',
+    }, props.width || 315);
   }else if(props.gradient){
     currentStyle = styles({
       background: 'transparent',
       textColor: 'white',
-      borderColor: 'transparent'
-    });
+      borderColor: 'transparent',
+    }, props.width || 315);
   }else{
-    currentStyle = styles(props.style || {})
+    currentStyle = styles(props.style || {}, props.width || 315)
   }
 
   let buttonText = <Text style={currentStyle.text}>{props.text}</Text>
