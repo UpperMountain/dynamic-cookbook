@@ -4,6 +4,7 @@ import {StyleSheet, View} from "react-native";
 import RoundedButton from './components/RoundedButton';
 import SearchBar from './components/SearchBar';
 import Toast from './components/Toast';
+import {MealCard, SmallMealCard} from './components/MealCard';
 
 export default class App extends React.Component {
   constructor(){
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     await Font.loadAsync({
       'raleway': require('./assets/fonts/Raleway-Regular.ttf'),
       'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
+      'FontAwesome5FreeSolid': require('./assets/fonts/fontawesome-webfont.ttf')
     });
     this.setState({fontLoaded: true});
   }
@@ -31,6 +33,8 @@ export default class App extends React.Component {
           <Toast headerText={"Toast"} bodyText={"This is an example of toast which pops up from the bottom"}/>
         </View>
           ) : null}
+          <MealCard/>
+          <SmallMealCard/>
       </LinearGradient>
       </View>
     );

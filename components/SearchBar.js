@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput, Keyboard} from 'react-native';
+import FontAwesome, {Icons} from 'react-native-fontawesome';
 
 class SearchBar extends React.Component{
   constructor(props){
@@ -17,12 +18,17 @@ class SearchBar extends React.Component{
         backgroundColor: 'rgba(255, 255, 255, .2)',
         borderRadius: 72,
         paddingLeft: 36,
-        justifyContent: "center"
+        paddingRight: 36,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
       },
       text: {
         fontFamily: 'raleway',
         fontSize: 18,
         color: 'white',
+        flex: 1
         // lineHeight: 32,
         // flexDirection: 'row'
       }
@@ -30,8 +36,12 @@ class SearchBar extends React.Component{
     
     return(
       <View style={styles.bar}>
-        <TextInput style={styles.text} placeholder={'Search Recipes...'} placeholderTextColor={'white'}
+        <TextInput onFocus={() => this.setState({editing: true})}
+        style={styles.text} placeholder={'Search Recipes...'} placeholderTextColor={'white'}
         onChangeText={(text) => this.setState({text})} value={this.state.text}/>
+        {this.state.editing ? 
+        <FontAwesome style={{color: 'white'}}>{Icons.times}</FontAwesome> 
+        : <FontAwesome style={{color: 'white'}}>{Icons.search}</FontAwesome>}
       </View>
     );
   }
