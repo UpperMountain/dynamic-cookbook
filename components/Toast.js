@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Modal, Text, TouchableOpacity, TouchableWithoutFeedback, View, Alert} from 'react-native';
 import RoundedButton from './RoundedButton';
+var s = require('./Styles');
 
 const styles = StyleSheet.create({
   container: {
@@ -25,15 +26,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  header: {
-    fontFamily: 'raleway',
-    fontSize: 24,
-  },
-  body: {
-    marginTop: 28,
-    fontFamily: 'raleway',
-    fontSize: 14
   }
 });
 
@@ -55,8 +47,8 @@ class Toast extends React.Component{
           <TouchableOpacity activeOpacity={1} style={styles.modal} onPress={this.toggle}>
             <TouchableWithoutFeedback>
               <View style={styles.container}>
-                <Text style={styles.header}>{this.props.headerText}</Text>
-                <Text style={styles.body}>{this.props.bodyText}</Text>
+                <Text style={s.header}>{this.props.headerText}</Text>
+                <Text style={s.body}>{this.props.bodyText}</Text>
                 </View>
             </TouchableWithoutFeedback>
           </TouchableOpacity>

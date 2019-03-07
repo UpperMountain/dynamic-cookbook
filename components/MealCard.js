@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {BlurView} from 'expo';
+var s = require('./Styles');
 
 const style = StyleSheet.create({
   shadow: {
@@ -16,6 +17,7 @@ const style = StyleSheet.create({
 })
 
 const ImageContainer = (props) => {
+  let pad = props.width == 210 ? 4 : 0;
   return(
     <View style={{
       width: props.width, 
@@ -28,16 +30,19 @@ const ImageContainer = (props) => {
         <View style={{
           position: 'absolute',
           zIndex: 1,
-          top: props.height * .8,
+          top: props.height * .78 + pad,
           width: props.width,
-          height: props.height * .2,
-          backgroundColor: 'rgba(255, 255, 255, .7)'
+          height: props.height * .22 - pad,
+          backgroundColor: 'rgba(255, 255, 255, .6)'
         }}>
-        <BlurView tint={'light'} intensity={65} style={{
-          width: props.width,
-          height: props.height * .2,
-        }}>
-        </BlurView>
+          <BlurView tint={'light'} intensity={65} style={{
+            width: props.width,
+            height: props.height * .22 - pad,
+            paddingLeft: 16, paddingTop: 4 + pad
+          }}>
+            <Text style={[s.body, {marginBottom: pad}]}>Pancakes</Text>
+            <Text style={s.caption}>20min | serves 4</Text>
+          </BlurView>
         </View>
     </View>
   )

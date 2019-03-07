@@ -17,6 +17,7 @@ export default class App extends React.Component {
   async componentDidMount(){
     await Font.loadAsync({
       'raleway': require('./assets/fonts/Raleway-Regular.ttf'),
+      'raleway-medium': require('./assets/fonts/Raleway-Medium.ttf'),
       'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
       'FontAwesome5FreeSolid': require('./assets/fonts/fontawesome-webfont.ttf')
     });
@@ -31,10 +32,10 @@ export default class App extends React.Component {
         <View>
           <SearchBar/>
           <Toast headerText={"Toast"} bodyText={"This is an example of toast which pops up from the bottom"}/>
-        </View>
-          ) : null}
           <MealCard/>
           <SmallMealCard/>
+        </View>
+          ) : null}
       </LinearGradient>
       </View>
     );
