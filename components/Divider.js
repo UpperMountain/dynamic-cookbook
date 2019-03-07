@@ -18,6 +18,11 @@ let styles = StyleSheet.create({
     textAlign: 'center',
     flex: .3,
     color: '#fff'
+  },
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   } 
 });
 
@@ -32,9 +37,10 @@ export const HR = (props) =>{
   );
 }
 
-export const Spacer = (props) => {
-  let size = props.size || .04;
+export const SpacedView = (props) => {
   return(
-    <View style={{flex: size}}/>
+    <View style={[{height: props.height}, styles.container]}>
+      {props.children}
+    </View>
   )
 }

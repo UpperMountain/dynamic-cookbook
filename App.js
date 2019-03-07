@@ -1,10 +1,6 @@
 import React from "react";
-import {LinearGradient, Font} from 'expo';
-import {StyleSheet, View, Fragment} from "react-native";
-import RoundedButton from './components/RoundedButton';
-import SearchBar from './components/SearchBar';
-import Toast from './components/Toast';
-import {MealCard, SmallMealCard} from './components/MealCard';
+import {Font} from 'expo';
+import {View} from "react-native";
 import LoginPage from './views/Login';
 
 export default class App extends React.Component {

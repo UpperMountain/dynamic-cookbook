@@ -1,8 +1,8 @@
 import React from 'react';
 import {LinearGradient} from 'expo';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import RoundedButton from '../components/RoundedButton';
-import {HR, Spacer} from '../components/Divider';
+import {HR, SpacedView} from '../components/Divider';
 
 class LoginPage extends React.Component{
   constructor(props){
@@ -13,35 +13,32 @@ class LoginPage extends React.Component{
     return(
       <View style={styles.container}>
         <LinearGradient style={styles.background} colors={['#FFAFBD', '#FFC3A0']}>
-          <Spacer size={.3}/>
-          <Image style={styles.logo} source={require('../assets/images/CookieLogo.png')}/>
-          <Spacer size={.3}/>
+          <SpacedView height={'50%'}>
+            <Image style={styles.logo} source={require('../assets/images/CookieLogo.png')}/>
+          </SpacedView>
 
-          <RoundedButton clear text={'Login'}/>
-          <Spacer/>
-          <RoundedButton style={{
-            backgroundColor: 'white',
-            textColor: '#FFC3A0',
-            borderColor: 'white'
-          }} text={'Register'}/>
-          
-          <Spacer/>
-          <HR text={'or'}/>
-          <Spacer/>
+          <SpacedView height={'40%'}>
+            <RoundedButton clear text={'Login'}/>
+            <RoundedButton style={{
+              backgroundColor: 'white',
+              textColor: '#FFC3A0',
+              borderColor: 'white'
+            }} text={'Register'}/>
+      
+            <HR text={'or'}/>
 
-          <RoundedButton style={{
-            background: '#DB4437',
-            textColor: '#fff',
-            borderColor: '#DB4437'
-          }} text={'Sign in With Google'}/>
+            <RoundedButton style={{
+              background: '#DB4437',
+              textColor: '#fff',
+              borderColor: '#DB4437'
+            }} text={'Sign in With Google'}/>
 
-          <Spacer/>
-
-          <RoundedButton style={{
-            background: '#3C5A99',
-            textColor: '#fff',
-            borderColor: '#3C5A99'
-          }} text={'Continue With Facebook'}/>
+            <RoundedButton style={{
+              background: '#3C5A99',
+              textColor: '#fff',
+              borderColor: '#3C5A99'
+            }} text={'Continue With Facebook'}/>
+          </SpacedView>
         </LinearGradient>
       </View>
     );
