@@ -1,10 +1,11 @@
 import React from "react";
 import {LinearGradient, Font} from 'expo';
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, Fragment} from "react-native";
 import RoundedButton from './components/RoundedButton';
 import SearchBar from './components/SearchBar';
 import Toast from './components/Toast';
 import {MealCard, SmallMealCard} from './components/MealCard';
+import LoginPage from './views/Login';
 
 export default class App extends React.Component {
   constructor(){
@@ -24,32 +25,11 @@ export default class App extends React.Component {
     this.setState({fontLoaded: true});
   }
 
-  render() {
+  render(){
     return (
-      <View style={styles.container}>
-      <LinearGradient style={styles.background} colors={['#FFAFBD', '#FFC3A0']}>
-      {this.state.fontLoaded ? (
-        <View>
-          <SearchBar/>
-          <Toast headerText={"Toast"} bodyText={"This is an example of toast which pops up from the bottom"}/>
-          <MealCard/>
-          <SmallMealCard/>
-        </View>
-          ) : null}
-      </LinearGradient>
+      <View style={{flex: 1, backgroundColor: 'transparent'}}>
+        {this.state.fontLoaded ? <LoginPage/> : null}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "transparent",
-  },
-  background: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
