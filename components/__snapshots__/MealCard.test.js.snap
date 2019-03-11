@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should pass snapshot tests 1`] = `
+<View
+  style={
+    Object {
+      "elevation": 5,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 5,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderRadius": 19,
+        "height": 262,
+        "overflow": "hidden",
+        "width": 210,
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Object {
+          "height": 262,
+          "width": 210,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(255, 255, 255, .6)",
+          "height": 53.64,
+          "position": "absolute",
+          "top": 208.36,
+          "width": 210,
+          "zIndex": 1,
+        }
+      }
+    >
+      <ExponentBlurView
+        intensity={65}
+        style={
+          Array [
+            Object {
+              "height": 53.64,
+              "paddingLeft": 16,
+              "paddingTop": 8,
+              "width": 210,
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+          ]
+        }
+        tint="light"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "raleway",
+                "fontSize": 14,
+              },
+              Object {
+                "marginBottom": 4,
+              },
+            ]
+          }
+        >
+          Pancakes
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgba(0, 0, 0, .65)",
+              "fontFamily": "raleway",
+              "fontSize": 12,
+              "letterSpacing": 1,
+            }
+          }
+        >
+          20min | serves 4
+        </Text>
+      </ExponentBlurView>
+    </View>
+  </View>
+</View>
+`;

@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`passes snapshot tests 1`] = `
+<View
+  accessible={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "flex": 1,
+    }
+  }
+>
+  <ExponentLinearGradient
+    colors={
+      Array [
+        4294946749,
+        4294951840,
+      ]
+    }
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(255, 255, 255, .2)",
+          "borderRadius": 72,
+          "display": "flex",
+          "flexDirection": "row",
+          "height": 56,
+          "marginTop": 56,
+          "paddingLeft": 36,
+          "paddingRight": 36,
+          "width": 315,
+        }
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="Search Recipes..."
+        placeholderTextColor="white"
+        style={
+          Object {
+            "color": "white",
+            "flex": 1,
+            "fontFamily": "raleway",
+            "fontSize": 18,
+          }
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+      <Text />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderTopColor": "rgba(108, 123, 138, .24)",
+            "borderTopWidth": 1,
+            "bottom": 0,
+            "flexDirection": "row",
+            "height": 74,
+            "justifyContent": "space-around",
+            "position": "absolute",
+            "width": "100%",
+          },
+          Object {
+            "elevation": 5,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.1,
+            "shadowRadius": 5,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "marginTop": 5,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Object {
+              "color": "#ffc3a0",
+            }
+          }
+        >
+          Home
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "marginTop": 5,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Object {
+              "color": "#757575",
+            }
+          }
+        >
+          Categories
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "marginTop": 5,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Object {
+              "color": "#757575",
+            }
+          }
+        >
+          My Meal
+        </Text>
+      </View>
+    </View>
+  </ExponentLinearGradient>
+</View>
+`;

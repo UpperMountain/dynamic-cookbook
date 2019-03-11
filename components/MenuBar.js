@@ -34,6 +34,7 @@ class MenuBar extends React.Component {
         width: "100%",
         height: 74,
         backgroundColor: "#fff",
+        justifyContent: "space-around",
         flexDirection: "row"
       }
     });
