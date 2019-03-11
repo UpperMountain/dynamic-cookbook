@@ -13,5 +13,6 @@ yarn test:ci
 
 # If on travis, upload test coverage
 if [[ "$CI" == "true" ]]; then
+	echo "Uploading code coverage to coveralls.io..."
 	cat ./coverage/lcov.info | coveralls
 fi
