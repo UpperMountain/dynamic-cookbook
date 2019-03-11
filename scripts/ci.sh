@@ -10,3 +10,8 @@ echo
 # Run all tests
 echo "----- Test suite"
 yarn test:ci
+
+# If on travis, upload test coverage
+if [[ "$CI" == "true" ]]; then
+	cat ./coverage/lcov.info | coveralls
+fi
