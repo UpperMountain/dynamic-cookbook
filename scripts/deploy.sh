@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -ue
 
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+root="$(dirname $dir)"
+
 # Login to expo w/ creds in envoronment
 if [[ -z "${EXPO_USERNAME+x}" ]]; then
 	echo "$0: \$EXPO_USERNAME not set"
@@ -11,12 +14,14 @@ if [[ -z "${EXPO_PASSWORD+x}" ]]; then
 	exit 2
 fi
 
+expo="$root/node_modules/.bin/expo"
+
 echo "----- Signing in to expo..."
-yes | expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
+yes | $expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
 
 echo "----- Publishing expo app..."
-expo publish
+$expo publish
 
 echo "----- Submitting Android build..."
-expo build:android --no-wait --no-publish
+$expo build:android --no-wait --no-publish
 
