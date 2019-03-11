@@ -15,8 +15,6 @@ module.exports = StyleSheet.create({
     fontSize: 12,
     color: "rgba(0, 0, 0, .65)",
     letterSpacing: 1
-<<<<<<< HEAD
-=======
   },
   shadow: {
     shadowColor: "#000",
@@ -27,6 +25,5 @@ module.exports = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 5
->>>>>>> general progress
   }
 });

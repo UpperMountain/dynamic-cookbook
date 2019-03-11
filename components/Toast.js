@@ -22,19 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 42,
     paddingLeft: 35,
-<<<<<<< HEAD
-    paddingRight: 35,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-=======
     paddingRight: 35
->>>>>>> general progress
   },
   modal: {
     flex: 1,

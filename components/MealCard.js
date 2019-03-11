@@ -3,22 +3,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { BlurView } from "expo";
 var s = require("./Styles");
 
-<<<<<<< HEAD
-const style = StyleSheet.create({
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  }
-});
-
-=======
->>>>>>> general progress
 const ImageContainer = props => {
   let pad = props.width == 210 ? 4 : 0;
   return (
