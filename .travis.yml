@@ -12,6 +12,10 @@ cache:
 install:
   - yarn install --dev --frozen-lockfile
 
-script:
-  - yarn format:check
-  - yarn test:ci
+script: ./scripts/ci.sh
+
+deploy:
+  provider: script
+  script: bash ./scripts/deploy.sh
+  on:
+    branch: master

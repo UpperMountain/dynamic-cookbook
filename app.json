@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Dynamic Cookbook",
-    "slug": "dynamic-cookbook",
+    "name": "Cookie",
+    "slug": "cookie",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
@@ -18,10 +18,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "io.uppermountain.cookie"
     },
     "android": {
-      "package": "io.uppermountain.dynamicCookbook"
+      "package": "io.uppermountain.cookie"
     }
   }
 }
