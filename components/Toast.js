@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 42,
     paddingLeft: 35,
+<<<<<<< HEAD
     paddingRight: 35,
     shadowColor: "#000",
     shadowOffset: {
@@ -31,6 +32,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5
+=======
+    paddingRight: 35
+>>>>>>> general progress
   },
   modal: {
     flex: 1,
@@ -64,7 +68,7 @@ class Toast extends React.Component {
             onPress={this.toggle}
           >
             <TouchableWithoutFeedback>
-              <View style={styles.container}>
+              <View style={[styles.container, s.shadow]}>
                 <Text style={s.header}>{this.props.headerText}</Text>
                 <Text style={s.body}>{this.props.bodyText}</Text>
               </View>

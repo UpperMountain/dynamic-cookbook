@@ -22,7 +22,11 @@ let styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
+<<<<<<< HEAD
     justifyContent: "space-around"
+=======
+    justifyContent: "space-evenly"
+>>>>>>> general progress
   }
 });
 
