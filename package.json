@@ -9,7 +9,7 @@
     "format:check": "yarn format --check",
     "format:quick": "pretty-quick",
     "test": "jest --watch",
-    "test:ci": "jest --ci --coverage --collectCoverageFrom=\"./{**/,}*.js\"",
+    "test:ci": "jest --ci --coverage --verbose",
     "test:quick": "jest --only-changed",
     "check": "yarn test:ci && yarn format --check"
   },
@@ -31,7 +31,12 @@
     "react-test-renderer": "^16.8.2"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "./{**/,}*.js",
+      "!./{**/,}*.config.js",
+      "!./coverage/**"
+    ]
   },
   "husky": {
     "pre-commit": "yarn format:quick --staged && yarn test:ci"
