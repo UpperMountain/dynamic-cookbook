@@ -52,11 +52,7 @@ export class MealCard extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <View style={style.shadow}>
-=======
       <View style={s.shadow}>
->>>>>>> general progress
         <ImageContainer width={210} height={262}>
           <Image
             style={{ width: 210, height: 262 }}
@@ -76,11 +72,7 @@ export class SmallMealCard extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <View style={style.shadow}>
-=======
       <View style={s.shadow}>
->>>>>>> general progress
         <ImageContainer width={142} height={191}>
           <Image
             style={{ width: 142, height: 191 }}
