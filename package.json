@@ -39,7 +39,9 @@
     ]
   },
   "husky": {
-    "pre-commit": "yarn format:quick --staged && yarn test:ci"
+    "hooks": {
+      "pre-commit": "yarn format:quick --staged && yarn test:quick"
+    }
   },
   "private": true
 }
