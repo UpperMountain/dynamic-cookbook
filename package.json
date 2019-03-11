@@ -7,7 +7,6 @@
     "eject": "expo eject",
     "format": "prettier --ignore-path .gitignore --write ./{**/,}*.{js,json,yml}",
     "format:check": "yarn format --check",
-    "format:quick": "pretty-quick",
     "test": "jest --watch",
     "test:ci": "jest --ci --coverage --verbose",
     "test:quick": "jest --only-changed",
@@ -26,8 +25,8 @@
     "husky": "^1.3.1",
     "jest": "^24.1.0",
     "jest-expo": "^32.0.0",
+    "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
-    "pretty-quick": "^1.10.0",
     "react-test-renderer": "^16.8.2"
   },
   "jest": {
@@ -40,8 +39,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format:quick --staged && yarn test:quick"
+      "pre-commit": "lint-staged && yarn --silent test:quick"
     }
+  },
+  "lint-staged": {
+    "*.{js,json,yml}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "private": true
 }
