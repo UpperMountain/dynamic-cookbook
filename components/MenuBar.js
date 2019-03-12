@@ -16,7 +16,11 @@ class MenuBar extends React.Component {
         props.pos == this.state.current ? "#ffc3a0" : "#757575";
       return (
         <TouchableOpacity
-          style={{ alignItems: "center", marginTop: 5 }}
+          style={{
+            marginTop: 5,
+            flex: 1,
+            alignItems: "center"
+          }}
           onPress={() => this.setState({ current: props.pos })}
         >
           <FontAwesome name={props.name} size={26} color={currentColor} />
