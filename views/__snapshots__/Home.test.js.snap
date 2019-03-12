@@ -103,6 +103,7 @@ exports[`passes snapshot tests 1`] = `
         style={
           Object {
             "alignItems": "center",
+            "flex": 1,
             "marginTop": 5,
             "opacity": 1,
           }
@@ -131,6 +132,7 @@ exports[`passes snapshot tests 1`] = `
         style={
           Object {
             "alignItems": "center",
+            "flex": 1,
             "marginTop": 5,
             "opacity": 1,
           }
@@ -159,6 +161,7 @@ exports[`passes snapshot tests 1`] = `
         style={
           Object {
             "alignItems": "center",
+            "flex": 1,
             "marginTop": 5,
             "opacity": 1,
           }
