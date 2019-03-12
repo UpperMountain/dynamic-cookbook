@@ -21,6 +21,7 @@ exports[`should pass snapshot tests 1`] = `
         "backgroundColor": "white",
         "borderRadius": 19,
         "height": 262,
+        "margin": 10,
         "overflow": "hidden",
         "width": 210,
       }

@@ -3,11 +3,14 @@ import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  StatusBar
 } from "react-native";
 import { LinearGradient } from "expo";
 import MenuBar from "../components/MenuBar";
 import SearchBar from "../components/SearchBar";
+import { List } from "../components/RecipeList";
+import { MealCard } from "../components/MealCard";
 
 class Home extends React.Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class Home extends React.Component {
     return (
       <DismissKeys>
         <View style={styles.container}>
+          <StatusBar barStyle="light-content" />
           <LinearGradient
             style={styles.background}
             colors={["#FFAFBD", "#FFC3A0"]}

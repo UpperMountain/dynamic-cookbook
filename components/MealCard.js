@@ -12,7 +12,8 @@ const ImageContainer = props => {
         height: props.height,
         overflow: "hidden",
         backgroundColor: "white",
-        borderRadius: 19
+        borderRadius: 19,
+        margin: 10
       }}
     >
       {props.children}
