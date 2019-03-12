@@ -22,6 +22,8 @@ yes | $expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
 echo "----- Publishing expo app..."
 $expo publish
 
-echo "----- Submitting Android build..."
-$expo build:android --no-wait --no-publish
+if [[ ! -z "${SUBMIT_BUILDS+x}" ]]; then
+	echo "----- Submitting Android build..."
+	$expo build:android --no-wait --no-publish
+fi
 
