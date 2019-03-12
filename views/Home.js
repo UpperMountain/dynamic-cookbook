@@ -9,7 +9,6 @@ import {
 import { LinearGradient } from "expo";
 import MenuBar from "../components/MenuBar";
 import SearchBar from "../components/SearchBar";
-import { List } from "../components/RecipeList";
 import { MealCard } from "../components/MealCard";
 
 class Home extends React.Component {
