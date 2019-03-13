@@ -14,16 +14,18 @@ if [[ -z "${EXPO_PASSWORD+x}" ]]; then
 	exit 2
 fi
 
-expo="$root/node_modules/.bin/expo"
+_expo(){
+	"$root/node_modules/.bin/expo" $@ --non-interactive
+}
 
 echo "----- Signing in to expo..."
-yes | $expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
+yes | _expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
 
 echo "----- Publishing expo app..."
-$expo publish
+_expo publish
 
 if [[ ! -z "${SUBMIT_BUILDS+x}" ]]; then
 	echo "----- Submitting Android build..."
-	$expo build:android --no-wait --no-publish
+	_expo build:android --no-wait --no-publish
 fi
 
