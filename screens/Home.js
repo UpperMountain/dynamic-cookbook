@@ -3,13 +3,13 @@ import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
-  Keyboard,
-  StatusBar
+  Keyboard
 } from "react-native";
 import { LinearGradient } from "expo";
-import MenuBar from "../components/MenuBar";
 import SearchBar from "../components/SearchBar";
 import { MealCard } from "../components/MealCard";
+import { FontAwesome } from "@expo/vector-icons";
+import tabIcon from "../components/tabIcon";
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,6 +18,10 @@ class Home extends React.Component {
       searching: false
     };
   }
+
+  static navigationOptions = {
+    tabBarIcon: tabIcon("home")
+  };
 
   render() {
     const DismissKeys = ({ children }) => (
@@ -33,13 +37,11 @@ class Home extends React.Component {
     return (
       <DismissKeys>
         <View style={styles.container}>
-          <StatusBar barStyle="light-content" />
           <LinearGradient
             style={styles.background}
             colors={["#FFAFBD", "#FFC3A0"]}
           >
             <SearchBar open={this.state.searching} />
-            <MenuBar />
           </LinearGradient>
         </View>
       </DismissKeys>

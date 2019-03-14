@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { BlurView } from "expo";
-var s = require("./Styles");
+import theme from "../lib/theme";
 
 const ImageContainer = props => {
   let pad = props.width == 210 ? 4 : 0;
@@ -37,8 +37,8 @@ const ImageContainer = props => {
             paddingTop: 4 + pad
           }}
         >
-          <Text style={[s.body, { marginBottom: pad }]}>Pancakes</Text>
-          <Text style={s.caption}>20min | serves 4</Text>
+          <Text style={[theme.body, { marginBottom: pad }]}>Pancakes</Text>
+          <Text style={theme.caption}>20min | serves 4</Text>
         </BlurView>
       </View>
     </View>
@@ -53,7 +53,7 @@ export class MealCard extends React.Component {
 
   render() {
     return (
-      <View style={s.shadow}>
+      <View style={theme.shadow}>
         <ImageContainer width={210} height={262}>
           <Image
             style={{ width: 210, height: 262 }}
@@ -73,7 +73,7 @@ export class SmallMealCard extends React.Component {
 
   render() {
     return (
-      <View style={s.shadow}>
+      <View style={theme.shadow}>
         <ImageContainer width={142} height={191}>
           <Image
             style={{ width: 142, height: 191 }}

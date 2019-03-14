@@ -1,9 +1,11 @@
 import React from "react";
-import { Font, AppLoading, Alert } from "expo";
-import { View } from "react-native";
-import LoginPage from "./views/Login";
-import Home from "./views/Home";
+import { SafeAreaView, StatusBar } from "react-native";
+import { Constants, Font, AppLoading, Alert } from "expo";
 import { FontAwesome } from "@expo/vector-icons";
+import { RootNavigator } from "./screens";
+import { createAppContainer } from "react-navigation";
+
+const AppContainer = createAppContainer(RootNavigator);
 
 export default class App extends React.Component {
   constructor() {
@@ -28,7 +30,12 @@ export default class App extends React.Component {
     const { ready } = this.state;
 
     if (ready) {
-      return <Home />;
+      return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+          <StatusBar barStyle="default" />
+          <AppContainer />
+        </SafeAreaView>
+      );
     } else {
       return (
         <AppLoading

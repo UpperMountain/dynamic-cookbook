@@ -9,7 +9,7 @@ import {
   Alert
 } from "react-native";
 import RoundedButton from "./RoundedButton";
-var s = require("./Styles");
+import theme from "../lib/theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -56,9 +56,9 @@ class Toast extends React.Component {
             onPress={this.toggle}
           >
             <TouchableWithoutFeedback>
-              <View style={[styles.container, s.shadow]}>
-                <Text style={s.header}>{this.props.headerText}</Text>
-                <Text style={s.body}>{this.props.bodyText}</Text>
+              <View style={[styles.container, theme.shadow]}>
+                <Text style={theme.header}>{this.props.headerText}</Text>
+                <Text style={theme.body}>{this.props.bodyText}</Text>
               </View>
             </TouchableWithoutFeedback>
           </TouchableOpacity>
