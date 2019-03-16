@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo";
 import SearchBar from "../components/SearchBar";
+import SafeView from "../components/SafeView";
 import { MealCard } from "../components/MealCard";
 import { FontAwesome } from "@expo/vector-icons";
 import tabIcon from "../components/tabIcon";
@@ -36,14 +37,14 @@ class Home extends React.Component {
 
     return (
       <DismissKeys>
-        <View style={styles.container}>
-          <LinearGradient
-            style={styles.background}
-            colors={["#FFAFBD", "#FFC3A0"]}
-          >
+        <LinearGradient
+          style={styles.container}
+          colors={["#FFAFBD", "#FFC3A0"]}
+        >
+          <SafeView>
             <SearchBar open={this.state.searching} />
-          </LinearGradient>
-        </View>
+          </SafeView>
+        </LinearGradient>
       </DismissKeys>
     );
   }
@@ -52,11 +53,11 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "transparent"
+    display: "flex"
   },
   background: {
     flex: 1,
-    alignItems: "center"
+    display: "flex"
   }
 });
 

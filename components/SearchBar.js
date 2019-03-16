@@ -13,8 +13,7 @@ class SearchBar extends React.Component {
   render() {
     const styles = StyleSheet.create({
       bar: {
-        marginTop: 56,
-        width: 315,
+        margin: 20,
         height: 56,
         backgroundColor: "rgba(255, 255, 255, .2)",
         borderRadius: 72,

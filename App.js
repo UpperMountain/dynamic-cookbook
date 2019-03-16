@@ -31,10 +31,10 @@ export default class App extends React.Component {
 
     if (ready) {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+        <>
           <StatusBar barStyle="default" />
-          <AppContainer />
-        </SafeAreaView>
+          <AppContainer persistenceKey={__DEV__ ? "NavigationState" : null} />
+        </>
       );
     } else {
       return (
