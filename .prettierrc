@@ -1,0 +1,2 @@
+# Wrap long body text, particularly for YAML markdown blocks.
+proseWrap: always
