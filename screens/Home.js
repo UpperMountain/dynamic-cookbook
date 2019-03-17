@@ -11,6 +11,7 @@ import SafeView from "../components/SafeView";
 import { MealCard } from "../components/MealCard";
 import { FontAwesome } from "@expo/vector-icons";
 import tabIcon from "../components/tabIcon";
+import RecipeList from "../components/RecipeList";
 
 class Home extends React.Component {
   constructor(props) {
@@ -36,16 +37,17 @@ class Home extends React.Component {
     );
 
     return (
-      <DismissKeys>
-        <LinearGradient
-          style={styles.container}
-          colors={["#FFAFBD", "#FFC3A0"]}
-        >
-          <SafeView>
-            <SearchBar open={this.state.searching} />
-          </SafeView>
-        </LinearGradient>
-      </DismissKeys>
+      <LinearGradient style={styles.container} colors={["#FFAFBD", "#FFC3A0"]}>
+        <SafeView>
+          <SearchBar open={this.state.searching} />
+          <RecipeList>
+            <MealCard />
+            <MealCard />
+            <MealCard />
+            <MealCard />
+          </RecipeList>
+        </SafeView>
+      </LinearGradient>
     );
   }
 }

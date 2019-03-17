@@ -2,19 +2,12 @@
 
 exports[`passes snapshot tests 1`] = `
 <ExponentLinearGradient
-  accessible={true}
   colors={
     Array [
       4294946749,
       4294951840,
     ]
   }
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
   style={
     Object {
       "display": "flex",
