@@ -14,48 +14,5 @@ exports[`passes snapshot tests 1`] = `
       "flex": 1,
     }
   }
->
-  <RCTSafeAreaView
-    style={
-      Object {
-        "flex": 1,
-        "paddingTop": 0,
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, .2)",
-          "borderRadius": 72,
-          "display": "flex",
-          "flexDirection": "row",
-          "height": 56,
-          "margin": 20,
-          "paddingLeft": 36,
-          "paddingRight": 36,
-        }
-      }
-    >
-      <TextInput
-        allowFontScaling={true}
-        onChangeText={[Function]}
-        placeholder="Search Recipes..."
-        placeholderTextColor="white"
-        style={
-          Object {
-            "color": "white",
-            "flex": 1,
-            "fontFamily": "raleway",
-            "fontSize": 18,
-          }
-        }
-        underlineColorAndroid="transparent"
-        value=""
-      />
-      <Text />
-    </View>
-  </RCTSafeAreaView>
-</ExponentLinearGradient>
+/>
 `;

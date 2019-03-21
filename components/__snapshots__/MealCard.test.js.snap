@@ -4,24 +4,23 @@ exports[`should pass snapshot tests 1`] = `
 <View
   style={
     Object {
-      "elevation": 5,
+      "elevation": 8,
       "shadowColor": "#000",
       "shadowOffset": Object {
-        "height": 2,
+        "height": 3,
         "width": 0,
       },
-      "shadowOpacity": 0.1,
-      "shadowRadius": 5,
+      "shadowOpacity": 0.27,
+      "shadowRadius": 4.65,
     }
   }
 >
   <View
     style={
       Object {
-        "backgroundColor": "white",
         "borderRadius": 19,
         "height": 262,
-        "margin": 10,
+        "marginRight": 20,
         "overflow": "hidden",
         "width": 210,
       }
@@ -39,7 +38,6 @@ exports[`should pass snapshot tests 1`] = `
     <View
       style={
         Object {
-          "backgroundColor": "rgba(255, 255, 255, .6)",
           "height": 53.64,
           "position": "absolute",
           "top": 208.36,
@@ -86,7 +84,7 @@ exports[`should pass snapshot tests 1`] = `
               "color": "rgba(0, 0, 0, .65)",
               "fontFamily": "raleway",
               "fontSize": 12,
-              "letterSpacing": 1,
+              "letterSpacing": 0.5,
             }
           }
         >

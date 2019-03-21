@@ -10,7 +10,6 @@ exports[`passes snapshot tests 1`] = `
       "display": "flex",
       "flexDirection": "row",
       "height": 56,
-      "margin": 20,
       "paddingLeft": 36,
       "paddingRight": 36,
     }

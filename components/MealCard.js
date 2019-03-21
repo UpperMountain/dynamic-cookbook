@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { BlurView } from "expo";
-import theme from "../lib/theme";
+import theme, { padding } from "../lib/theme";
 
 const ImageContainer = props => {
   let pad = props.width == 210 ? 4 : 0;
@@ -11,9 +11,8 @@ const ImageContainer = props => {
         width: props.width,
         height: props.height,
         overflow: "hidden",
-        backgroundColor: "white",
         borderRadius: 19,
-        margin: 10
+        marginRight: padding
       }}
     >
       {props.children}
@@ -23,8 +22,7 @@ const ImageContainer = props => {
           zIndex: 1,
           top: props.height * 0.78 + pad,
           width: props.width,
-          height: props.height * 0.22 - pad,
-          backgroundColor: "rgba(255, 255, 255, .6)"
+          height: props.height * 0.22 - pad
         }}
       >
         <BlurView
