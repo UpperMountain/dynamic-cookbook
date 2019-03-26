@@ -3,7 +3,11 @@ import { ScrollView } from "react-native";
 import Padded from "./Padded";
 
 const Carousel = ({ children }) => (
-  <ScrollView horizontal style={{ overflow: "visible" }}>
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    style={{ overflow: "visible" }}
+  >
     <Padded horizontal style={{ display: "flex", flexDirection: "row" }}>
       {children}
     </Padded>
