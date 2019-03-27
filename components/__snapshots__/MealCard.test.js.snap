@@ -1,32 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should pass snapshot tests 1`] = `
-<View
-  style={
-    Object {
-      "elevation": 8,
-      "shadowColor": "#000",
-      "shadowOffset": Object {
-        "height": 3,
-        "width": 0,
-      },
-      "shadowOpacity": 0.27,
-      "shadowRadius": 4.65,
-    }
-  }
->
+<View>
   <View
     style={
       Object {
-        "borderRadius": 19,
+        "alignItems": "center",
+        "borderRadius": 12,
         "height": 262,
+        "justifyContent": "center",
         "marginRight": 20,
         "overflow": "hidden",
         "width": 210,
       }
     }
   >
+    <ActivityIndicator
+      animating={true}
+      color="#999999"
+      hidesWhenStopped={true}
+      size="small"
+      style={
+        Object {
+          "position": "absolute",
+        }
+      }
+    />
     <Image
+      onLoadEnd={[Function]}
       source={1}
       style={
         Object {
@@ -46,22 +47,16 @@ exports[`should pass snapshot tests 1`] = `
         }
       }
     >
-      <ExponentBlurView
-        intensity={65}
+      <View
         style={
-          Array [
-            Object {
-              "height": 53.64,
-              "paddingLeft": 16,
-              "paddingTop": 8,
-              "width": 210,
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-          ]
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 0.95)",
+            "height": 53.64,
+            "paddingLeft": 16,
+            "paddingTop": 8,
+            "width": 210,
+          }
         }
-        tint="light"
       >
         <Text
           style={
@@ -90,7 +85,7 @@ exports[`should pass snapshot tests 1`] = `
         >
           20min | serves 4
         </Text>
-      </ExponentBlurView>
+      </View>
     </View>
   </View>
 </View>

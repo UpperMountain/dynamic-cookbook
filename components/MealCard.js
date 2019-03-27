@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { BlurView } from "expo";
 import theme, { padding } from "../lib/theme";
 
@@ -11,8 +11,10 @@ const ImageContainer = props => {
         width: props.width,
         height: props.height,
         overflow: "hidden",
-        borderRadius: 19,
-        marginRight: padding
+        borderRadius: 12,
+        marginRight: padding,
+        alignItems: "center",
+        justifyContent: "center"
       }}
     >
       {props.children}
@@ -45,14 +47,19 @@ const ImageContainer = props => {
 export class MealCard extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = { loading: true };
   }
 
   render() {
     return (
-      <View style={theme.shadow}>
+      <View>
         <ImageContainer width={210} height={262}>
+          <ActivityIndicator
+            style={{ position: "absolute" }}
+            animating={this.state.loading}
+          />
           <Image
+            onLoadEnd={() => this.setState({ loading: false })}
             style={{ width: 210, height: 262 }}
             source={require("../assets/images/pancakes.jpg")}
           />
@@ -65,14 +72,19 @@ export class MealCard extends React.Component {
 export class SmallMealCard extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = { loading: true };
   }
 
   render() {
     return (
-      <View style={theme.shadow}>
+      <View>
         <ImageContainer width={142} height={191}>
+          <ActivityIndicator
+            style={{ position: "absolute" }}
+            animating={this.state.loading}
+          />
           <Image
+            onLoadEnd={() => this.setState({ loading: false })}
             style={{ width: 142, height: 191 }}
             source={require("../assets/images/pancakes.jpg")}
           />
