@@ -25,10 +25,9 @@ const ImageContainer = props => {
           height: props.height * 0.22 - pad
         }}
       >
-        <BlurView
-          tint={"light"}
-          intensity={65}
+        <View
           style={{
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
             width: props.width,
             height: props.height * 0.22 - pad,
             paddingLeft: 16,
@@ -37,7 +36,7 @@ const ImageContainer = props => {
         >
           <Text style={[theme.body, { marginBottom: pad }]}>Pancakes</Text>
           <Text style={theme.caption}>20min | serves 4</Text>
-        </BlurView>
+        </View>
       </View>
     </View>
   );
