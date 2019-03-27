@@ -33,7 +33,7 @@ export default class App extends React.Component {
       return (
         <>
           <StatusBar barStyle="default" />
-          <AppContainer persistenceKey={__DEV__ ? "NavigationState" : null} />
+          <AppContainer />
         </>
       );
     } else {
