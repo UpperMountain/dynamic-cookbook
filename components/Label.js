@@ -3,13 +3,17 @@ import { Text } from "react-native";
 import Padded from "./Padded";
 import theme from "../lib/theme";
 
-const Label = ({ children, light, dark }) => {
+export const Label = ({ children, light, dark }) => {
   const color = light ? "white" : dark ? "black" : "black";
   return (
     <Padded bottom={2 / 3} top={4 / 3}>
-      <Text style={[theme.label, { color }]}>{children}</Text>
+      <Text style={[theme.label, { color }]}>{children.toUpperCase()}</Text>
     </Padded>
   );
 };
 
-export default Label;
+export const Section = ({ children, light }) => (
+  <Padded horizontal>
+    <Label light={light}>{children}</Label>
+  </Padded>
+);

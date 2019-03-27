@@ -14,7 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import tabIcon from "../components/tabIcon";
 import Carousel from "../components/Carousel";
 import Padded from "../components/Padded";
-import Label from "../components/Label";
+import { Section } from "../components/Label";
 import theme, { padding } from "../lib/theme";
 
 class Home extends React.Component {
@@ -30,12 +30,6 @@ class Home extends React.Component {
   };
 
   render() {
-    const Section = ({ children }) => (
-      <Padded horizontal>
-        <Label light>{children}</Label>
-      </Padded>
-    );
-
     return (
       <LinearGradient
         style={{
@@ -52,21 +46,21 @@ class Home extends React.Component {
             <Padded top horizontal>
               <SearchBar open={this.state.searching} />
             </Padded>
-            <Section>Recent recipes</Section>
+            <Section light>Recent recipes</Section>
             <Carousel>
               <MealCard />
               <MealCard />
               <MealCard />
               <MealCard />
             </Carousel>
-            <Section>Recommended for you</Section>
+            <Section light>Recommended for you</Section>
             <Carousel>
               <SmallMealCard />
               <SmallMealCard />
               <SmallMealCard />
               <SmallMealCard />
             </Carousel>
-            <Section>Weeknight eats</Section>
+            <Section light>Weeknight eats</Section>
             <Carousel>
               <MealCard />
               <MealCard />

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo";
 
-const styles = ({ background, borderColor, textColor }, width) =>
+const styles = ({ background, borderColor, textColor }, width, size) =>
   StyleSheet.create({
     button: {
       width: width,
@@ -16,7 +16,7 @@ const styles = ({ background, borderColor, textColor }, width) =>
       justifyContent: "center"
     },
     text: {
-      fontSize: 18,
+      fontSize: size,
       color: textColor || "black",
       lineHeight: 32,
       fontFamily: "raleway-bold",
@@ -33,7 +33,8 @@ const RoundedButton = props => {
         textColor: "white",
         borderColor: "white"
       },
-      props.width || 315
+      props.width || 315,
+      props.size || 18
     );
   } else if (props.gradient) {
     currentStyle = styles(
@@ -42,10 +43,15 @@ const RoundedButton = props => {
         textColor: "white",
         borderColor: "transparent"
       },
-      props.width || 315
+      props.width || 315,
+      props.size || 18
     );
   } else {
-    currentStyle = styles(props.style || {}, props.width || 315);
+    currentStyle = styles(
+      props.style || {},
+      props.width || 315,
+      props.size || 18
+    );
   }
 
   let buttonText = <Text style={currentStyle.text}>{props.text}</Text>;
