@@ -5,7 +5,7 @@ import { LinearGradient } from "expo";
 const styles = ({ background, borderColor, textColor }, width, size) =>
   StyleSheet.create({
     button: {
-      width: width,
+      width,
       height: 56,
       backgroundColor: background || "white",
       borderColor: borderColor || "black",
@@ -24,42 +24,46 @@ const styles = ({ background, borderColor, textColor }, width, size) =>
     }
   });
 
-const RoundedButton = props => {
+const RoundedButton = ({
+  width,
+  size,
+  style,
+  clear,
+  gradient,
+  text,
+  onPress
+}) => {
   let currentStyle = null;
-  if (props.clear) {
+  if (clear) {
     currentStyle = styles(
       {
         background: "transparent",
         textColor: "white",
         borderColor: "white"
       },
-      props.width || 315,
-      props.size || 18
+      width || 315,
+      size || 18
     );
-  } else if (props.gradient) {
+  } else if (gradient) {
     currentStyle = styles(
       {
         background: "transparent",
         textColor: "white",
         borderColor: "transparent"
       },
-      props.width || 315,
-      props.size || 18
+      width || 315,
+      size || 18
     );
   } else {
-    currentStyle = styles(
-      props.style || {},
-      props.width || 315,
-      props.size || 18
-    );
+    currentStyle = styles(style || {}, width || 315, size || 18);
   }
 
-  let buttonText = <Text style={currentStyle.text}>{props.text}</Text>;
+  const buttonText = <Text style={currentStyle.text}>{text}</Text>;
   let outerButton = null;
 
-  if (props.gradient) {
+  if (gradient) {
     outerButton = (
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity onPress={onPress}>
         <LinearGradient
           style={currentStyle.button}
           colors={["#FFAFBD", "#FFC3A0"]}
@@ -70,7 +74,7 @@ const RoundedButton = props => {
     );
   } else {
     outerButton = (
-      <TouchableOpacity style={currentStyle.button} onPress={props.onPress}>
+      <TouchableOpacity style={currentStyle.button} onPress={onPress}>
         {buttonText}
       </TouchableOpacity>
     );

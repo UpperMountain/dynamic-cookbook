@@ -1,9 +1,9 @@
 import React from "react";
-import Toast from "./Toast";
 import renderer from "react-test-renderer";
+import Toast from "./Toast";
 
 it("renders without exploding", () => {
-  const cmp = renderer.create(<Toast />);
+  renderer.create(<Toast />);
 });
 
 it("passes snapshot tests", () => {

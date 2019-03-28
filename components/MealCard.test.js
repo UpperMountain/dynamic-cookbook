@@ -1,9 +1,9 @@
 import React from "react";
-import { MealCard } from "./MealCard";
 import renderer from "react-test-renderer";
+import { MealCard } from "./MealCard";
 
 it("should render without exploding", () => {
-  const cmp = renderer.create(<MealCard />);
+  renderer.create(<MealCard />);
 });
 
 it("should pass snapshot tests", () => {

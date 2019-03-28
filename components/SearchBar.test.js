@@ -1,9 +1,9 @@
 import React from "react";
-import SearchBar from "./SearchBar";
 import renderer from "react-test-renderer";
+import SearchBar from "./SearchBar";
 
 it("renders without exploding", () => {
-  const cmp = renderer.create(<SearchBar />);
+  renderer.create(<SearchBar />);
 });
 
 it("passes snapshot tests", () => {

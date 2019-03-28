@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
-import { BlurView } from "expo";
+import { View, Text, Image, ActivityIndicator } from "react-native";
 import theme, { padding } from "../lib/theme";
+import pancakeImg from "../assets/images/pancakes.jpg";
 
-const ImageContainer = props => {
-  let pad = props.width == 210 ? 4 : 0;
+const ImageContainer = ({ width, height, children }) => {
+  const pad = width === 210 ? 4 : 0;
   return (
     <View
       style={{
-        width: props.width,
-        height: props.height,
+        width,
+        height,
         overflow: "hidden",
         borderRadius: 12,
         marginRight: padding,
@@ -17,21 +17,21 @@ const ImageContainer = props => {
         justifyContent: "center"
       }}
     >
-      {props.children}
+      {children}
       <View
         style={{
           position: "absolute",
           zIndex: 1,
-          top: props.height * 0.78 + pad,
-          width: props.width,
-          height: props.height * 0.22 - pad
+          top: height * 0.78 + pad,
+          width,
+          height: height * 0.22 - pad
         }}
       >
         <View
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.95)",
-            width: props.width,
-            height: props.height * 0.22 - pad,
+            width,
+            height: height * 0.22 - pad,
             paddingLeft: 16,
             paddingTop: 4 + pad
           }}
@@ -46,22 +46,23 @@ const ImageContainer = props => {
 
 export class MealCard extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = { loading: true };
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <View>
         <ImageContainer width={210} height={262}>
           <ActivityIndicator
             style={{ position: "absolute" }}
-            animating={this.state.loading}
+            animating={loading}
           />
           <Image
             onLoadEnd={() => this.setState({ loading: false })}
             style={{ width: 210, height: 262 }}
-            source={require("../assets/images/pancakes.jpg")}
+            source={pancakeImg}
           />
         </ImageContainer>
       </View>
@@ -71,22 +72,23 @@ export class MealCard extends React.Component {
 
 export class SmallMealCard extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = { loading: true };
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <View>
         <ImageContainer width={142} height={191}>
           <ActivityIndicator
             style={{ position: "absolute" }}
-            animating={this.state.loading}
+            animating={loading}
           />
           <Image
             onLoadEnd={() => this.setState({ loading: false })}
             style={{ width: 142, height: 191 }}
-            source={require("../assets/images/pancakes.jpg")}
+            source={pancakeImg}
           />
         </ImageContainer>
       </View>

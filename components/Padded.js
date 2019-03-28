@@ -14,14 +14,16 @@ const Padded = ({
   style,
   ...rest
 }) => {
+  let _horizontal = horizontal;
+  let _vertical = vertical;
   if (all) {
-    horizontal = true;
-    vertical = true;
+    _horizontal = true;
+    _vertical = true;
   }
-  const _top = (top || vertical) * padSize;
-  const _bottom = (bottom || vertical) * padSize;
-  const _left = (left || horizontal) * padSize;
-  const _right = (right || horizontal) * padSize;
+  const _top = (top || _vertical) * padSize;
+  const _bottom = (bottom || _vertical) * padSize;
+  const _left = (left || _horizontal) * padSize;
+  const _right = (right || _horizontal) * padSize;
 
   return (
     <View

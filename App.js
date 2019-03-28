@@ -1,9 +1,13 @@
 import React from "react";
-import { SafeAreaView, StatusBar } from "react-native";
-import { Constants, Font, AppLoading, Alert } from "expo";
+import { StatusBar } from "react-native";
+import { Font, AppLoading } from "expo";
 import { FontAwesome } from "@expo/vector-icons";
-import { RootNavigator } from "./screens";
 import { createAppContainer } from "react-navigation";
+import { RootNavigator } from "./screens";
+
+import raleway from "./assets/fonts/Raleway-Regular.ttf";
+import ralewayMedium from "./assets/fonts/Raleway-Medium.ttf";
+import ralewayBold from "./assets/fonts/Raleway-Bold.ttf";
 
 const AppContainer = createAppContainer(RootNavigator);
 
@@ -19,9 +23,9 @@ export default class App extends React.Component {
     // Load all fonts and assets
 
     await Font.loadAsync({
-      raleway: require("./assets/fonts/Raleway-Regular.ttf"),
-      "raleway-medium": require("./assets/fonts/Raleway-Medium.ttf"),
-      "raleway-bold": require("./assets/fonts/Raleway-Bold.ttf"),
+      raleway,
+      "raleway-medium": ralewayMedium,
+      "raleway-bold": ralewayBold,
       ...FontAwesome.font
     });
   };
@@ -36,13 +40,12 @@ export default class App extends React.Component {
           <AppContainer />
         </>
       );
-    } else {
-      return (
-        <AppLoading
-          startAsync={this._loadResources}
-          onFinish={() => this.setState({ ready: true })}
-        />
-      );
     }
+    return (
+      <AppLoading
+        startAsync={this._loadResources}
+        onFinish={() => this.setState({ ready: true })}
+      />
+    );
   }
 }

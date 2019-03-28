@@ -1,12 +1,9 @@
 import React from "react";
-import tabIcon from "../components/tabIcon.js";
-import { Text, ScrollView, View } from "react-native";
-import SafeView from "../components/SafeView";
+import { ScrollView } from "react-native";
+import tabIcon from "../components/tabIcon";
 import Carousel from "../components/Carousel";
-import Padded from "../components/Padded";
 import { Section } from "../components/Label";
-import { MealCard, SmallMealCard } from "../components/MealCard";
-import Banner from "../components/Banner";
+import { SmallMealCard } from "../components/MealCard";
 import RoundedButton from "../components/RoundedButton";
 
 const MyMeal = () => (
@@ -18,7 +15,7 @@ const MyMeal = () => (
       <SmallMealCard />
       <SmallMealCard />
     </Carousel>
-    <RoundedButton size={24} gradient width={171} text={"Go!"} />
+    <RoundedButton size={24} gradient width={171} text="Go!" />
   </ScrollView>
 );
 

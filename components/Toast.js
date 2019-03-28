@@ -5,8 +5,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
-  Alert
+  View
 } from "react-native";
 import RoundedButton from "./RoundedButton";
 import theme from "../lib/theme";
@@ -33,23 +32,23 @@ const styles = StyleSheet.create({
 
 class Toast extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       open: false
     };
   }
 
-  toggle = () => this.setState({ open: !this.state.open });
+  toggle = () =>
+    this.setState(s => ({
+      open: !s.open
+    }));
 
   render() {
+    const { open, headerText, bodyText } = this.state;
     return (
       <View>
         <RoundedButton clear text="Test Button" onPress={this.toggle} />
-        <Modal
-          animationType={"slide"}
-          transparent={true}
-          visible={this.state.open}
-        >
+        <Modal animationType="slide" transparent visible={open}>
           <TouchableOpacity
             activeOpacity={1}
             style={styles.modal}
@@ -57,8 +56,8 @@ class Toast extends React.Component {
           >
             <TouchableWithoutFeedback>
               <View style={[styles.container, theme.shadow]}>
-                <Text style={theme.header}>{this.props.headerText}</Text>
-                <Text style={theme.body}>{this.props.bodyText}</Text>
+                <Text style={theme.header}>{headerText}</Text>
+                <Text style={theme.body}>{bodyText}</Text>
               </View>
             </TouchableWithoutFeedback>
           </TouchableOpacity>

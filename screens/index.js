@@ -1,11 +1,7 @@
-import React from "react";
-import { Text } from "react-native";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createStackNavigator } from "react-navigation";
-import { Constants } from "expo";
-import { FontAwesome } from "@expo/vector-icons";
-import tabIcon from "../components/tabIcon.js";
-import { colorPrimary, colorShade } from "../lib/theme.js";
+import tabIcon from "../components/tabIcon";
+import { colorShade } from "../lib/theme";
 
 import Home from "./Home";
 import Categories from "./Categories";

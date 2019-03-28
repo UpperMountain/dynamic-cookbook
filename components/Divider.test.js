@@ -4,7 +4,7 @@ import { HR, SpacedView } from "./Divider";
 
 describe("SpacedView", () => {
   it("renders without exploding", () => {
-    const cmp = renderer.create(<SpacedView>Testing</SpacedView>);
+    renderer.create(<SpacedView>Testing</SpacedView>);
   });
 
   it("passes snapshot tests", () => {
@@ -15,7 +15,7 @@ describe("SpacedView", () => {
 
 describe("HR", () => {
   it("renders without exploding", () => {
-    const cmp = renderer.create(
+    renderer.create(
       <SpacedView>
         Test1
         <HR />

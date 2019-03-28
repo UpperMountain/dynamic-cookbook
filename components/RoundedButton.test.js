@@ -1,9 +1,9 @@
 import React from "react";
-import RoundedButton from "./RoundedButton";
 import renderer from "react-test-renderer";
+import RoundedButton from "./RoundedButton";
 
 it("should render something without exploding", () => {
-  const cmp = renderer.create(<RoundedButton text="test" />);
+  renderer.create(<RoundedButton text="test" />);
 });
 
 it("should render a plain button", () => {

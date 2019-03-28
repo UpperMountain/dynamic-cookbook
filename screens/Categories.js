@@ -1,7 +1,7 @@
 import React from "react";
-import tabIcon from "../components/tabIcon.js";
 import { Text } from "react-native";
-import SafeView from "../components/SafeView.js";
+import tabIcon from "../components/tabIcon";
+import SafeView from "../components/SafeView";
 
 const Categories = () => (
   <SafeView>

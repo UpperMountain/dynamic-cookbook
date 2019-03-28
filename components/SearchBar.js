@@ -1,16 +1,18 @@
 import React from "react";
-import { StyleSheet, View, TextInput, Keyboard } from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 class SearchBar extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       text: ""
     };
   }
 
   render() {
+    const { open, text } = this.state;
+
     const styles = StyleSheet.create({
       bar: {
         height: 56,
@@ -36,15 +38,15 @@ class SearchBar extends React.Component {
       <View style={styles.bar}>
         <TextInput
           style={styles.text}
-          placeholder={"Search Recipes..."}
-          placeholderTextColor={"white"}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
+          placeholder="Search Recipes..."
+          placeholderTextColor="white"
+          onChangeText={e => this.setState({ text: e })}
+          value={text}
         />
-        {this.props.open ? (
-          <FontAwesome name={"close"} color={"white"} size={18} />
+        {open ? (
+          <FontAwesome name="close" color="white" size={18} />
         ) : (
-          <FontAwesome name={"search"} color={"white"} size={18} />
+          <FontAwesome name="search" color="white" size={18} />
         )}
       </View>
     );

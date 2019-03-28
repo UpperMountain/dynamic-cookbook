@@ -1,10 +1,11 @@
 import { matchers as schemaMatchers } from "jest-json-schema";
 import yaml from "js-yaml";
-import schema from "./schema.json";
 import fs from "fs";
 import { resolve } from "path";
-import { inspect, promisify } from "util";
-import { yamlSchema } from "./yamlTypes.js";
+import { promisify } from "util";
+import schema from "./schema.json";
+import { yamlSchema } from "./yamlTypes";
+
 const readFile = promisify(fs.readFile);
 
 // install json-schema Jest matchers
@@ -27,7 +28,7 @@ describe("JSON schema", () => {
 });
 
 const testAll = fn => {
-  for (let item of pasta) {
+  for (const item of pasta) {
     try {
       fn(item);
     } catch (err) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   outer: {
     width: "100%",
     paddingLeft: "20%",
@@ -26,20 +26,16 @@ let styles = StyleSheet.create({
   }
 });
 
-export const HR = props => {
+export const HR = ({ text }) => {
   return (
     <View style={styles.outer}>
       <View style={[styles.line]} />
-      <Text style={styles.text}>{props.text}</Text>
+      <Text style={styles.text}>{text}</Text>
       <View style={[styles.line]} />
     </View>
   );
 };
 
-export const SpacedView = props => {
-  return (
-    <View style={[{ height: props.height }, styles.container]}>
-      {props.children}
-    </View>
-  );
+export const SpacedView = ({ height, children }) => {
+  return <View style={[{ height }, styles.container]}>{children}</View>;
 };

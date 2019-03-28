@@ -4,7 +4,7 @@ import renderer from "react-test-renderer";
 import Carousel from "./Carousel";
 
 it("should render something without exploding", () => {
-  const cmp = renderer.create(<Carousel />);
+  renderer.create(<Carousel />);
 });
 
 it("should render a list with two items", () => {

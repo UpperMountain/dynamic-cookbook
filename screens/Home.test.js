@@ -1,9 +1,9 @@
 import React from "react";
-import Home from "./Home";
 import renderer from "react-test-renderer";
+import Home from "./Home";
 
 it("renders without exploding", () => {
-  const cmp = renderer.create(<Home />);
+  renderer.create(<Home />);
 });
 
 it("passes snapshot tests", () => {

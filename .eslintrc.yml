@@ -1,0 +1,50 @@
+parser: babel-eslint
+
+extends:
+  - airbnb
+  - "plugin:prettier/recommended"
+  - "plugin:jest/recommended"
+settings:
+  import/core-modules:
+    - "@expo/vector-icons"
+    - "@expo/websql"
+    - styled-jsx
+    - styled-jsx/css
+    - react
+
+env:
+  browser: true
+  node: true
+
+overrides:
+  - files: "**/*.test.js"
+    rules:
+      no-console: off
+
+rules:
+  jest/no-disabled-tests: error
+  prettier/prettier: error
+
+  # useless
+  import/no-unresolved: off # webpack paths (./image?resize) break this
+  no-restricted-syntax: [off, "BinaryExpression[operator='in']"]
+  no-return-assign: [error, except-parens]
+  no-underscore-dangle: off
+  no-unused-vars: [error, { argsIgnorePattern: "^_" }]
+  react/jsx-closing-tag-location: off
+  react/jsx-filename-extension: off
+  react/jsx-one-expression-per-line: off
+  react/jsx-wrap-multilines: off
+  react/no-multi-comp: off
+  react/react-in-jsx-scope: off
+
+  # possibly useful
+  jsx-a11y/alt-text: off
+  jsx-a11y/click-events-have-key-events: off
+  jsx-a11y/no-static-element-interactions: off
+  react/forbid-prop-types: off
+  react/no-danger: off
+  react/no-unescaped-entities: off
+
+  # turn these on later, when we have time to clear the errors
+  react/prop-types: off

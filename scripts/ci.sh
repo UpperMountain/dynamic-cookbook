@@ -8,7 +8,7 @@ cd "$root"
 
 # Check code formatting for correctness
 echo "----- Code formatting"
-yarn format:check
+yarn lint
 echo
 
 
@@ -17,7 +17,7 @@ echo "----- Test suite"
 yarn test:ci
 
 # If on travis, upload test coverage
-if [[ "$CI" == "true" ]]; then
+if [[ "${CI:-x}" == "true" ]]; then
 	echo "Uploading code coverage to coveralls.io..."
 	cat ./coverage/lcov.info | coveralls
 fi

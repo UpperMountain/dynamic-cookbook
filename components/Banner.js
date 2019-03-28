@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default (Banner = ({ text }) => (
+export default ({ text }) => (
   <View style={styles.container}>
     <Text style={styles.text}>{text}</Text>
   </View>
-));
+);
