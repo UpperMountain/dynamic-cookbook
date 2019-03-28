@@ -1,6 +1,5 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { LinearGradient } from "expo";
 import SearchBar from "../components/SearchBar";
 import SafeView from "../components/SafeView";
 import { MealCard, SmallMealCard } from "../components/MealCard";
@@ -17,45 +16,38 @@ class Home extends React.Component {
 
   render() {
     return (
-      <LinearGradient
-        style={{
-          flex: 1,
-          display: "flex"
-        }}
-        colors={["#FFAFBD", "#FFC3A0"]}
+      <ScrollView
+        vertical
+        contentContainerStyle={{ paddingBottom: padding * 3 }}
+        style={{ backgroundColor: "#888" }}
       >
-        <ScrollView
-          vertical
-          contentContainerStyle={{ paddingBottom: padding * 3 }}
-        >
-          <SafeView>
-            <Padded top horizontal>
-              <SearchBar />
-            </Padded>
-            <Section light>Recent recipes</Section>
-            <Carousel>
-              <MealCard />
-              <MealCard />
-              <MealCard />
-              <MealCard />
-            </Carousel>
-            <Section light>Recommended for you</Section>
-            <Carousel>
-              <SmallMealCard />
-              <SmallMealCard />
-              <SmallMealCard />
-              <SmallMealCard />
-            </Carousel>
-            <Section light>Weeknight eats</Section>
-            <Carousel>
-              <MealCard />
-              <MealCard />
-              <MealCard />
-              <MealCard />
-            </Carousel>
-          </SafeView>
-        </ScrollView>
-      </LinearGradient>
+        <SafeView>
+          <Padded top horizontal>
+            <SearchBar />
+          </Padded>
+          <Section light>Recent recipes</Section>
+          <Carousel>
+            <MealCard />
+            <MealCard />
+            <MealCard />
+            <MealCard />
+          </Carousel>
+          <Section light>Recommended for you</Section>
+          <Carousel>
+            <SmallMealCard />
+            <SmallMealCard />
+            <SmallMealCard />
+            <SmallMealCard />
+          </Carousel>
+          <Section light>Weeknight eats</Section>
+          <Carousel>
+            <MealCard />
+            <MealCard />
+            <MealCard />
+            <MealCard />
+          </Carousel>
+        </SafeView>
+      </ScrollView>
     );
   }
 }
