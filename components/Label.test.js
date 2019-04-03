@@ -20,7 +20,7 @@ describe("Label", () => {
 
 describe("Section", () => {
   it("should render something without exploding", () => {
-    renderer.creaate(<Section>Test Section</Section>);
+    renderer.create(<Section>Test Section</Section>);
   });
 
   it("should render a section label", () => {
