@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label should render a BLACK label 1`] = `
+<View
+  style={
+    Object {
+      "paddingBottom": 13.333333333333332,
+      "paddingLeft": NaN,
+      "paddingRight": NaN,
+      "paddingTop": 26.666666666666664,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "rgba(255,255,255,0.9)",
+          "fontFamily": "raleway",
+          "fontSize": 16,
+          "letterSpacing": 1,
+        },
+        Object {
+          "color": "black",
+        },
+      ]
+    }
+  >
+    DEFAULT TEST
+  </Text>
+</View>
+`;
+
+exports[`Label should render a WHITE label 1`] = `
+<View
+  style={
+    Object {
+      "paddingBottom": 13.333333333333332,
+      "paddingLeft": NaN,
+      "paddingRight": NaN,
+      "paddingTop": 26.666666666666664,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "rgba(255,255,255,0.9)",
+          "fontFamily": "raleway",
+          "fontSize": 16,
+          "letterSpacing": 1,
+        },
+        Object {
+          "color": "white",
+        },
+      ]
+    }
+  >
+    LIGHT TEST
+  </Text>
+</View>
+`;
+
+exports[`Section should render a section label 1`] = `
+<View
+  style={
+    Object {
+      "paddingBottom": NaN,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": NaN,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingBottom": 13.333333333333332,
+        "paddingLeft": NaN,
+        "paddingRight": NaN,
+        "paddingTop": 26.666666666666664,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "rgba(255,255,255,0.9)",
+            "fontFamily": "raleway",
+            "fontSize": 16,
+            "letterSpacing": 1,
+          },
+          Object {
+            "color": "black",
+          },
+        ]
+      }
+    >
+      TEST
+    </Text>
+  </View>
+</View>
+`;

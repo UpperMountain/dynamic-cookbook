@@ -6,3 +6,4 @@ npm-debug.*
 *.key
 *.mobileprovision
 coverage
+package-lock.json
