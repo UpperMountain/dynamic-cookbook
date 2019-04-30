@@ -7,3 +7,4 @@ npm-debug.*
 *.mobileprovision
 coverage
 package-lock.json
+yarn-error.log
