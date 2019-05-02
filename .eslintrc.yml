@@ -1,22 +1,39 @@
-parser: babel-eslint
+parser: "@typescript-eslint/parser"
+parserOptions:
+  sourceType: module
+  project: ./tsconfig.json
+  tsconfigRootDir: ./
+  ecmaVersion: 2019
+  ecmaFeatures:
+    jsx: true
 
-extends:
-  - airbnb
-  - "plugin:prettier/recommended"
-  - "plugin:jest/recommended"
 settings:
   import/core-modules:
     - "@expo/vector-icons"
     - "@expo/websql"
-    - styled-jsx
-    - styled-jsx/css
-    - react
+  react:
+    version: detect
+
+plugins:
+  - "@typescript-eslint/eslint-plugin"
+  - "prettier"
+  - "react"
+  - "jest"
+
+extends:
+  - "plugin:@typescript-eslint/recommended"
+  - "prettier/@typescript-eslint"
+  - "plugin:react/recommended"
+  - "plugin:prettier/recommended"
+  - "plugin:jest/recommended"
+  - "plugin:jest/style"
 
 env:
   browser: true
   node: true
 
 overrides:
+  # Allow console in tests
   - files: "**/*.test.js"
     rules:
       no-console: off
@@ -40,13 +57,19 @@ rules:
   react/no-multi-comp: off
   react/react-in-jsx-scope: off
 
-  # possibly useful
+  # possibly useful, but annoying
   jsx-a11y/alt-text: off
   jsx-a11y/click-events-have-key-events: off
   jsx-a11y/no-static-element-interactions: off
   react/forbid-prop-types: off
   react/no-danger: off
   react/no-unescaped-entities: off
+  "@typescript-eslint/explicit-member-accessibility": off
+  "@typescript-eslint/explicit-function-return-type":
+    [error, { allowExpressions: true }]
 
   # turn these on later, when we have time to clear the errors
   react/prop-types: off
+
+  # conflicting stuff from typescript lint
+  "@typescript-eslint/indent": off

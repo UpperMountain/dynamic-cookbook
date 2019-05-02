@@ -28,13 +28,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "ajv": "^6.5.2",
     "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
@@ -51,7 +53,7 @@
   "jest": {
     "preset": "jest-expo",
     "collectCoverageFrom": [
-      "./{**/,}*.js",
+      "./{**/,}*.{js,ts,tsx}",
       "!./{**/,}*.config.js",
       "!./coverage/**"
     ]
@@ -66,7 +68,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.js": [
+    "*.{js,ts}": [
       "eslint --fix",
       "git add"
     ]
