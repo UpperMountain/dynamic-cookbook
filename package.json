@@ -14,14 +14,17 @@
     "check": "yarn test:ci && yarn format --check"
   },
   "dependencies": {
+    "@types/expo": "^32.0.12",
+    "@types/react-native": "^0.57.51",
     "expo": "^32.0.0",
     "expo-cli": "^2.13.0",
+    "js-yaml": "^3.12.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-paper": "^2.13.0",
     "react-navigation": "^3.3.2",
-    "js-yaml": "^3.12.2",
-    "react-navigation-material-bottom-tabs": "^1.0.0"
+    "react-navigation-material-bottom-tabs": "^1.0.0",
+    "typescript": "^3.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7",
