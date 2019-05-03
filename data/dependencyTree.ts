@@ -7,30 +7,36 @@ export interface Timer {
   until: string;
 }
 
-export interface Ingredient {
-  kind: "ingredient";
-  name: string;
-}
-
-export interface Step {
-  kind: "step";
-
-  // display attributes for the ui
+export interface WithBody {
+  // for display in the UI
   name: string;
   body: string;
+}
+
+export interface Ingredient extends WithBody {
+  kind: "ingredient";
+  name: string;
+  amount: number; // TODO: physical quantities
+}
+
+export interface Step extends WithBody {
+  kind: "step";
 
   // timers
-  duration: Duration;
+  duration?: Duration; // active time during the step
   timer?: Timer; // passive time after the step
 
   // dependencies
-  requires: Node[];
+  requires: (Step | Ingredient)[];
 }
 
 // The final product---what we're cooking.
-export interface Recipe {
+export interface Recipe extends WithBody {
   kind: "recipe";
+
+  // dependencies
+  requires: Step[];
 }
 
 // union type discriminated on `kind`
-export type Node = Ingredient | Step;
+export type Node = Ingredient | Step | Recipe;
