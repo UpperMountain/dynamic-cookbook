@@ -1,44 +1,5 @@
-import { Node, Step, Ingredient, Recipe } from "../dependencyTree";
-
-interface Procedure {
-  // Attempt to include another Procedure into this one.
-  // If successful, mutate self, and return true.
-  // If you can't do the merge, return false.
-  // merge() MUST be commutative, to run in O(n) on the graph.
-  // Think of it like a reduce().
-  merge(other: Procedure): Procedure | null;
-
-  // Must generate a list of children on construction
-  requires: Procedure[];
-
-  // generate the right Node for sequencing
-  getNode(): Node;
-}
-
-// typed 'this' param isn't actually a parameter.
-// This function should be attached to a class to work.
-function mergeByChildren(this: Procedure, other: Procedure) {
-  if (other instanceof this.constructor) {
-    // Merge the children
-    this.requires.concat(other.requires);
-    return this;
-  }
-
-  return null;
-}
-
-// TODO: test this before using it.
-// function mergeByReduce<T extends Procedure>(
-//   this: T,
-//   reducer: (other: Procedure) => T | undefined
-// ) {
-//   return function(this: Procedure, other: Procedure) {
-//     if (other instanceof this.constructor) {
-//       return reducer(other) || this;
-//     }
-//     return null;
-//   };
-// }
+import { Step, Ingredient, Recipe } from "../dependencyTree";
+import Procedure, { mergeByChildren } from "../Procedure";
 
 // ///////////////////////////////////////////////////////////////////////////////////
 
