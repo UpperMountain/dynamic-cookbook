@@ -1,7 +1,7 @@
 parser: "@typescript-eslint/parser"
 parserOptions:
   sourceType: module
-  project: ./tsconfig.json
+  project: tsconfig.json
   tsconfigRootDir: ./
   ecmaVersion: 2019
   ecmaFeatures:
@@ -34,13 +34,20 @@ env:
 
 overrides:
   # Allow console in tests
-  - files: "**/*.test.js"
+  - files: "**/*.test.{ts,js,tsx}"
     rules:
       no-console: off
+      "@typescript-eslint/no-non-null-assertion": off
+  - files: "**/*.config.js"
+    rules:
+      "@typescript-eslint/no-var-requires": off
 
 rules:
   jest/no-disabled-tests: error
   prettier/prettier: error
+
+  # configuration
+  "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }]
 
   # useless
   class-methods-use-this: off
@@ -49,7 +56,6 @@ rules:
   no-restricted-syntax: [off, "BinaryExpression[operator='in']"]
   no-return-assign: [error, except-parens]
   no-underscore-dangle: off
-  no-unused-vars: [error, { argsIgnorePattern: "^_" }]
   react/jsx-closing-tag-location: off
   react/jsx-filename-extension: off
   react/jsx-one-expression-per-line: off

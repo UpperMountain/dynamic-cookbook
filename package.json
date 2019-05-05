@@ -11,7 +11,7 @@
     "test:ci": "jest --ci --coverage --verbose",
     "test:quick": "jest --only-changed",
     "lint": "eslint --ext .js,.ts,.tsx --ignore-path .gitignore .",
-    "check": "yarn test:ci && yarn format --check"
+    "types": "tsc"
   },
   "dependencies": {
     "@types/expo": "^32.0.12",
@@ -19,6 +19,7 @@
     "expo": "^32.0.0",
     "expo-cli": "^2.13.0",
     "js-yaml": "^3.12.2",
+    "lodash": "^4.17.11",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-paper": "^2.13.0",
@@ -51,34 +52,6 @@
     "prettier": "^1.16.4",
     "react-test-renderer": "^16.8.2",
     "ts-jest": "^24.0.2"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testMatch": [
-      "**/__tests__/**/*.ts?(x)",
-      "**/?(*.)+(spec|test).ts?(x)"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "ts",
-      "tsx"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfig": {
-          "jsx": "react"
-        }
-      }
-    },
-    "collectCoverageFrom": [
-      "./{**/,}*.{js,ts,tsx}",
-      "!./{**/,}*.config.js",
-      "!./coverage/**"
-    ]
   },
   "husky": {
     "hooks": {

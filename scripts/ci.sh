@@ -11,6 +11,9 @@ echo "----- Code formatting"
 yarn lint
 echo
 
+# Type check
+echo "----- Type checking"
+yarn types
 
 # Run all tests
 echo "----- Test suite"
