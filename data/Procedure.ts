@@ -51,10 +51,15 @@ export function nodeCount(root: Procedure): number {
 
 export function repr(proc: Procedure, tab: number = 0): string {
   const indent = "  ".repeat(tab);
-  let out = "";
-  out += `${indent}${proc.getNode().name}:\n`;
-  for (let req of proc.requires) {
-    out += repr(req, tab + 1);
+  let out = indent;
+  const node = proc.getNode();
+  if (node.kind == "step" || node.kind == "recipe") {
+    out += `${proc.getNode().name}:\n`;
+    for (let req of proc.requires) {
+      out += repr(req, tab + 1);
+    }
+  } else {
+    out += `${node.name}: amt=${node.amount}\n`;
   }
   return out;
 }
