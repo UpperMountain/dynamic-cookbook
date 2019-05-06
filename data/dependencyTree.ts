@@ -35,7 +35,7 @@ export interface Recipe extends WithBody {
   kind: "recipe";
 
   // dependencies
-  requires: Step[];
+  requires: (Step | Recipe)[];
 }
 
 // union type discriminated on `kind`

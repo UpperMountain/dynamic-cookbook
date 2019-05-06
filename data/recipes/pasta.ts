@@ -156,6 +156,7 @@ export class PastaRecipe implements Procedure {
   merge(other: Procedure) {
     if (other instanceof PastaRecipe) {
       this.serves += other.serves;
+      this.requires = this.requires.concat(other.requires);
       return this;
     }
 
