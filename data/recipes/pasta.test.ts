@@ -1,5 +1,5 @@
 import { PastaRecipe } from "./pasta";
-import { Recipe } from "../dependencyTree";
+import { Step } from "../dependencyTree";
 import Procedure, { simplify, mergeByChildren, repr } from "../Procedure";
 
 it("should create a Pasta without error", () => {
@@ -14,9 +14,9 @@ it("should create Nodes from a Pasta without error", () => {
 it("should work with simplify()", () => {
   class TwoPastas implements Procedure {
     constructor(public servesA: number, public servesB: number) {}
-    getNode(): Recipe {
+    getNode(): Step {
       return {
-        kind: "recipe",
+        kind: "step",
         name: "Two pastas, hopefully merged",
         body: "",
         requires: this.requires.map(e => e.getNode())
@@ -27,7 +27,9 @@ it("should work with simplify()", () => {
   }
 
   const root = new TwoPastas(1, 3);
+  console.log("both:", repr(root));
   simplify(root);
+  console.log("simple:", repr(root));
 
   // The recipe must merge with itself properly.
   const reprA = repr(root.requires[0]);

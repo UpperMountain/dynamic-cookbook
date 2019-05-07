@@ -1,4 +1,4 @@
-import { Step, Ingredient, Recipe } from "../dependencyTree";
+import { Step, Ingredient } from "../dependencyTree";
 import Procedure, { mergeByChildren } from "../Procedure";
 
 // ///////////////////////////////////////////////////////////////////////////////////
@@ -140,9 +140,9 @@ export class PastaCombine implements Procedure {
 
 export class PastaRecipe implements Procedure {
   constructor(public serves: number) {}
-  getNode(): Recipe {
+  getNode(): Step {
     return {
-      kind: "recipe",
+      kind: "step",
       name: `Pasta recipe, serves ${this.serves}`,
       body: `
         This is a _test_, with *rich* formatting from Markdown.
