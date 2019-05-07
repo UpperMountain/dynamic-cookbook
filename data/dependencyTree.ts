@@ -30,13 +30,5 @@ export interface Step extends WithBody {
   requires: (Step | Ingredient)[];
 }
 
-// The final product---what we're cooking.
-export interface Recipe extends WithBody {
-  kind: "recipe";
-
-  // dependencies
-  requires: (Step | Recipe)[];
-}
-
 // union type discriminated on `kind`
-export type Node = Ingredient | Step | Recipe;
+export type Node = Ingredient | Step;

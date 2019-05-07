@@ -53,7 +53,7 @@ export function repr(proc: Procedure, tab: number = 0): string {
   const indent = "  ".repeat(tab);
   let out = indent;
   const node = proc.getNode();
-  if (node.kind == "step" || node.kind == "recipe") {
+  if (node.kind == "step") {
     out += `${proc.getNode().name}:\n`;
     for (let req of proc.requires) {
       out += repr(req, tab + 1);
