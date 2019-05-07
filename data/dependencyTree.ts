@@ -3,8 +3,13 @@ type Duration = number;
 
 // A user-facing timer.
 export interface Timer {
+  // TODO: link timers to a step
   duration: Duration;
   until: string;
+}
+
+export interface OnGoingTimer extends Timer {
+  elapsed: Duration;
 }
 
 export interface WithBody {

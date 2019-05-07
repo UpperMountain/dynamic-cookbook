@@ -27,9 +27,7 @@ it("should work with simplify()", () => {
   }
 
   const root = new TwoPastas(1, 3);
-  console.log("both:", repr(root));
   simplify(root);
-  console.log("simple:", repr(root));
 
   // The recipe must merge with itself properly.
   const reprA = repr(root.requires[0]);
