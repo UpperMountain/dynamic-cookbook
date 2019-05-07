@@ -1,4 +1,4 @@
-import { Step, Recipe, Ingredient } from "./dependencyTree";
+import { Step, Ingredient } from "./dependencyTree";
 import Procedure, {
   mergeByChildren,
   repr,
@@ -61,9 +61,9 @@ export class ProcedureB implements Procedure {
 }
 
 export class ProcedureAll implements Procedure {
-  getNode(): Recipe {
+  getNode(): Step {
     return {
-      kind: "recipe",
+      kind: "step",
       name: "root recipe",
       body: "",
       requires: this.requires.map(e => e.getNode())
