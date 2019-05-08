@@ -34,12 +34,6 @@ export function prune(node: Step): Step {
   return node;
 }
 
-function numCompare(x: number, y: number): number {
-  if (x < y) return 1;
-  if (y < x) return -1;
-  return 0;
-}
-
 export function remove(completed: Node, root: Step): Node {
   root.requires = root.requires
     .filter(e => e !== completed)
@@ -59,28 +53,40 @@ export function next(
   getLeaves(tree, candidates);
 
   candidates.sort((a, b) => {
-    let x = a.duration ? a.duration : 0.1;
-    let y = b.duration ? b.duration : 0.1;
+    let x = a.timer ? a.timer : 0;
+    let y = a.timer ? a.timer : 0;
 
-    return numCompare(x, y);
+    if (x < y) return 1;
+    if (y < x) return -1;
+
+    x = a.duration ? a.duration : 0.1;
+    y = b.duration ? b.duration : 0.1;
+
+    if (x < y) return 1;
+    if (y < x) return -1;
+    return 0;
   });
 
-  timers
-    .sort((a, b) => {
-      let x = a.duration - a.elapsed;
-      let y = b.duration - b.elapsed;
+  timers.sort((a, b) => {
+    let x = a.duration - a.elapsed;
+    let y = b.duration - b.elapsed;
 
-      return numCompare(x, y);
-    })
-    .reverse();
+    if (x < y) return -1;
+    if (y < x) return 1;
+    return 0;
+  });
 
-  let downTime = timers[0].duration - timers[0].elapsed;
+  if (timers.length > 0) {
+    let downTime = timers[0].duration - timers[0].elapsed;
 
-  for (let i = 0; i < candidates.length; i++) {
-    let stepTime = candidates[i].duration || 0.1;
-    if (stepTime < downTime) {
-      return candidates[i];
+    for (let i = 0; i < candidates.length; i++) {
+      let stepTime = candidates[i].duration || 0.1;
+      if (stepTime < downTime) {
+        return candidates[i];
+      }
     }
+  } else {
+    return candidates[0];
   }
 
   // returns null if nothing can be scheduled right now
