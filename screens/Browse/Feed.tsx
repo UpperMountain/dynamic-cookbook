@@ -1,9 +1,9 @@
 import React from "react";
 import { ScrollView, Text } from "react-native";
-import SafeView from "../components/SafeView";
-import { padding } from "../lib/theme";
-import Padded from "../components/Padded";
-import RoundedButton from "../components/RoundedButton";
+import SafeView from "../../components/SafeView";
+import { padding } from "../../lib/theme";
+import Padded from "../../components/Padded";
+import RoundedButton from "../../components/RoundedButton";
 import { NavigationInjectedProps } from "react-navigation";
 
 const Browse = ({ navigation }: NavigationInjectedProps) => {

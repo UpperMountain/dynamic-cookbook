@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import tabIcon from "../components/tabIcon";
-import Carousel from "../components/Carousel";
-import { Section } from "../components/Label";
-import { SmallMealCard } from "../components/MealCard";
-import RoundedButton from "../components/RoundedButton";
+import tabIcon from "../../components/tabIcon";
+import Carousel from "../../components/Carousel";
+import { Section } from "../../components/Label";
+import { SmallMealCard } from "../../components/MealCard";
+import RoundedButton from "../../components/RoundedButton";
 
 const MyMeal = () => (
   <ScrollView>

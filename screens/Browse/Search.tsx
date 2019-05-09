@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
-import SafeView from "../components/SafeView";
+import SafeView from "../../components/SafeView";
 
 export default function Search() {
   return (
