@@ -3,12 +3,15 @@
 exports[`Label should render a BLACK label 1`] = `
 <View
   style={
-    Object {
-      "paddingBottom": 13.333333333333332,
-      "paddingLeft": NaN,
-      "paddingRight": NaN,
-      "paddingTop": 26.666666666666664,
-    }
+    Array [
+      Object {
+        "paddingBottom": 13.333333333333332,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 26.666666666666664,
+      },
+      undefined,
+    ]
   }
 >
   <Text
@@ -34,12 +37,15 @@ exports[`Label should render a BLACK label 1`] = `
 exports[`Label should render a WHITE label 1`] = `
 <View
   style={
-    Object {
-      "paddingBottom": 13.333333333333332,
-      "paddingLeft": NaN,
-      "paddingRight": NaN,
-      "paddingTop": 26.666666666666664,
-    }
+    Array [
+      Object {
+        "paddingBottom": 13.333333333333332,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 26.666666666666664,
+      },
+      undefined,
+    ]
   }
 >
   <Text
@@ -65,22 +71,28 @@ exports[`Label should render a WHITE label 1`] = `
 exports[`Section should render a section label 1`] = `
 <View
   style={
-    Object {
-      "paddingBottom": NaN,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": NaN,
-    }
+    Array [
+      Object {
+        "paddingBottom": 0,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 0,
+      },
+      undefined,
+    ]
   }
 >
   <View
     style={
-      Object {
-        "paddingBottom": 13.333333333333332,
-        "paddingLeft": NaN,
-        "paddingRight": NaN,
-        "paddingTop": 26.666666666666664,
-      }
+      Array [
+        Object {
+          "paddingBottom": 13.333333333333332,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 26.666666666666664,
+        },
+        undefined,
+      ]
     }
   >
     <Text

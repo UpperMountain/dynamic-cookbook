@@ -1,8 +1,24 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+  TextStyle
+} from "react-native";
 import { LinearGradient } from "expo";
 
-const styles = ({ background, borderColor, textColor }, width, size) =>
+interface CustomStyle {
+  background?: ViewStyle["backgroundColor"];
+  borderColor?: ViewStyle["borderColor"];
+  textColor?: TextStyle["color"];
+}
+const styles = (
+  { background, borderColor, textColor }: CustomStyle,
+  width: number,
+  size: number
+) =>
   StyleSheet.create({
     button: {
       width,
@@ -24,6 +40,16 @@ const styles = ({ background, borderColor, textColor }, width, size) =>
     }
   });
 
+interface Props {
+  width?: number;
+  size?: number;
+  style?: CustomStyle;
+  clear?: boolean;
+  gradient?: boolean;
+  text: string;
+  onPress: () => void;
+}
+
 const RoundedButton = ({
   width,
   size,
@@ -32,7 +58,7 @@ const RoundedButton = ({
   gradient,
   text,
   onPress
-}) => {
+}: Props) => {
   let currentStyle = null;
   if (clear) {
     currentStyle = styles(
