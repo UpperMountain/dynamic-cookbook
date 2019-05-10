@@ -16,7 +16,7 @@ class SearchBar extends React.Component {
     const styles = StyleSheet.create({
       bar: {
         height: 56,
-        backgroundColor: "rgba(255, 255, 255, .2)",
+        backgroundColor: "rgba(0, 0, 0, .1)",
         borderRadius: 72,
         paddingLeft: 36,
         paddingRight: 36,
@@ -27,7 +27,6 @@ class SearchBar extends React.Component {
       text: {
         fontFamily: "raleway",
         fontSize: 18,
-        color: "white",
         flex: 1
         // lineHeight: 32,
         // flexDirection: 'row'
@@ -39,14 +38,14 @@ class SearchBar extends React.Component {
         <TextInput
           style={styles.text}
           placeholder="Search Recipes..."
-          placeholderTextColor="white"
+          placeholderTextColor="black"
           onChangeText={e => this.setState({ text: e })}
           value={text}
         />
         {open ? (
-          <FontAwesome name="close" color="white" size={18} />
+          <FontAwesome name="close" color="black" size={18} />
         ) : (
-          <FontAwesome name="search" color="white" size={18} />
+          <FontAwesome name="search" color="black" size={18} />
         )}
       </View>
     );

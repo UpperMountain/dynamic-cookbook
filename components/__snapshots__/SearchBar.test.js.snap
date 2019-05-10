@@ -5,7 +5,7 @@ exports[`passes snapshot tests 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, .2)",
+      "backgroundColor": "rgba(0, 0, 0, .1)",
       "borderRadius": 72,
       "display": "flex",
       "flexDirection": "row",
@@ -19,10 +19,9 @@ exports[`passes snapshot tests 1`] = `
     allowFontScaling={true}
     onChangeText={[Function]}
     placeholder="Search Recipes..."
-    placeholderTextColor="white"
+    placeholderTextColor="black"
     style={
       Object {
-        "color": "white",
         "flex": 1,
         "fontFamily": "raleway",
         "fontSize": 18,
