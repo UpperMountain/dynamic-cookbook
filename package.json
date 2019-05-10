@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@types/expo": "^32.0.12",
+    "@types/expo__vector-icons": "^9.0.1",
     "@types/react-native": "^0.57.51",
     "@types/react-navigation": "^3.0.7",
     "@types/react-navigation-material-bottom-tabs": "^0.3.1",
