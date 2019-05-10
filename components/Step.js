@@ -61,7 +61,7 @@ class Step extends React.Component {
           <Text style={[theme.header, { marginBottom: 10 }]}>
             {this.props.title}
           </Text>
-          <Text>{this.props.body}</Text>
+          <Text style={{ marginBottom: 18 }}>{this.props.body}</Text>
         </View>
       </View>
     );
