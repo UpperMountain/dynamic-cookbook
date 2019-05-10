@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timer should render a timer which desplays 2h 12m 8s 1`] = `
+<Text
+  style={
+    Object {
+      "fontSize": 36,
+      "lineHeight": 36,
+    }
+  }
+>
+  2h 12m 8s
+</Text>
+`;

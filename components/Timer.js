@@ -34,6 +34,7 @@ class Timer extends React.Component {
   componentDidUpdate() {
     if (this.state.time <= 0) {
       clearInterval(this.state.intervalId);
+      this.props.onFinish ? this.props.onFinish() : null;
     }
   }
 
@@ -41,24 +42,42 @@ class Timer extends React.Component {
     return n < 10 ? "0" + n : n;
   };
 
-  formatTime = () => {
+  formatTime = preTimer => {
     let out = "";
     if (this.props.seconds >= 3600) {
       let hrs = Math.floor(this.state.time / 3600) % 60;
-      out += this.pad(hrs) + ":";
+      if (preTimer) {
+        out += hrs + "h ";
+      } else {
+        out += this.pad(hrs) + ":";
+      }
     }
     if (this.props.seconds >= 60) {
       let mins = Math.floor(this.state.time / 60) % 60;
-      out += this.pad(mins) + ":";
+      if (preTimer) {
+        if (mins > 0) {
+          out += mins + "m ";
+        }
+      } else {
+        out += this.pad(mins) + ":";
+      }
     }
     let secs = this.state.time % 60;
-    out += this.pad(secs);
+    if (preTimer) {
+      if (secs > 0) {
+        out += secs + "s";
+      }
+    } else {
+      out += this.pad(secs);
+    }
 
     return out;
   };
 
   render() {
-    return <Text style={styles.clock}>{this.formatTime()}</Text>;
+    return (
+      <Text style={styles.clock}>{this.formatTime(!this.props.active)}</Text>
+    );
   }
 }
 
