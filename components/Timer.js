@@ -1,59 +1,64 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+  clock: {
+    fontSize: 36,
+    lineHeight: 36
+  }
+});
 
 class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showHours: this.props.hours ? true : false,
-      showMinutes: this.props.minutes || this.props.hours ? true : false,
-      duration:
-        this.props.seconds +
-        (this.props.hours ? this.props.hours * 3600 : 0) +
-        (this.props.minutes ? this.props.minutes * 60 : 0),
-      finished: false
+      intervalId: undefined,
+      time: this.props.seconds
     };
-    this.time = this.formatTime();
-    this.timer = setInterval(this.getTimeLeft, 1000);
+  }
+
+  tick = () => {
+    if (this.props.active) {
+      this.setState({ time: this.state.time - 1 });
+    }
+  };
+
+  componentDidMount() {
+    this.setState({ intervalId: setInterval(this.tick, 1000) });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
+  componentDidUpdate() {
+    if (this.state.time <= 0) {
+      clearInterval(this.state.intervalId);
+    }
   }
 
   pad = n => {
     return n < 10 ? "0" + n : n;
   };
 
-  getTimeLeft = () => {
-    if (!this.state.finished) {
-      this.setState({
-        duration: this.state.duration - 1
-      });
-      if (this.state.duration < 0) {
-        this.setState({
-          finished: true
-        });
-        clearInterval(this.timer);
-      }
-    }
-    this.time = this.formatTime();
-  };
-
   formatTime = () => {
-    time = "";
-    if (this.state.showHours) {
-      time += this.pad(Math.floor(this.state.duration / 3600)) + ":";
+    let out = "";
+    if (this.props.seconds >= 3600) {
+      let hrs = Math.floor(this.state.time / 3600) % 60;
+      out += this.pad(hrs) + ":";
     }
-    if (this.state.showMinutes) {
-      time += this.pad(Math.floor(this.state.duration / 60) % 60) + ":";
+    if (this.props.seconds >= 60) {
+      let mins = Math.floor(this.state.time / 60) % 60;
+      out += this.pad(mins) + ":";
     }
-    time += this.pad(this.state.duration % 60);
-    return time;
+    let secs = this.state.time % 60;
+    out += this.pad(secs);
+
+    return out;
   };
 
   render() {
-    return (
-      <View>
-        <Text>{this.time}</Text>
-      </View>
-    );
+    return <Text style={styles.clock}>{this.formatTime()}</Text>;
   }
 }
 
