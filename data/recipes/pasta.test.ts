@@ -1,13 +1,17 @@
-import { PastaRecipe } from "./pasta";
-import { Step } from "../dependencyTree";
-import Procedure, { simplify, mergeByChildren, repr } from "../Procedure";
+import { Combine } from "./pasta";
+import { Step } from "../../lib/dependencyTree";
+import Procedure, {
+  simplify,
+  mergeByChildren,
+  repr
+} from "../../lib/Procedure";
 
 it("should create a Pasta without error", () => {
-  new PastaRecipe(4);
+  new Combine(4);
 });
 
 it("should create Nodes from a Pasta without error", () => {
-  const a = new PastaRecipe(4);
+  const a = new Combine(4);
   a.getNode();
 });
 
@@ -22,7 +26,7 @@ it("should work with simplify()", () => {
         requires: this.requires.map(e => e.getNode())
       };
     }
-    requires = [new PastaRecipe(this.servesA), new PastaRecipe(this.servesB)];
+    requires = [new Combine(this.servesA), new Combine(this.servesB)];
     merge = mergeByChildren;
   }
 
@@ -31,7 +35,7 @@ it("should work with simplify()", () => {
 
   // The recipe must merge with itself properly.
   const reprA = repr(root.requires[0]);
-  const reprB = repr(new PastaRecipe(4));
+  const reprB = repr(new Combine(4));
 
   expect(reprA).toEqual(reprB);
 });

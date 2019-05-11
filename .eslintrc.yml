@@ -47,7 +47,8 @@ rules:
   prettier/prettier: error
 
   # configuration
-  "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }]
+  "@typescript-eslint/no-unused-vars":
+    ["error", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }]
 
   # useless
   class-methods-use-this: off
@@ -71,8 +72,9 @@ rules:
   react/forbid-prop-types: off
   react/no-danger: off
   react/no-unescaped-entities: off
-  "@typescript-eslint/explicit-member-accessibility": off
   "@typescript-eslint/explicit-function-return-type": off
+  "@typescript-eslint/explicit-member-accessibility": off
+  "@typescript-eslint/no-explicit-any": off
 
   # turn these on later, when we have time to clear the errors
   react/prop-types: off

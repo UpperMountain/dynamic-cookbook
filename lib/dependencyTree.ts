@@ -12,19 +12,19 @@ export interface OnGoingTimer extends Timer {
   elapsed: Duration;
 }
 
-export interface WithBody {
+export interface Described {
   // for display in the UI
   name: string;
-  body: string;
+  body?: string;
 }
 
-export interface Ingredient extends WithBody {
+export interface Ingredient extends Described {
   kind: "ingredient";
   name: string;
   amount: number; // TODO: physical quantities
 }
 
-export interface Step extends WithBody {
+export interface Step extends Described {
   kind: "step";
 
   // timers

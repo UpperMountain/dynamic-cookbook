@@ -1,53 +1,8 @@
-import { Step, Ingredient } from "../dependencyTree";
-import Procedure, { mergeByChildren } from "../Procedure";
-
-// ///////////////////////////////////////////////////////////////////////////////////
-
-export class Onion implements Procedure {
-  constructor(public count: number) {}
-  getNode(): Ingredient {
-    return {
-      kind: "ingredient",
-      name: "Onion",
-      body: "something something shrek quote",
-      amount: this.count
-    };
-  }
-
-  merge(other: Procedure) {
-    if (other instanceof Onion) {
-      this.count += other.count;
-      return this;
-    }
-
-    return null;
-  }
-
-  requires = [];
-}
-
-export class Garlic implements Procedure {
-  constructor(public cloves: number) {}
-  getNode(): Ingredient {
-    return {
-      kind: "ingredient",
-      name: "Garlic",
-      body: "is it just called... a garlic? a garlic... bulb? a head?",
-      amount: Math.ceil(this.cloves / 4)
-    };
-  }
-
-  merge(other: Procedure) {
-    if (other instanceof Garlic) {
-      this.cloves += other.cloves;
-      return this;
-    }
-
-    return null;
-  }
-
-  requires = [];
-}
+import { Step } from "../../lib/dependencyTree";
+import Procedure, { mergeByChildren } from "../../lib/Procedure";
+import Recipe from "../../lib/Recipe";
+import * as Ingredients from "../ingredients";
+import * as Steps from "../steps";
 
 export class PastaSauce implements Procedure {
   constructor(public serves: number) {}
@@ -70,35 +25,15 @@ export class PastaSauce implements Procedure {
   }
 
   // this is technically a whole clove of garlic, but it's also a proof-of-concept example
-  requires = [new Garlic(2 * this.serves), new Onion(0.5 * this.serves)];
+  requires = [
+    new Ingredients.Garlic(2 * this.serves),
+    new Steps.ChopOnion(0.5 * this.serves)
+  ];
 
   merge = mergeByChildren;
 }
 
-export class Spaghetti implements Procedure {
-  constructor(public serves: number) {}
-  getNode(): Ingredient {
-    return {
-      kind: "ingredient",
-      name: "Spaghetti",
-      body: "It's just spaghetti.",
-      amount: this.serves * 12
-    };
-  }
-
-  merge(other: Procedure) {
-    if (other instanceof Spaghetti) {
-      this.serves += other.serves;
-      return this;
-    }
-
-    return null;
-  }
-
-  requires = [];
-}
-
-export class Pasta implements Procedure {
+export class CookPasta implements Procedure {
   constructor(public serves: number) {}
   getNode(): Step {
     return {
@@ -115,10 +50,10 @@ export class Pasta implements Procedure {
     };
   }
   merge = mergeByChildren;
-  requires = [new Spaghetti(this.serves)];
+  requires = [new Ingredients.Spaghetti(this.serves)];
 }
 
-export class PastaCombine implements Procedure {
+export class Combine implements Procedure {
   constructor(public serves: number) {}
   getNode(): Step {
     return {
@@ -135,33 +70,13 @@ export class PastaCombine implements Procedure {
     };
   }
   merge = mergeByChildren;
-  requires = [new Pasta(this.serves), new PastaSauce(this.serves)];
+  requires = [new CookPasta(this.serves), new PastaSauce(this.serves)];
 }
 
-export class PastaRecipe implements Procedure {
-  constructor(public serves: number) {}
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: `Pasta recipe, serves ${this.serves}`,
-      body: `
-        This is a _test_, with *rich* formatting from Markdown.
-
-        Do paragraphs work? Cool!
-      `,
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
-
-  merge(other: Procedure) {
-    if (other instanceof PastaRecipe) {
-      this.serves += other.serves;
-      this.requires = this.requires.concat(other.requires);
-      return this;
-    }
-
-    return null;
-  }
-
-  requires = [new PastaCombine(this.serves)];
-}
+export const Pasta: Recipe = {
+  name: "Pasta",
+  body: "Simple, easy pasta.",
+  images: [require("../../assets/images/pasta.jpg")],
+  requires: ({}) => [new Combine(1)],
+  defaults: {}
+};
