@@ -1,7 +1,7 @@
 import React from "react";
-import { ScrollView } from "react-native";
-import Interaction from "../../components/Interaction";
+import { ScrollView, Text } from "react-native";
 import Step from "../../components/Step";
+import theme from "../../lib/theme";
 
 const MyMeal = () => (
   <ScrollView
@@ -10,7 +10,9 @@ const MyMeal = () => (
       flexDirection: "column"
     }}
   >
+    <Text style={theme.header}>This is a test environment</Text>
     <Step
+      interactive
       number={1}
       title={"First Thing"}
       body={
@@ -18,18 +20,22 @@ const MyMeal = () => (
       }
     />
     <Step
+      interactive
       number={2}
       title={"Second Thing"}
       body={
         "This is a slightly smaller step, however, it leads into a timer card."
       }
     />
-    <Interaction title={"do a thing"} time={65} />
-    <Interaction title={"untimed step"} caption={"random caption text"} />
     <Step
       number={3}
       title={"Third Thing"}
       body={"This step follows a timer. I just want to see how it will look."}
+    />
+    <Step
+      number={4}
+      title={"Fourth Thing"}
+      body={"This is yet another step. It is the last one in the list for now."}
     />
   </ScrollView>
 );

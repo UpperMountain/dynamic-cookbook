@@ -7,8 +7,8 @@ import Timer from "./Timer";
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: "5%",
-    marginRight: "5%"
+    marginLeft: "4%",
+    marginRight: "4%"
   },
   card: {
     backgroundColor: "white",
@@ -25,6 +25,8 @@ interface Props {
   time: number;
   title: string;
   caption: string;
+  done: boolean;
+  onComplete: () => void;
 }
 
 interface State {
@@ -39,7 +41,7 @@ class Interaction extends React.Component<Props, State> {
     this.state = {
       timerActive: false,
       timerFinished: this.props.time ? false : true,
-      done: false
+      done: this.props.done
     };
   }
 
@@ -93,6 +95,7 @@ class Interaction extends React.Component<Props, State> {
   handleClick = () => {
     if (this.canMoveOn()) {
       this.setState({ done: true });
+      this.props.onComplete();
     }
   };
 

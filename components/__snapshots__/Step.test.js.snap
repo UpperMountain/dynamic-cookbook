@@ -4,90 +4,121 @@ exports[`Step should render a step that does have leading line 1`] = `
 <View
   style={
     Object {
-      "flexDirection": "row",
-      "marginLeft": 22,
+      "marginTop": 7,
     }
   }
 >
   <View
     style={
       Object {
-        "alignItems": "center",
-        "marginRight": 20,
+        "flexDirection": "row",
+        "marginLeft": 20,
       }
     }
   >
     <View
       style={
         Object {
-          "borderLeftColor": "black",
-          "borderLeftWidth": 1,
-          "height": 18,
-        }
-      }
-    />
-    <Text
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 15,
-          "borderWidth": 1,
-          "fontSize": 14,
-          "height": 30,
-          "lineHeight": 28,
-          "marginBottom": 7,
-          "marginTop": 7,
-          "textAlign": "center",
-          "width": 30,
+          "alignItems": "center",
+          "marginRight": 20,
         }
       }
     >
-      2
-    </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "borderColor": "black",
+              "borderRadius": 15,
+              "borderWidth": 1,
+              "height": 30,
+              "marginBottom": 7,
+              "width": 30,
+            },
+            null,
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 28,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "black",
+              },
+            ]
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "borderLeftWidth": 1,
+              "flex": 1,
+              "height": 10,
+              "width": 0,
+            },
+            null,
+          ]
+        }
+      />
+    </View>
     <View
       style={
         Object {
-          "borderLeftColor": "black",
-          "borderLeftWidth": 1,
-          "flex": 1,
-          "height": 10,
-          "marginBottom": 0,
+          "flex": 0.8,
         }
       }
-    />
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "raleway-medium",
+              "fontSize": 24,
+            },
+            Object {
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        step two
+      </Text>
+      <Text
+        style={
+          Object {
+            "marginBottom": 10,
+          }
+        }
+      >
+        this step is not a first step so it has a line leading in
+      </Text>
+    </View>
   </View>
-  <View
-    style={
-      Object {
-        "flex": 0.8,
-        "paddingTop": 25,
-      }
-    }
-  >
-    <Text
+  <View>
+    <View
       style={
         Array [
           Object {
-            "fontFamily": "raleway-medium",
-            "fontSize": 24,
+            "borderLeftWidth": 1,
+            "height": 18,
+            "width": 0,
           },
+          null,
           Object {
-            "marginBottom": 10,
+            "marginLeft": 34.5,
           },
         ]
       }
-    >
-      step two
-    </Text>
-    <Text
-      style={
-        Object {
-          "marginBottom": 18,
-        }
-      }
-    >
-      this step is not a first step so it has a line leading in
-    </Text>
+    />
   </View>
 </View>
 `;
@@ -96,88 +127,121 @@ exports[`Step should render a step with no leading line 1`] = `
 <View
   style={
     Object {
-      "flexDirection": "row",
-      "marginLeft": 22,
+      "marginTop": 7,
     }
   }
 >
   <View
     style={
       Object {
-        "alignItems": "center",
-        "marginRight": 20,
+        "flexDirection": "row",
+        "marginLeft": 20,
       }
     }
   >
     <View
       style={
         Object {
-          "height": 18,
-        }
-      }
-    />
-    <Text
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 15,
-          "borderWidth": 1,
-          "fontSize": 14,
-          "height": 30,
-          "lineHeight": 28,
-          "marginBottom": 7,
-          "marginTop": 7,
-          "textAlign": "center",
-          "width": 30,
+          "alignItems": "center",
+          "marginRight": 20,
         }
       }
     >
-      1
-    </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "borderColor": "black",
+              "borderRadius": 15,
+              "borderWidth": 1,
+              "height": 30,
+              "marginBottom": 7,
+              "width": 30,
+            },
+            null,
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 28,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "black",
+              },
+            ]
+          }
+        >
+          1
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "borderLeftWidth": 1,
+              "flex": 1,
+              "height": 10,
+              "width": 0,
+            },
+            null,
+          ]
+        }
+      />
+    </View>
     <View
       style={
         Object {
-          "borderLeftColor": "black",
-          "borderLeftWidth": 1,
-          "flex": 1,
-          "height": 10,
-          "marginBottom": 0,
+          "flex": 0.8,
         }
       }
-    />
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontFamily": "raleway-medium",
+              "fontSize": 24,
+            },
+            Object {
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        step one
+      </Text>
+      <Text
+        style={
+          Object {
+            "marginBottom": 10,
+          }
+        }
+      >
+        this is test body text
+      </Text>
+    </View>
   </View>
-  <View
-    style={
-      Object {
-        "flex": 0.8,
-        "paddingTop": 25,
-      }
-    }
-  >
-    <Text
+  <View>
+    <View
       style={
         Array [
           Object {
-            "fontFamily": "raleway-medium",
-            "fontSize": 24,
+            "borderLeftWidth": 1,
+            "height": 18,
+            "width": 0,
           },
+          null,
           Object {
-            "marginBottom": 10,
+            "marginLeft": 34.5,
           },
         ]
       }
-    >
-      step one
-    </Text>
-    <Text
-      style={
-        Object {
-          "marginBottom": 18,
-        }
-      }
-    >
-      this is test body text
-    </Text>
+    />
   </View>
 </View>
 `;
