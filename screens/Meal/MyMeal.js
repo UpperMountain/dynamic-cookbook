@@ -3,7 +3,7 @@ import { ScrollView, Text } from "react-native";
 import Step from "../../components/Step";
 import theme from "../../lib/theme";
 
-const MyMeal = () => (
+const MyMeal = ({ navigation }) => (
   <ScrollView
     contentContainerStyle={{
       justifyContent: "center",
@@ -11,6 +11,11 @@ const MyMeal = () => (
     }}
   >
     <Text style={theme.header}>This is a test environment</Text>
+    {navigation && (
+      <Text>
+        {JSON.stringify(navigation.getParam("recipes", null), null, 2)}
+      </Text>
+    )}
     <Step
       interactive
       number={1}

@@ -21,30 +21,30 @@ export const Burritos: Recipe = {
   name: "Burritos",
   body: "Classic Mexican staple.",
   images: [require("../../assets/images/burritos.jpg")],
-  requires: _ => [new Ingredients.NYI()],
-  defaults: {}
+  config: [],
+  requires: _ => [new Ingredients.NYI()]
 };
 
 export const ChaiLatte: Recipe = {
   name: "Chai Latte",
   body: "Warm, sweet, and spicy. Perfect for a cold day.",
   images: [require("../../assets/images/chai-latte.jpg")],
-  requires: _ => [new Ingredients.NYI()],
-  defaults: {}
+  config: [],
+  requires: _ => [new Ingredients.NYI()]
 };
 
 export const Pancakes: Recipe = {
   name: "Pancakes",
   body: "Easy and tasty breakfast.",
   images: [require("../../assets/images/pancakes.jpg")],
-  requires: _ => [new Ingredients.NYI()],
-  defaults: {}
+  config: [],
+  requires: _ => [new Ingredients.NYI()]
 };
 
 export const Steak: Recipe = {
   name: "Steak",
   body: "Juicy and delicious.",
   images: [require("../../assets/images/steak.jpg")],
-  requires: _ => [new Ingredients.NYI()],
-  defaults: {}
+  config: [],
+  requires: _ => [new Ingredients.NYI()]
 };

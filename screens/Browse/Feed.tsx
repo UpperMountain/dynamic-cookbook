@@ -1,10 +1,9 @@
 import React from "react";
-import { Image, View, ScrollView, TouchableOpacity, Text } from "react-native";
+import { Image, ScrollView, TouchableOpacity, Text } from "react-native";
 import SafeView from "../../components/SafeView";
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
 import { NavigationScreenConfigProps } from "react-navigation";
-import { RecipesScreenProps } from "./index";
 import Recipe, { Recipes } from "../../lib/Recipe";
 
 interface FeedItemProps {
@@ -14,7 +13,7 @@ interface FeedItemProps {
 
 function FeedItem({ recipe, onPress }: FeedItemProps) {
   return (
-    <View>
+    <TouchableOpacity onPress={onPress} delayPressIn={30}>
       <Image style={{ width: "100%", height: 300 }} source={recipe.images[0]} />
       <Padded horizontal>
         <Padded top>
@@ -23,23 +22,12 @@ function FeedItem({ recipe, onPress }: FeedItemProps) {
         <Padded top={0.5} bottom>
           <Text>{recipe.body}</Text>
         </Padded>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "rgba(0,0,0,0.05)",
-            borderRadius: 100,
-            padding: 10
-          }}
-          onPress={onPress}
-        >
-          <Text style={{ textAlign: "center" }}>Add to Meal</Text>
-        </TouchableOpacity>
       </Padded>
-    </View>
+    </TouchableOpacity>
   );
 }
 
-function Feed({ screenProps }: NavigationScreenConfigProps) {
-  const { setRecipes } = screenProps as RecipesScreenProps;
+function Feed({ navigation }: NavigationScreenConfigProps) {
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: padding * 3 }}>
       <SafeView>
@@ -47,7 +35,7 @@ function Feed({ screenProps }: NavigationScreenConfigProps) {
           <Padded key={id} top={1} bottom={2}>
             <FeedItem
               recipe={recipe}
-              onPress={() => setRecipes(r => [...r, id])}
+              onPress={() => navigation.push("RecipeView", { recipeId: id })}
             />
           </Padded>
         ))}

@@ -76,7 +76,24 @@ export class Combine implements Procedure {
 export const Pasta: Recipe = {
   name: "Pasta",
   body: "Simple, easy pasta.",
-  images: [require("../../assets/images/pasta.jpg")],
-  requires: ({}) => [new Combine(1)],
-  defaults: {}
+  config: [
+    {
+      id: "serves",
+      kind: "integer",
+      question: "How many servings?",
+      min: 1,
+      max: null,
+      default: 4
+    },
+    {
+      id: "sauce",
+      kind: "categorical",
+      question: "What kind of sauce?",
+      options: { premade: "From a jar", homemade: "Make my own" },
+      default: "homemade"
+    }
+  ],
+  requires: ({ serves }) => [new Combine(serves)],
+
+  images: [require("../../assets/images/pasta.jpg")]
 };

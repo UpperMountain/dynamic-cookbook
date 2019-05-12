@@ -8,19 +8,39 @@ import {
   TouchableOpacity
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import {
+  createStackNavigator,
+  NavigationInjectedProps
+} from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import tabIcon from "../../components/tabIcon";
 import shadow from "../../lib/shadow";
 import { colorShade, colorPrimary } from "../../lib/theme";
-import { NavigationInjectedProps } from "react-navigation";
+import { RecipeSpec } from "../../lib/Recipe";
 
 import Feed from "./Feed";
 import Search from "./Search";
+import RecipeView from "./RecipeView";
+
+const FeedStack = createStackNavigator({
+  Feed: {
+    screen: Feed,
+    navigationOptions: {
+      header: null
+    }
+  },
+  RecipeView: {
+    screen: RecipeView,
+    navigationOptions: {
+      title: "Recipe"
+    }
+  }
+});
 
 const Base = createMaterialBottomTabNavigator(
   {
     Feed: {
-      screen: Feed,
+      screen: FeedStack,
       navigationOptions: {
         title: "Feed",
         tabBarIcon: tabIcon("clone")
@@ -101,14 +121,12 @@ const styles = StyleSheet.create({
   }
 });
 
-type Recipe = string; // for testing purposes
-
 interface BrowseNavigatorState {
-  recipes: Recipe[];
+  recipes: RecipeSpec[];
 }
 
 export interface RecipesScreenProps {
-  recipes: Recipe[];
+  recipes: RecipeSpec[];
   setRecipes: BrowseNavigator["setRecipes"];
 }
 
@@ -123,7 +141,9 @@ class BrowseNavigator extends React.Component<
   };
 
   // pass in a setState-like updater function, or just an array
-  setRecipes = (setter: ((old: Recipe[]) => Recipe[]) | Recipe[]) => {
+  setRecipes = (
+    setter: ((old: RecipeSpec[]) => RecipeSpec[]) | RecipeSpec[]
+  ) => {
     if (typeof setter === "function") {
       this.setState(oldState => ({
         recipes: setter(oldState.recipes)
@@ -131,7 +151,6 @@ class BrowseNavigator extends React.Component<
     } else {
       this.setState({ recipes: setter });
     }
-    // this.forceUpdate();
   };
 
   render() {
@@ -158,7 +177,7 @@ class BrowseNavigator extends React.Component<
             </Text>
             <TouchableOpacity
               style={styles.startButton}
-              onPress={() => navigation.push("Meal")}
+              onPress={() => navigation.push("Meal", { recipes })}
             >
               <Text>Start</Text>
             </TouchableOpacity>
