@@ -4,8 +4,8 @@ exports[`Timer should render a timer which desplays 2h 12m 8s 1`] = `
 <Text
   style={
     Object {
-      "fontSize": 36,
-      "lineHeight": 36,
+      "fontSize": 24,
+      "lineHeight": 24,
     }
   }
 >

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import theme from "../lib/theme";
-import Interaction from "./Interaction";
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +58,7 @@ const LineSegment = ({ number, active }) => {
     >
       <View style={[styles.numberContainer, activeStyle]}>
         <Text style={[styles.number, { color: active ? "white" : "black" }]}>
-          {number}
+          {number + 1}
         </Text>
       </View>
       <View style={[styles.mainLine, activeStyle]} />
@@ -68,23 +67,12 @@ const LineSegment = ({ number, active }) => {
 };
 
 class Step extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      done: false
-    };
-  }
-
-  handleCompletion = () => {
-    this.setState({ done: true });
-  };
-
   render() {
-    let activeStyle = this.state.done ? styles.activated : null;
+    let activeStyle = this.props.done ? styles.activated : null;
     return (
       <View style={styles.container}>
         <View style={styles.directions}>
-          <LineSegment number={this.props.number} active={this.state.done} />
+          <LineSegment number={this.props.number} active={this.props.done} />
           <View style={styles.textContainer}>
             <Text style={[theme.header, { marginBottom: 10 }]}>
               {this.props.title}
@@ -93,14 +81,12 @@ class Step extends React.Component {
           </View>
         </View>
         <View>
-          {this.props.interactive && (
-            <Interaction time={65} onComplete={this.handleCompletion} />
-          )}
+          {this.props.children}
           <View
             style={[
               styles.trailingLine,
               activeStyle,
-              { marginLeft: this.state.done ? 34 : 34.5 }
+              { marginLeft: this.props.done ? 34 : 34.5 }
             ]}
           />
         </View>

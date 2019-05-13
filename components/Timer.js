@@ -3,8 +3,8 @@ import { Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   clock: {
-    fontSize: 36,
-    lineHeight: 36
+    fontSize: 24,
+    lineHeight: 24
   }
 });
 

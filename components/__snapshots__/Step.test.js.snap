@@ -53,7 +53,7 @@ exports[`Step should render a step that does have leading line 1`] = `
             ]
           }
         >
-          2
+          3
         </Text>
       </View>
       <View
@@ -176,7 +176,7 @@ exports[`Step should render a step with no leading line 1`] = `
             ]
           }
         >
-          1
+          2
         </Text>
       </View>
       <View

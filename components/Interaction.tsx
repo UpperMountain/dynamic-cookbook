@@ -10,6 +10,14 @@ const styles = StyleSheet.create({
     marginLeft: "4%",
     marginRight: "4%"
   },
+  cardInner: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    height: "100%",
+    paddingTop: 18,
+    paddingBottom: 18
+  },
   card: {
     backgroundColor: "white",
     borderRadius: 12,
@@ -24,9 +32,11 @@ const styles = StyleSheet.create({
 interface Props {
   time: number;
   title: string;
+  body: string;
   caption: string;
   done: boolean;
-  onComplete: () => void;
+  number: number;
+  onComplete: (num: number) => void;
 }
 
 interface State {
@@ -55,13 +65,7 @@ class Interaction extends React.Component<Props, State> {
       if (this.state.timerActive) {
         icn = <MaterialIcons name={"timer"} size={54} />;
       } else {
-        icn = (
-          <TouchableOpacity
-            onPress={() => this.setState({ timerActive: true })}
-          >
-            <MaterialIcons name={"play-circle-outline"} size={54} />
-          </TouchableOpacity>
-        );
+        icn = <MaterialIcons name={"play-circle-outline"} size={54} />;
       }
     } else {
       icn = <MaterialIcons name={"priority-high"} size={54} />;
@@ -80,8 +84,8 @@ class Interaction extends React.Component<Props, State> {
       );
     }
     return (
-      <Text style={{ fontSize: 36, lineHeight: 36, marginBottom: 0 }}>
-        Next Step
+      <Text style={{ fontSize: 24, lineHeight: 24, marginBottom: 0 }}>
+        {this.props.body || "Next Step"}
       </Text>
     );
   };
@@ -95,21 +99,25 @@ class Interaction extends React.Component<Props, State> {
   handleClick = () => {
     if (this.canMoveOn()) {
       this.setState({ done: true });
-      this.props.onComplete();
+      this.props.onComplete(this.props.number);
     }
   };
 
   render() {
     return (
       <TouchableOpacity
-        activeOpacity={this.canMoveOn() ? 0.2 : 1}
-        onPress={this.handleClick}
+        activeOpacity={!this.state.done ? 0.2 : 1}
+        onPress={
+          this.canMoveOn()
+            ? this.handleClick
+            : () => this.setState({ timerActive: true })
+        }
         style={styles.container}
       >
         <View style={styles.card}>
           {this.icon()}
-          <View>
-            <Text style={[theme.body, { letterSpacing: 2, marginBottom: 5 }]}>
+          <View style={styles.cardInner}>
+            <Text style={[theme.body, { letterSpacing: 2 }]}>
               {(this.props.title || "step title").toUpperCase()}
             </Text>
             {this.inside()}
