@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 import StepView from "../../components/Step";
 import Interaction from "../../components/Interaction";
-import { Step } from "../../lib/dependencyTree";
+import { Step, OnGoingTimer } from "../../lib/dependencyTree";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { simplifyGroup } from "../../lib/Procedure";
 import Recipe from "../../lib/Recipe";
@@ -13,6 +13,7 @@ interface State {
   done: boolean[];
   steps: Step[];
   root: Step | undefined;
+  timers: OnGoingTimer[];
 }
 
 class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
@@ -21,6 +22,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     this.state = {
       done: [],
       steps: [],
+      timers: [],
       root: undefined
     };
   }
@@ -45,8 +47,18 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
     this.setState(prev => {
       const steps = [...prev.steps];
-      steps.push(next(root, [], null) as Step);
-      return { ...prev, steps };
+      let step: Step = next(root, [], null) as Step;
+      steps.push(step);
+      const timers = [...prev.timers];
+      if (step.timer) {
+        let newTimer: OnGoingTimer = {
+          duration: step.timer.duration,
+          until: step.timer.until,
+          elapsed: 0
+        };
+        timers.push(newTimer);
+      }
+      return { ...prev, steps, timers };
     });
   }
 
@@ -61,8 +73,9 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
         body={data.body || ""}
       >
         <Interaction
+          onTick={this.updateTimer}
+          timer={this.state.timers[index]}
           number={index}
-          time={data.timer ? data.timer.duration : null}
           title={"step " + (index + 1)}
           body={"Next Step"}
           caption={data.timer ? "until " + data.timer.until : null}
@@ -73,18 +86,56 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     ));
   };
 
+  updateTimer = (id: number) => {
+    this.setState(prev => {
+      let timers = [...prev.timers];
+      timers[id].elapsed++;
+      if (timers[id].elapsed >= timers[id].duration) {
+        timers.splice(id, 1);
+      }
+      return { ...prev, timers };
+    });
+  };
+
+  isActive = (id: number) => {
+    if (this.state.steps.length == id + 1) return false;
+    if (!this.state.steps.slice(-1)[0].timer) {
+      return true;
+    } else {
+      if (this.state.timers.slice(-1)[0].elapsed == 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   handleComplete = (num: number) => {
-    // TODO: add support for active timer integration
+    if (this.isActive(num)) return;
     this.setState(oldState => {
       const done = [...oldState.done];
       done[num] = true;
+
       const steps = [...oldState.steps];
+      const timers = [...oldState.timers];
+
       if (this.state.steps.slice(-1)[0] !== this.state.root) {
-        steps.push(next(
+        // if this is not the last step, make a new step to serve
+        let nextStep: Step = next(
           this.state.root as Step,
-          [],
+          this.state.timers,
           this.state.steps[num]
-        ) as Step);
+        ) as Step;
+        steps.push(nextStep);
+
+        // create ongoing timer for new step
+        if (nextStep.timer) {
+          let newTimer: OnGoingTimer = {
+            duration: nextStep.timer.duration,
+            until: nextStep.timer.until,
+            elapsed: 0
+          };
+          timers.push(newTimer);
+        }
       }
       return { ...oldState, steps, done };
     });

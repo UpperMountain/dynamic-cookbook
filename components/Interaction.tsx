@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import shadow from "../lib/shadow";
 import theme from "../lib/theme";
 import Timer from "./Timer";
+import { OnGoingTimer } from "../lib/dependencyTree";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,8 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  time: number | null;
+  onTick: (id: number) => void;
+  timer: OnGoingTimer | null;
   title: string;
   body: string;
   caption: string | null;
@@ -50,7 +52,7 @@ class Interaction extends React.Component<Props, State> {
     super(props);
     this.state = {
       timerActive: false,
-      timerFinished: this.props.time ? false : true,
+      timerFinished: this.props.timer ? false : true,
       done: this.props.done
     };
   }
@@ -61,7 +63,7 @@ class Interaction extends React.Component<Props, State> {
 
   icon = () => {
     let icn = null;
-    if (this.props.time) {
+    if (this.props.timer) {
       if (this.state.timerActive) {
         icn = <MaterialIcons name={"timer"} size={54} />;
       } else {
@@ -74,11 +76,13 @@ class Interaction extends React.Component<Props, State> {
   };
 
   inside = () => {
-    if (!this.state.timerFinished && !this.state.done) {
+    if (!this.state.timerFinished && !this.state.done && this.props.timer) {
       return (
         <Timer
+          onTick={this.props.onTick}
+          id={this.props.number}
           active={this.state.timerActive}
-          seconds={this.props.time}
+          timer={this.props.timer}
           onFinish={this.onTimer}
         />
       );
@@ -99,19 +103,17 @@ class Interaction extends React.Component<Props, State> {
   handleClick = () => {
     if (this.canMoveOn()) {
       this.setState({ done: true });
-      this.props.onComplete(this.props.number);
+    } else {
+      this.setState({ timerActive: true });
     }
+    this.props.onComplete(this.props.number);
   };
 
   render() {
     return (
       <TouchableOpacity
         activeOpacity={!this.state.done ? 0.2 : 1}
-        onPress={
-          this.canMoveOn()
-            ? this.handleClick
-            : () => this.setState({ timerActive: true })
-        }
+        onPress={!this.state.done ? this.handleClick : () => {}}
         style={styles.container}
       >
         <View style={styles.card}>

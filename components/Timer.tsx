@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
+import { OnGoingTimer } from "../lib/dependencyTree";
 
 const styles = StyleSheet.create({
   clock: {
@@ -8,18 +9,29 @@ const styles = StyleSheet.create({
   }
 });
 
-class Timer extends React.Component {
-  constructor(props) {
+interface Props {
+  onTick: (id: number) => void;
+  id: number;
+  timer: OnGoingTimer;
+  active: boolean;
+  onFinish: () => void;
+}
+
+interface State {
+  intervalId: NodeJS.Timeout | undefined;
+}
+
+class Timer extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      intervalId: undefined,
-      time: this.props.seconds
+      intervalId: undefined
     };
   }
 
   tick = () => {
     if (this.props.active) {
-      this.setState({ time: this.state.time - 1 });
+      this.props.onTick(this.props.id);
     }
   };
 
@@ -28,32 +40,33 @@ class Timer extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.intervalId);
+    clearInterval(this.state.intervalId as NodeJS.Timeout);
   }
 
   componentDidUpdate() {
-    if (this.state.time <= 0) {
-      clearInterval(this.state.intervalId);
+    if (this.props.timer.elapsed >= this.props.timer.duration) {
+      clearInterval(this.state.intervalId as NodeJS.Timeout);
       this.props.onFinish ? this.props.onFinish() : null;
     }
   }
 
-  pad = n => {
+  pad = (n: number) => {
     return n < 10 ? "0" + n : n;
   };
 
-  formatTime = preTimer => {
+  formatTime = (preTimer: boolean) => {
+    let left = this.props.timer.duration - this.props.timer.elapsed;
     let out = "";
-    if (this.props.seconds >= 3600) {
-      let hrs = Math.floor(this.state.time / 3600) % 60;
+    if (this.props.timer.duration >= 3600) {
+      let hrs = Math.floor(left / 3600) % 60;
       if (preTimer) {
         out += hrs + "h ";
       } else {
         out += this.pad(hrs) + ":";
       }
     }
-    if (this.props.seconds >= 60) {
-      let mins = Math.floor(this.state.time / 60) % 60;
+    if (this.props.timer.duration >= 60) {
+      let mins = Math.floor(left / 60) % 60;
       if (preTimer) {
         if (mins > 0) {
           out += mins + "m ";
@@ -62,7 +75,7 @@ class Timer extends React.Component {
         out += this.pad(mins) + ":";
       }
     }
-    let secs = this.state.time % 60;
+    let secs = left % 60;
     if (preTimer) {
       if (secs > 0) {
         out += secs + "s";
