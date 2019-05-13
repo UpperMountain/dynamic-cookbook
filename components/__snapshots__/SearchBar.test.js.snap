@@ -5,31 +5,44 @@ exports[`passes snapshot tests 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgba(0, 0, 0, .1)",
-      "borderRadius": 72,
+      "backgroundColor": "rgba(0, 0, 0, .05)",
+      "borderRadius": 50,
       "display": "flex",
       "flexDirection": "row",
-      "height": 56,
-      "paddingLeft": 36,
-      "paddingRight": 36,
+      "height": 50,
+      "paddingLeft": 20,
     }
   }
 >
   <TextInput
     allowFontScaling={true}
+    onBlur={[Function]}
     onChangeText={[Function]}
+    onFocus={[Function]}
     placeholder="Search Recipes..."
-    placeholderTextColor="black"
+    placeholderTextColor="rgba(0,0,0,0.5)"
     style={
       Object {
         "flex": 1,
-        "fontFamily": "raleway",
         "fontSize": 18,
       }
     }
     underlineColorAndroid="transparent"
-    value=""
   />
-  <Text />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingRight": 10,
+        "width": 50,
+      }
+    }
+  >
+    <Text />
+  </View>
 </View>
 `;

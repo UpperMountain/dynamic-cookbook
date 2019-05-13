@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import shadow from "../lib/shadow";
-import theme from "../lib/theme";
 import Timer from "./Timer";
 import { OnGoingTimer } from "../lib/dependencyTree";
 
@@ -119,11 +118,11 @@ class Interaction extends React.Component<Props, State> {
         <View style={styles.card}>
           {this.icon()}
           <View style={styles.cardInner}>
-            <Text style={[theme.body, { letterSpacing: 2 }]}>
+            <Text style={{ letterSpacing: 2 }}>
               {(this.props.title || "step title").toUpperCase()}
             </Text>
             {this.inside()}
-            <Text style={[theme.body, { color: "#787878" }]}>
+            <Text style={{ color: "#787878" }}>
               ({this.props.caption || "click if you're ready to move on"})
             </Text>
           </View>

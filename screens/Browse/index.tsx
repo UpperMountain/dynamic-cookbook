@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   createStackNavigator,
   NavigationInjectedProps
@@ -57,7 +57,8 @@ const Base = createMaterialBottomTabNavigator(
       screen: FeedStack,
       navigationOptions: {
         title: "Feed",
-        tabBarIcon: tabIcon("clone")
+        // tabBarIcon: tabIcon("collections")
+        tabBarIcon: tabIcon("dashboard")
       }
     },
     Search: {
@@ -74,7 +75,8 @@ const Base = createMaterialBottomTabNavigator(
     activeTintColor: colorPrimary,
     inactiveTintColor: colorShade,
     barStyle: { backgroundColor: "white" },
-    shifting: true
+    shifting: false,
+    labeled: false
   }
 );
 
@@ -183,7 +185,7 @@ class BrowseNavigator extends React.Component<
               style={styles.cancelButton}
               onPress={() => this.setRecipes([])}
             >
-              <FontAwesome name="times" size={15} color={colorShade} />
+              <MaterialIcons name="close" size={20} color={colorShade} />
             </TouchableOpacity>
             <Text style={{ marginLeft: 20 }}>
               {recipes.length} recipe{recipes.length > 1 ? "s" : ""} in your
