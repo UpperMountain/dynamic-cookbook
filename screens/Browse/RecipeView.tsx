@@ -7,7 +7,7 @@ import {
   Text,
   View
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./index";
@@ -68,20 +68,14 @@ function Configurator({
       <View
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
-        <TouchableOpacity
-          style={styles.adjustButton}
-          onPress={() => onChange(value - 1)}
-        >
-          <FontAwesome name="minus" size={30} color="gray" />
+        <TouchableOpacity onPress={() => onChange(value - 1)}>
+          <MaterialIcons name="remove-circle" size={50} color="gray" />
         </TouchableOpacity>
         <Text style={{ fontSize: 30, width: 100, textAlign: "center" }}>
           {value}
         </Text>
-        <TouchableOpacity
-          style={styles.adjustButton}
-          onPress={() => onChange(value + 1)}
-        >
-          <FontAwesome name="plus" size={30} color="gray" />
+        <TouchableOpacity onPress={() => onChange(value + 1)}>
+          <MaterialIcons name="add-circle" size={50} color="gray" />
         </TouchableOpacity>
       </View>
     );

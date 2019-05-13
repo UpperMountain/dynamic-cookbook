@@ -20,7 +20,7 @@ exports[`passes snapshot tests 1`] = `
     onChangeText={[Function]}
     onFocus={[Function]}
     placeholder="Search Recipes..."
-    placeholderTextColor="black"
+    placeholderTextColor="rgba(0,0,0,0.5)"
     style={
       Object {
         "flex": 1,

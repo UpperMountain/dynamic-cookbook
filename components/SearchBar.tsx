@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
   bar: {
@@ -50,7 +50,7 @@ class SearchBar extends React.Component<Props, State> {
         <TextInput
           style={styles.text}
           placeholder="Search Recipes..."
-          placeholderTextColor="black"
+          placeholderTextColor="rgba(0,0,0,0.5)"
           onChangeText={e => onChange(e)}
           onFocus={() => this.setState({ open: true })}
           onBlur={() => this.setState({ open: false })}
@@ -58,11 +58,11 @@ class SearchBar extends React.Component<Props, State> {
         />
         {open ? (
           <TouchableOpacity onPress={() => onChange("")} style={styles.button}>
-            <FontAwesome name="close" color="black" size={18} />
+            <MaterialIcons name="close" color="black" size={20} />
           </TouchableOpacity>
         ) : (
           <View style={styles.button}>
-            <FontAwesome name="search" color="black" size={18} />
+            <MaterialIcons name="search" color="black" size={25} />
           </View>
         )}
       </View>
