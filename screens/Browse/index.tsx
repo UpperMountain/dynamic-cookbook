@@ -37,6 +37,20 @@ const FeedStack = createStackNavigator({
   }
 });
 
+const SearchStack = createStackNavigator({
+  Search: {
+    screen: Search,
+    navigationOptions: { header: null }
+  },
+  // different name to disambiguate
+  RecipeView: {
+    screen: RecipeView,
+    navigationOptions: {
+      title: "Recipe"
+    }
+  }
+});
+
 const Base = createMaterialBottomTabNavigator(
   {
     Feed: {
@@ -47,7 +61,7 @@ const Base = createMaterialBottomTabNavigator(
       }
     },
     Search: {
-      screen: Search,
+      screen: SearchStack,
       navigationOptions: {
         title: "Search",
         tabBarIcon: tabIcon("search")
