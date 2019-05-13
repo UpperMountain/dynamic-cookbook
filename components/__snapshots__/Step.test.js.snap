@@ -89,9 +89,7 @@ exports[`Step should render a step that does have leading line 1`] = `
             },
           ]
         }
-      >
-        step two
-      </Text>
+      />
       <Text
         style={
           Object {
@@ -212,9 +210,7 @@ exports[`Step should render a step with no leading line 1`] = `
             },
           ]
         }
-      >
-        step one
-      </Text>
+      />
       <Text
         style={
           Object {

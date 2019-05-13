@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  time: number;
+  time: number | null;
   title: string;
   body: string;
-  caption: string;
+  caption: string | null;
   done: boolean;
   number: number;
   onComplete: (num: number) => void;

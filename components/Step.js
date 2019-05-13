@@ -66,7 +66,7 @@ const LineSegment = ({ number, active }) => {
   );
 };
 
-class Step extends React.Component {
+class StepView extends React.Component {
   render() {
     let activeStyle = this.props.done ? styles.activated : null;
     return (
@@ -75,7 +75,7 @@ class Step extends React.Component {
           <LineSegment number={this.props.number} active={this.props.done} />
           <View style={styles.textContainer}>
             <Text style={[theme.header, { marginBottom: 10 }]}>
-              {this.props.title}
+              {this.props.name}
             </Text>
             <Text style={{ marginBottom: 10 }}>{this.props.body}</Text>
           </View>
@@ -95,4 +95,4 @@ class Step extends React.Component {
   }
 }
 
-export default Step;
+export default StepView;
