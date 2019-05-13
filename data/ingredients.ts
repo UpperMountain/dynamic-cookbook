@@ -6,6 +6,7 @@ export class NYI implements Procedure {
   constructor() {}
   getNode(): Ingredient {
     return {
+      id: NYI.name,
       kind: "ingredient",
       name: "[ Not yet implemented ]",
       body: "This recipe is incomplete.",
@@ -25,6 +26,7 @@ export class Onion implements Procedure {
   constructor(public count: number) {}
   getNode(): Ingredient {
     return {
+      id: Onion.name,
       kind: "ingredient",
       name: "Onion",
       body: "something something shrek quote",
@@ -48,6 +50,7 @@ export class Garlic implements Procedure {
   constructor(public cloves: number) {}
   getNode(): Ingredient {
     return {
+      id: Garlic.name,
       kind: "ingredient",
       name: "Garlic",
       body: "is it just called... a garlic? a garlic... bulb? a head?",
@@ -71,6 +74,7 @@ export class Spaghetti implements Procedure {
   constructor(public serves: number) {}
   getNode(): Ingredient {
     return {
+      id: Spaghetti.name,
       kind: "ingredient",
       name: "Spaghetti",
       body: "It's just spaghetti.",

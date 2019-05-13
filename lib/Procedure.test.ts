@@ -1,81 +1,11 @@
-import { Step, Ingredient } from "./dependencyTree";
-import Procedure, {
-  mergeByChildren,
-  repr,
-  walk,
-  simplifyOne,
-  simplify,
-  nodeCount
-} from "./Procedure";
-
-// Example procedures, for testing.
-export class ProcedureRoot implements Procedure {
-  amount = 1;
-
-  getNode(): Ingredient {
-    return {
-      kind: "ingredient",
-      name: `root procedure amount=${this.amount}`,
-      body: "",
-      amount: this.amount
-    };
-  }
-
-  merge(other: Procedure) {
-    if (other instanceof ProcedureRoot) {
-      this.amount += other.amount;
-      return this;
-    }
-    return null;
-  }
-
-  requires = [];
-}
-
-export class ProcedureA implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "step from Procedure A",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
-
-  merge = mergeByChildren;
-  requires = [new ProcedureRoot(), new ProcedureRoot(), new ProcedureRoot()];
-}
-
-export class ProcedureB implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "step from Procedure B",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
-
-  merge = mergeByChildren;
-  requires = [new ProcedureRoot(), new ProcedureRoot()];
-}
-
-export class ProcedureAll implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "root recipe",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
-  merge = mergeByChildren;
-  requires = [new ProcedureA(), new ProcedureA(), new ProcedureB()];
-
-  // for testing: expected node count simplified and unsimplified;
-  static unsimplifiedNodeCount = 12;
-  static simplifiedNodeCount = 4;
-}
+import { repr, simplifyOne, simplify } from "./Procedure";
+import { nodeCount } from "./walk";
+import {
+  ProcedureRoot,
+  ProcedureA,
+  ProcedureB,
+  ProcedureAll
+} from "../data/exampleData";
 
 describe("example procedures", () => {
   it("should construct without errors", () => {
@@ -130,31 +60,6 @@ describe("repr()", () => {
   it("should return description text", () => {
     const root = new ProcedureAll();
     expect(repr(root).length).toBeGreaterThan(100); // large-ish string
-  });
-});
-
-describe("walk()", () => {
-  it("should iterate over the right number of nodes", () => {
-    const root = new ProcedureAll();
-
-    let count = 0;
-    for (let _ of walk(root)) {
-      count++;
-    }
-
-    expect(count).toBe(ProcedureAll.unsimplifiedNodeCount);
-  });
-
-  it("should not repeat nodes", () => {
-    const proc1 = new ProcedureAll();
-    proc1.requires[0].requires = [...proc1.requires[1].requires];
-
-    let count = 0;
-    for (let _ of walk(proc1)) {
-      count++;
-    }
-
-    expect(count).toBeLessThan(ProcedureAll.unsimplifiedNodeCount);
   });
 });
 

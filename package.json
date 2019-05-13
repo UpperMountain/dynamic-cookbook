@@ -21,6 +21,7 @@
     "@types/react-navigation-material-bottom-tabs": "^0.3.1",
     "expo": "^32.0.0",
     "expo-cli": "^2.13.0",
+    "fuse.js": "^3.4.4",
     "js-yaml": "^3.12.2",
     "lodash": "^4.17.11",
     "react": "16.5.0",

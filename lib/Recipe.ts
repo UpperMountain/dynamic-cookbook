@@ -1,6 +1,5 @@
 import Procedure from "./Procedure";
 import { Asset } from "expo";
-import * as AllRecipes from "../data/recipes";
 
 // Recipe represents something the user can make.
 // We should take photos of all of these, and include them.
@@ -66,5 +65,10 @@ export interface IntegerParameter extends ParameterBase {
 
 export type ParameterDef = IntegerParameter | CategoricalParameter;
 
-// export recipe list from /data/recipes
-export const Recipes: { [key: string]: Recipe } = AllRecipes;
+export function getRecipeDefaults(recipe: Recipe) {
+  const defaults: { [key: string]: any } = {};
+  for (let param of recipe.config) {
+    defaults[param.id] = param.default;
+  }
+  return defaults;
+}

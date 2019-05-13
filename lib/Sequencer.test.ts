@@ -10,6 +10,7 @@ let leafStep: Node = {
 };
 
 let ingredientNode: Node = {
+  id: "kevin",
   kind: "ingredient",
   name: "kevin",
   body: "text",
@@ -45,9 +46,27 @@ describe("prune", () => {
       name: "main step",
       body: "",
       requires: [
-        { kind: "ingredient", name: "ingredient1", body: "", amount: 1 },
-        { kind: "ingredient", name: "ingredient2", body: "", amount: 1 },
-        { kind: "ingredient", name: "ingredient3", body: "", amount: 1 },
+        {
+          id: "test1",
+          kind: "ingredient",
+          name: "ingredient1",
+          body: "",
+          amount: 1
+        },
+        {
+          id: "test2",
+          kind: "ingredient",
+          name: "ingredient2",
+          body: "",
+          amount: 1
+        },
+        {
+          id: "test3",
+          kind: "ingredient",
+          name: "ingredient3",
+          body: "",
+          amount: 1
+        },
         { kind: "step", name: "step1", body: "", requires: [] }
       ]
     };
@@ -66,7 +85,13 @@ describe("remove", () => {
       name: "main step",
       body: "",
       requires: [
-        { kind: "ingredient", name: "ingredient1", body: "", amount: 1 }
+        {
+          id: "test1",
+          kind: "ingredient",
+          name: "ingredient1",
+          body: "",
+          amount: 1
+        }
       ]
     };
     remove(test.requires[0], test);

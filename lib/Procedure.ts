@@ -1,5 +1,6 @@
 import { Node } from "./dependencyTree";
 import { uniq } from "lodash";
+import { walk } from "./walk";
 
 export default interface Procedure {
   // Attempt to include another Procedure into this one.
@@ -26,27 +27,6 @@ export function mergeByChildren(this: Procedure, other: Procedure) {
   }
 
   return null;
-}
-
-export function* walk(
-  root: Procedure,
-  visited: Set<Procedure> = new Set()
-): IterableIterator<Procedure> {
-  yield root;
-  for (let req of root.requires) {
-    if (!visited.has(req)) {
-      visited.add(req);
-      yield* walk(req, visited);
-    }
-  }
-}
-
-export function nodeCount(root: Procedure): number {
-  let count = 0;
-  for (let _ of walk(root)) {
-    count += 1;
-  }
-  return count;
 }
 
 export function repr(proc: Procedure, tab: number = 0): string {
@@ -91,6 +71,20 @@ export function simplifyOne(root: Procedure): boolean {
 
 export function simplify(root: Procedure) {
   while (simplifyOne(root)) {}
+}
+
+class SimplifyRoot implements Procedure {
+  constructor(public requires: Procedure[]) {}
+  getNode(): Node {
+    throw "multiple SimplifyRoot instances not allowed";
+  }
+  merge = mergeByChildren;
+}
+
+export function simplifyGroup(roots: Procedure[]): Procedure[] {
+  const root = new SimplifyRoot(roots);
+  simplify(root);
+  return root.requires;
 }
 
 /*

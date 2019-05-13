@@ -11,7 +11,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./index";
-import { Recipes, ParameterDef } from "../../lib/Recipe";
+import { ParameterDef } from "../../lib/Recipe";
+import { allRecipes } from "../../data";
 import Padded from "../../components/Padded";
 import { colorPrimary } from "../../lib/theme";
 
@@ -131,7 +132,7 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
       throw "Can't open recipe view into null recipe";
     }
 
-    const recipe = Recipes[recipeId];
+    const recipe = allRecipes[recipeId];
     if (typeof recipe === "undefined") {
       throw "Recipe ID doesn't exist.";
     }

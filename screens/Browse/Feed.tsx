@@ -4,7 +4,8 @@ import SafeView from "../../components/SafeView";
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
 import { NavigationScreenConfigProps } from "react-navigation";
-import Recipe, { Recipes } from "../../lib/Recipe";
+import Recipe from "../../lib/Recipe";
+import { allRecipes } from "../../data";
 
 interface FeedItemProps {
   recipe: Recipe;
@@ -31,7 +32,7 @@ function Feed({ navigation }: NavigationScreenConfigProps) {
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: padding * 3 }}>
       <SafeView>
-        {Object.entries(Recipes).map(([id, recipe]) => (
+        {Object.entries(allRecipes).map(([id, recipe]) => (
           <Padded key={id} top={1} bottom={2}>
             <FeedItem
               recipe={recipe}

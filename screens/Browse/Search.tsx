@@ -4,6 +4,9 @@ import Padded from "../../components/Padded";
 import SafeView from "../../components/SafeView";
 import SearchBar from "../../components/SearchBar";
 
+// TODO and important: Limit the max length of search query, so Fuse doesn't throw.
+// https://fusejs.io/#examples
+
 export default function Search() {
   return (
     <SafeView>

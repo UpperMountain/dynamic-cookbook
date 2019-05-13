@@ -20,6 +20,7 @@ export interface Described {
 
 export interface Ingredient extends Described {
   kind: "ingredient";
+  id: string; // unique identifier
   name: string;
   amount: number; // TODO: physical quantities
 }
