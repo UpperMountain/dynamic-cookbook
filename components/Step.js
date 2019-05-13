@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import theme from "../lib/theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -74,7 +73,7 @@ class StepView extends React.Component {
         <View style={styles.directions}>
           <LineSegment number={this.props.number} active={this.props.done} />
           <View style={styles.textContainer}>
-            <Text style={[theme.header, { marginBottom: 10 }]}>
+            <Text style={{ fontSize: 24, marginBottom: 10 }}>
               {this.props.name}
             </Text>
             <Text style={{ marginBottom: 10 }}>{this.props.body}</Text>
