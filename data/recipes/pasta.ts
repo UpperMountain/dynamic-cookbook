@@ -19,7 +19,7 @@ export class PastaSauce implements Procedure {
         Add the tomatoes (with the juicy stuff) and cook for about 20 minutes, or
         until the sauce is reduced.
       `,
-      timer: { duration: 20, until: "reduced slightly" },
+      timer: { duration: 1200, until: "reduced slightly" },
       requires: this.requires.map(e => e.getNode())
     };
   }
@@ -45,7 +45,7 @@ export class CookPasta implements Procedure {
       Boil it for the time written on the box (generally 9-10 minutes) or until
       [it's al dente][al-dente].
     `,
-      timer: { duration: 9, until: "al dente" },
+      timer: { duration: 540, until: "al dente" },
       requires: this.requires.map(e => e.getNode())
     };
   }
