@@ -35,7 +35,6 @@ const styles = (
       fontSize: size,
       color: textColor || "black",
       lineHeight: 32,
-      fontFamily: "raleway-bold",
       flexDirection: "row"
     }
   });

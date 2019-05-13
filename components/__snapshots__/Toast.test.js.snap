@@ -32,7 +32,6 @@ exports[`passes snapshot tests 1`] = `
           Object {
             "color": "white",
             "flexDirection": "row",
-            "fontFamily": "raleway-bold",
             "fontSize": 18,
             "lineHeight": 32,
           }
@@ -88,23 +87,13 @@ exports[`passes snapshot tests 1`] = `
               "position": "absolute",
               "width": 304,
             },
-            Object {
-              "elevation": 8,
-              "shadowColor": "#000",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 0.27,
-              "shadowRadius": 4.65,
-            },
+            undefined,
           ]
         }
       >
         <Text
           style={
             Object {
-              "fontFamily": "raleway-medium",
               "fontSize": 24,
             }
           }
@@ -112,7 +101,6 @@ exports[`passes snapshot tests 1`] = `
         <Text
           style={
             Object {
-              "fontFamily": "raleway",
               "fontSize": 14,
             }
           }

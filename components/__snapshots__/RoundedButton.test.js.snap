@@ -31,7 +31,6 @@ exports[`should render a plain button 1`] = `
         Object {
           "color": "black",
           "flexDirection": "row",
-          "fontFamily": "raleway-bold",
           "fontSize": 18,
           "lineHeight": 32,
         }

@@ -19,7 +19,6 @@ exports[`Label should render a BLACK label 1`] = `
       Array [
         Object {
           "color": "rgba(255,255,255,0.9)",
-          "fontFamily": "raleway",
           "fontSize": 16,
           "letterSpacing": 1,
         },
@@ -53,7 +52,6 @@ exports[`Label should render a WHITE label 1`] = `
       Array [
         Object {
           "color": "rgba(255,255,255,0.9)",
-          "fontFamily": "raleway",
           "fontSize": 16,
           "letterSpacing": 1,
         },
@@ -100,7 +98,6 @@ exports[`Section should render a section label 1`] = `
         Array [
           Object {
             "color": "rgba(255,255,255,0.9)",
-            "fontFamily": "raleway",
             "fontSize": 16,
             "letterSpacing": 1,
           },

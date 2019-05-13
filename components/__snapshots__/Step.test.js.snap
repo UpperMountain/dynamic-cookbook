@@ -81,7 +81,6 @@ exports[`Step should render a step that does have leading line 1`] = `
         style={
           Array [
             Object {
-              "fontFamily": "raleway-medium",
               "fontSize": 24,
             },
             Object {
@@ -202,7 +201,6 @@ exports[`Step should render a step with no leading line 1`] = `
         style={
           Array [
             Object {
-              "fontFamily": "raleway-medium",
               "fontSize": 24,
             },
             Object {
