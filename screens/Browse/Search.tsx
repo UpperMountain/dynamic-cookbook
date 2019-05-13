@@ -164,7 +164,7 @@ export default class Search extends React.Component<
     return (
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: padding * 3 }}
+        contentContainerStyle={{ paddingBottom: padding * 5 }}
       >
         <SafeView>
           <Padded top horizontal>
