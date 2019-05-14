@@ -12,6 +12,7 @@ import { allRecipes } from "../../data";
 interface State {
   done: boolean[];
   steps: Step[];
+  active: Step[];
   root: Step | undefined;
   timers: OnGoingTimer[];
 }
@@ -22,6 +23,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     this.state = {
       done: [],
       steps: [],
+      active: [],
       timers: [],
       root: undefined
     };
@@ -47,8 +49,10 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
     this.setState(prev => {
       const steps = [...prev.steps];
-      let step: Step = next(root, [], null) as Step;
+      let step: Step = next(root, [], null, this.state.active) as Step;
       steps.push(step);
+      const active = [...prev.steps];
+      active.push(step);
       const timers = [...prev.timers];
       if (step.timer) {
         let newTimer: OnGoingTimer = {
@@ -58,7 +62,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
         };
         timers.push(newTimer);
       }
-      return { ...prev, steps, timers };
+      return { ...prev, steps, timers, active };
     });
   }
 
@@ -97,47 +101,57 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     });
   };
 
-  isActive = (id: number) => {
+  isActive = (id: number, actives: Step[]) => {
     if (this.state.steps.length == id + 1) return false;
-    if (!this.state.steps.slice(-1)[0].timer) {
-      return true;
-    } else {
-      if (this.state.timers.slice(-1)[0].elapsed == 0) {
-        return true;
-      }
+    for (let item of actives) {
+      if (item === this.state.steps[id]) return true;
     }
     return false;
   };
 
-  handleComplete = (num: number) => {
-    if (this.isActive(num)) return;
+  handleComplete = (num: number, finished: boolean) => {
     this.setState(oldState => {
       const done = [...oldState.done];
-      done[num] = true;
+      done[num] = finished;
+
+      let active = [...oldState.active];
+      if (finished) {
+        active = active.filter(e => e !== this.state.steps[num]);
+      }
 
       const steps = [...oldState.steps];
       const timers = [...oldState.timers];
 
-      if (this.state.steps.slice(-1)[0] !== this.state.root) {
+      if (
+        !(
+          this.state.steps.slice(-1)[0] === this.state.root ||
+          this.isActive(num, active)
+        )
+      ) {
         // if this is not the last step, make a new step to serve
         let nextStep: Step = next(
           this.state.root as Step,
           this.state.timers,
-          this.state.steps[num]
+          finished ? this.state.steps[num] : null,
+          this.state.active
         ) as Step;
-        steps.push(nextStep);
+        if (nextStep !== null) {
+          steps.push(nextStep);
+          active.push(nextStep);
+          done.push(false);
 
-        // create ongoing timer for new step
-        if (nextStep.timer) {
-          let newTimer: OnGoingTimer = {
-            duration: nextStep.timer.duration,
-            until: nextStep.timer.until,
-            elapsed: 0
-          };
-          timers.push(newTimer);
+          // create ongoing timer for new step
+          if (nextStep.timer) {
+            let newTimer: OnGoingTimer = {
+              duration: nextStep.timer.duration,
+              until: nextStep.timer.until,
+              elapsed: 0
+            };
+            timers.push(newTimer);
+          }
         }
       }
-      return { ...oldState, steps, done };
+      return { ...oldState, steps, done, active };
     });
   };
 

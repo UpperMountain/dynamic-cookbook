@@ -37,7 +37,7 @@ interface Props {
   caption: string | null;
   done: boolean;
   number: number;
-  onComplete: (num: number) => void;
+  onComplete: (num: number, finished: boolean) => void;
 }
 
 interface State {
@@ -51,19 +51,22 @@ class Interaction extends React.Component<Props, State> {
     super(props);
     this.state = {
       timerActive: false,
-      timerFinished: this.props.timer ? false : true,
+      timerFinished: false,
       done: this.props.done
     };
   }
 
-  onTimer = () => {
+  onTimerEnd = () => {
     this.setState({ timerFinished: true });
   };
 
   icon = () => {
     let icn = null;
     if (this.props.timer) {
-      if (this.state.timerActive) {
+      if (
+        this.state.timerActive ||
+        (!this.state.timerActive && this.state.done)
+      ) {
         icn = <MaterialIcons name={"timer"} size={54} />;
       } else {
         icn = <MaterialIcons name={"play-circle-outline"} size={54} />;
@@ -75,14 +78,14 @@ class Interaction extends React.Component<Props, State> {
   };
 
   inside = () => {
-    if (!this.state.timerFinished && !this.state.done && this.props.timer) {
+    if (this.props.timer && !this.state.timerFinished) {
       return (
         <Timer
           onTick={this.props.onTick}
           id={this.props.number}
           active={this.state.timerActive}
           timer={this.props.timer}
-          onFinish={this.onTimer}
+          onFinish={this.onTimerEnd}
         />
       );
     }
@@ -100,19 +103,31 @@ class Interaction extends React.Component<Props, State> {
   };
 
   handleClick = () => {
-    if (this.canMoveOn()) {
-      this.setState({ done: true });
+    if (this.state.done) return;
+    if (this.props.timer) {
+      if (this.state.timerActive) {
+        this.setState({ timerActive: false, done: true });
+        this.props.onComplete(this.props.number, true);
+      } else {
+        if (this.state.timerFinished) {
+          this.setState({ done: true });
+          this.props.onComplete(this.props.number, true);
+        } else {
+          this.setState({ timerActive: true });
+          this.props.onComplete(this.props.number, false);
+        }
+      }
     } else {
-      this.setState({ timerActive: true });
+      this.setState({ done: true });
+      this.props.onComplete(this.props.number, true);
     }
-    this.props.onComplete(this.props.number);
   };
 
   render() {
     return (
       <TouchableOpacity
         activeOpacity={!this.state.done ? 0.2 : 1}
-        onPress={!this.state.done ? this.handleClick : () => {}}
+        onPress={this.handleClick}
         style={styles.container}
       >
         <View style={styles.card}>

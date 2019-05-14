@@ -189,14 +189,14 @@ describe("next", () => {
   };
 
   it("should return c as the correct next step", () => {
-    expect(next(f as Step, [longTimer], a as Step)).toBe(c);
+    expect(next(f as Step, [longTimer], a as Step, [])).toBe(c);
   });
 
   it("should return null as no node can fit", () => {
-    expect(next(f as Step, [shortTimer], a as Step)).toBeNull();
+    expect(next(f as Step, [shortTimer], a as Step, [])).toBeNull();
   });
 
   it("should return node b", () => {
-    expect(next(f as Step, [longTimer, mediumTimer], a as Step)).toBe(b);
+    expect(next(f as Step, [longTimer, mediumTimer], a as Step, [])).toBe(b);
   });
 });

@@ -45,12 +45,17 @@ export function remove(completed: Node, root: Step): Node {
 export function next(
   tree: Step,
   timers: OnGoingTimer[],
-  completed: Step | null
+  completed: Step | null,
+  active: Step[]
 ): Node | null {
   if (completed !== null) remove(completed, tree);
 
   let candidates: Step[] = [];
   getLeaves(tree, candidates);
+  candidates = candidates.filter(e => e !== completed);
+  for (let onGoing of active) {
+    candidates = candidates.filter(e => e !== onGoing);
+  }
 
   candidates.sort((a, b) => {
     let x = a.timer ? a.timer : 0;
