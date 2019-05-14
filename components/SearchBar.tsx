@@ -49,7 +49,7 @@ class SearchBar extends React.Component<Props, State> {
       <View style={styles.bar}>
         <TextInput
           style={styles.text}
-          placeholder="Search Recipes..."
+          placeholder="Find recipes, ingredients..."
           placeholderTextColor="rgba(0,0,0,0.5)"
           onChangeText={e => onChange(e)}
           onFocus={() => this.setState({ open: true })}

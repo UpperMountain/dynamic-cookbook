@@ -162,16 +162,16 @@ export default class Search extends React.Component<
     // ScrollView prop `keyboardShouldPersistTaps` is required to dismiss the
     // keyboard when you tap outside of the <SearchBar/>
     return (
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: padding * 5 }}
-      >
-        <SafeView>
-          <Padded top horizontal>
-            <SearchBar value={query} onChange={this.search} />
-          </Padded>
+      <SafeView>
+        <Padded all>
+          <SearchBar value={query} onChange={this.search} />
+        </Padded>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ paddingBottom: padding * 5 }}
+        >
           {results.map((e, i) => (
-            <Padded key={i} top horizontal>
+            <Padded key={i} bottom horizontal>
               <Result
                 result={e}
                 onOpenRecipe={(recipeId: string) =>
@@ -180,8 +180,8 @@ export default class Search extends React.Component<
               />
             </Padded>
           ))}
-        </SafeView>
-      </ScrollView>
+        </ScrollView>
+      </SafeView>
     );
   }
 }

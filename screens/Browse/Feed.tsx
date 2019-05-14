@@ -1,46 +1,77 @@
 import React from "react";
-import { Image, ScrollView, TouchableOpacity, Text } from "react-native";
-import SafeView from "../../components/SafeView";
+import {
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  StyleSheet
+} from "react-native";
+import { Constants } from "expo";
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
 import { NavigationScreenConfigProps } from "react-navigation";
 import Recipe from "../../lib/Recipe";
 import { allRecipes } from "../../data";
+import shadow from "../../lib/shadow";
+
+const styles = StyleSheet.create({
+  feedItem: {
+    backgroundColor: "white",
+    ...shadow(0.1)
+  },
+  feedTrack: {
+    backgroundColor: "rgba(0,0,0,0.05)"
+  }
+});
 
 interface FeedItemProps {
   recipe: Recipe;
   onPress: () => void;
+
+  // Make the first image taller, extending into the notch
+  first: boolean;
 }
 
-function FeedItem({ recipe, onPress }: FeedItemProps) {
+function FeedItem({ recipe, onPress, first }: FeedItemProps) {
   return (
-    <TouchableOpacity onPress={onPress} delayPressIn={30}>
-      <Image style={{ width: "100%", height: 300 }} source={recipe.images[0]} />
-      <Padded horizontal>
-        <Padded top>
+    <Padded bottom>
+      <TouchableOpacity
+        style={styles.feedItem}
+        onPress={onPress}
+        delayPressIn={30}
+      >
+        <Image
+          style={{
+            width: "100%",
+            height: 300 + (first ? Constants.statusBarHeight : 0)
+          }}
+          source={recipe.images[0]}
+        />
+        <Padded horizontal top>
           <Text style={{ fontSize: 30 }}>{recipe.name}</Text>
         </Padded>
-        <Padded top={0.5} bottom>
+        <Padded horizontal top={1 / 2} bottom={3 / 2}>
           <Text>{recipe.body}</Text>
         </Padded>
-      </Padded>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Padded>
   );
 }
 
 function Feed({ navigation }: NavigationScreenConfigProps) {
   return (
-    <ScrollView contentContainerStyle={{ paddingBottom: padding * 3 }}>
-      <SafeView>
-        {Object.entries(allRecipes).map(([id, recipe]) => (
-          <Padded key={id} top={1} bottom={2}>
-            <FeedItem
-              recipe={recipe}
-              onPress={() => navigation.push("RecipeView", { recipeId: id })}
-            />
-          </Padded>
-        ))}
-      </SafeView>
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: padding * 3 }}
+      style={styles.feedTrack}
+    >
+      {Object.entries(allRecipes).map(([id, recipe], i) => (
+        <FeedItem
+          key={id}
+          recipe={recipe}
+          onPress={() => navigation.push("RecipeView", { recipeId: id })}
+          first={i == 0}
+        />
+      ))}
     </ScrollView>
   );
 }
