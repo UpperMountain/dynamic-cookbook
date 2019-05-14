@@ -85,15 +85,38 @@ exports[`Step should render a step that does have leading line 1`] = `
           }
         }
       />
-      <Text
+      <View
         style={
           Object {
             "marginBottom": 10,
           }
         }
       >
-        this step is not a first step so it has a line leading in
-      </Text>
+        <View
+          style={Object {}}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-start",
+                "marginBottom": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            <Text
+              style={Object {}}
+            >
+              <Text>
+                this step is not a first step so it has a line leading in
+              </Text>
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
   <View>
@@ -201,15 +224,38 @@ exports[`Step should render a step with no leading line 1`] = `
           }
         }
       />
-      <Text
+      <View
         style={
           Object {
             "marginBottom": 10,
           }
         }
       >
-        this is test body text
-      </Text>
+        <View
+          style={Object {}}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-start",
+                "marginBottom": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            <Text
+              style={Object {}}
+            >
+              <Text>
+                this is test body text
+              </Text>
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
   <View>
