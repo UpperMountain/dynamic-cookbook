@@ -5,9 +5,10 @@ import Interaction from "../../components/Interaction";
 import { Step, OnGoingTimer } from "../../lib/dependencyTree";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { simplifyGroup } from "../../lib/Procedure";
-import Recipe from "../../lib/Recipe";
+import { RecipeSpec } from "../../lib/Recipe";
 import { next, prune } from "../../lib/Sequencer";
 import { allRecipes } from "../../data";
+import { flatten } from "lodash";
 
 interface State {
   done: boolean[];
@@ -30,22 +31,27 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   }
 
   componentDidMount() {
-    let root: Step = {
+    const specs: RecipeSpec[] = this.props.navigation.getParam("recipes", []);
+
+    // render the recipe specifications into Procedures
+    const specProcedures = specs.map(spec =>
+      allRecipes[spec.id].requires(spec.config)
+    );
+    let requirements = flatten(specProcedures);
+
+    // group-simplify the required Procedures
+    requirements = simplifyGroup(requirements);
+
+    // Synthetic root Step with the requirements
+    const root: Step = {
       kind: "step",
       name: "Serve",
-      requires: []
+      requires: requirements.map(e => e.getNode())
     };
 
-    for (let r of this.props.navigation.getParam("recipes", null)) {
-      let current: Recipe = allRecipes[r.id];
-      let reqs = current.requires(r.config);
-      const componentRoots = simplifyGroup(reqs).map(e => e.getNode());
-      root.requires = root.requires.concat(componentRoots);
-    }
+    prune(root);
 
     this.setState({ root: root });
-
-    prune(root);
 
     this.setState(prev => {
       const steps = [...prev.steps];
