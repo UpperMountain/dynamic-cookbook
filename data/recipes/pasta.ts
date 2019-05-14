@@ -11,13 +11,13 @@ export class PastaSauce implements Procedure {
       kind: "step",
       name: "Start the sauce",
       body: `
-        Throw the garlic in a pan with some oil. Over medium heat, cook until the
-        garlic starts to brown.
+Throw the garlic in a pan with some oil. Over medium heat, cook until the
+garlic starts to brown.
 
-        Add onion, oregano, and some salt. Cook until the onion is soft.
+Add onion, oregano, and some salt. Cook until the onion is soft.
 
-        Add the tomatoes (with the juicy stuff) and cook for about 20 minutes, or
-        until the sauce is reduced.
+Add the tomatoes (with the juicy stuff) and cook for about 20 minutes, or
+until the sauce is reduced.
       `,
       timer: { duration: 1200, until: "reduced slightly" },
       requires: this.requires.map(e => e.getNode())
@@ -40,10 +40,10 @@ export class CookPasta implements Procedure {
       kind: "step",
       name: "Start the pasta",
       body: `
-      Once the water comes to a boil, throw in the pasta.
+Once the water comes to a boil, throw in the pasta.
 
-      Boil it for the time written on the box (generally 9-10 minutes) or until
-      [it's al dente][al-dente].
+Boil it for the time written on the box (generally 9-10 minutes) or until
+[it's al dente](al-dente).
     `,
       timer: { duration: 540, until: "al dente" },
       requires: this.requires.map(e => e.getNode())
@@ -60,11 +60,11 @@ export class Combine implements Procedure {
       kind: "step",
       name: "Combine the sauce and the pasta",
       body: `
-        When the pasta is done, strain the water out of the pot. Throw in some butter.
+When the pasta is done, strain the water out of the pot. Throw in some butter.
 
-        When the sauce is done, take it off the heat.
+When the sauce is done, take it off the heat.
 
-        Pour the sauce over the pasta, and shake the pot around until covered.
+Pour the sauce over the pasta, and shake the pot around until covered.
       `,
       requires: this.requires.map(e => e.getNode())
     };

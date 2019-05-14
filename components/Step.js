@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Markdown from "react-native-markdown-renderer";
 
 const styles = StyleSheet.create({
   container: {
@@ -76,7 +77,9 @@ class StepView extends React.Component {
             <Text style={{ fontSize: 24, marginBottom: 10 }}>
               {this.props.name}
             </Text>
-            <Text style={{ marginBottom: 10 }}>{this.props.body}</Text>
+            <View style={{ marginBottom: 10 }}>
+              <Markdown>{this.props.body}</Markdown>
+            </View>
           </View>
         </View>
         <View>
