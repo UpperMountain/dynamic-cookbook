@@ -119,23 +119,7 @@ exports[`Step should render a step that does have leading line 1`] = `
       </View>
     </View>
   </View>
-  <View>
-    <View
-      style={
-        Array [
-          Object {
-            "borderLeftWidth": 1,
-            "height": 18,
-            "width": 0,
-          },
-          null,
-          Object {
-            "marginLeft": 34.5,
-          },
-        ]
-      }
-    />
-  </View>
+  <View />
 </View>
 `;
 
@@ -258,22 +242,6 @@ exports[`Step should render a step with no leading line 1`] = `
       </View>
     </View>
   </View>
-  <View>
-    <View
-      style={
-        Array [
-          Object {
-            "borderLeftWidth": 1,
-            "height": 18,
-            "width": 0,
-          },
-          null,
-          Object {
-            "marginLeft": 34.5,
-          },
-        ]
-      }
-    />
-  </View>
+  <View />
 </View>
 `;

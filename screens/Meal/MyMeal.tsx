@@ -30,6 +30,8 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     };
   }
 
+  scroll: React.RefObject<ScrollView> = React.createRef();
+
   componentDidMount() {
     const specs: RecipeSpec[] = this.props.navigation.getParam("recipes", []);
 
@@ -75,6 +77,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   recipe = () => {
     return this.state.steps.map((data, index) => (
       <StepView
+        hasNext={index != this.state.steps.length - 1}
         key={index}
         done={this.state.done[index]}
         number={index}
@@ -164,9 +167,15 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   render() {
     return (
       <ScrollView
+        ref={this.scroll}
+        onContentSizeChange={() =>
+          this.scroll.current && this.scroll.current.scrollToEnd()
+        }
         contentContainerStyle={{
           justifyContent: "center",
-          flexDirection: "column"
+          flexDirection: "column",
+          paddingBottom: 40,
+          paddingTop: 20
         }}
       >
         {this.recipe()}

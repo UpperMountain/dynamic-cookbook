@@ -84,13 +84,15 @@ class StepView extends React.Component {
         </View>
         <View>
           {this.props.children}
-          <View
-            style={[
-              styles.trailingLine,
-              activeStyle,
-              { marginLeft: this.props.done ? 34 : 34.5 }
-            ]}
-          />
+          {this.props.hasNext && (
+            <View
+              style={[
+                styles.trailingLine,
+                activeStyle,
+                { marginLeft: this.props.done ? 34 : 34.5 }
+              ]}
+            />
+          )}
         </View>
       </View>
     );
