@@ -12,7 +12,7 @@ import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./index";
 import { ParameterDef } from "../../lib/Recipe";
-import { allRecipes } from "../../data";
+import { recipes } from "../../data";
 import Padded from "../../components/Padded";
 import { colorPrimary } from "../../lib/theme";
 
@@ -126,7 +126,7 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
       throw "Can't open recipe view into null recipe";
     }
 
-    const recipe = allRecipes[recipeId];
+    const recipe = recipes[recipeId];
     if (typeof recipe === "undefined") {
       throw "Recipe ID doesn't exist.";
     }

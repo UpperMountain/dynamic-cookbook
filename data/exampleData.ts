@@ -1,68 +1,49 @@
-import { Step, Ingredient } from "../lib/dependencyTree";
-import Procedure, { mergeByChildren } from "../lib/Procedure";
+import { Step, Ingredient, Node } from "../lib/dependencyTree";
+import { mergeByChildren } from "../lib/Procedure";
 
 // Example procedures, for testing.
-export class ProcedureRoot implements Procedure {
+export class ProcedureRoot implements Ingredient {
+  kind: "ingredient" = "ingredient";
   amount = 1;
 
-  getNode(): Ingredient {
-    return {
-      id: "TestIngredient1",
-      kind: "ingredient",
-      name: `root procedure amount=${this.amount}`,
-      body: "",
-      amount: this.amount
-    };
+  get name() {
+    return `root procedure amount=${this.amount}`;
   }
+  body = "";
 
-  merge(other: Procedure) {
+  requires = [];
+
+  merge(other: Node) {
     if (other instanceof ProcedureRoot) {
       this.amount += other.amount;
       return this;
     }
     return null;
   }
-
-  requires = [];
 }
 
-export class ProcedureA implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "step from Procedure A",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
+export class ProcedureA implements Step {
+  kind: "step" = "step";
+
+  name = "step from Procedure A";
+  body = "";
 
   merge = mergeByChildren;
+
   requires = [new ProcedureRoot(), new ProcedureRoot(), new ProcedureRoot()];
 }
 
-export class ProcedureB implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "step from Procedure B",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
+export class ProcedureB implements Step {
+  kind: "step" = "step";
+  name = "step from Procedure B";
 
   merge = mergeByChildren;
   requires = [new ProcedureRoot(), new ProcedureRoot()];
 }
 
-export class ProcedureAll implements Procedure {
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: "root recipe",
-      body: "",
-      requires: this.requires.map(e => e.getNode())
-    };
-  }
+export class ProcedureAll implements Step {
+  kind: "step" = "step";
+  name = "root recipe";
   merge = mergeByChildren;
   requires = [new ProcedureA(), new ProcedureA(), new ProcedureB()];
 

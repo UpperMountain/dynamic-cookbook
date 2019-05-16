@@ -1,36 +1,30 @@
-export interface Walkable<NodeT> {
-  requires?: NodeT[];
-  [key: string]: any; // other props allowed as well
-}
+import { Node } from "./dependencyTree";
 
-export function* walk<NodeT extends Walkable<NodeT>>(
-  root: NodeT,
-  visited: Set<NodeT> = new Set()
-): IterableIterator<NodeT> {
+export function* walk(
+  root: Node,
+  visited: Set<Node> = new Set()
+): IterableIterator<Node> {
   yield root;
-  if (typeof root.requires === "undefined") {
+  if (root.kind === "ingredient") {
     return;
   }
   for (let req of root.requires) {
     if (!visited.has(req)) {
       visited.add(req);
-      yield* walk<NodeT>(req, visited);
+      yield* walk(req, visited);
     }
   }
 }
 
-export function* walkWhere<T extends Walkable<T>>(
-  root: T,
-  predicate: (el: T) => boolean
-) {
-  for (let item of walk<T>(root)) {
+export function* walkWhere(root: Node, predicate: (el: Node) => boolean) {
+  for (let item of walk(root)) {
     if (predicate(item)) {
       yield item;
     }
   }
 }
 
-export function nodeCount(root: Walkable<any>): number {
+export function nodeCount(root: Node): number {
   let count = 0;
   for (let _ of walk(root)) {
     count += 1;

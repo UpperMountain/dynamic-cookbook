@@ -1,95 +1,58 @@
-import { Ingredient } from "../lib/dependencyTree";
-import Procedure from "../lib/Procedure";
+import { Ingredient, MergeFunction } from "../lib/dependencyTree";
+import { mergeApply } from "../lib/Procedure";
 
 // Use this Ingredient to mark incomplete Recipes.
-export class NYI implements Procedure {
+export class NYI implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
   constructor() {}
-  getNode(): Ingredient {
-    return {
-      id: NYI.name,
-      kind: "ingredient",
-      name: "[ Not yet implemented ]",
-      body: "This recipe is incomplete.",
-      amount: 0
-    };
-  }
+  name = "[ Not yet implemented ]";
+  body = "This recipe is incomplete.";
+
   requires = [];
-  merge(other: Procedure) {
-    if (other instanceof NYI) {
-      return this;
-    }
-    return null;
-  }
+
+  merge: MergeFunction = mergeApply((_: NYI) => {});
 }
 
-export class Onion implements Procedure {
+export class Onion implements Ingredient {
+  kind: "ingredient" = "ingredient";
   constructor(public count: number) {}
-  getNode(): Ingredient {
-    return {
-      id: Onion.name,
-      kind: "ingredient",
-      name: "Onion",
-      body: "something something shrek quote",
-      amount: this.count
-    };
-  }
 
-  merge(other: Procedure) {
-    if (other instanceof Onion) {
-      this.count += other.count;
-      return this;
-    }
+  name = "Onion";
+  body = "something something shrek quote";
 
-    return null;
-  }
+  merge: MergeFunction = mergeApply(
+    (other: Onion) => (this.count += other.count)
+  );
 
   requires = [];
 }
 
-export class Garlic implements Procedure {
+export class Garlic implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
   constructor(public cloves: number) {}
-  getNode(): Ingredient {
-    return {
-      id: Garlic.name,
-      kind: "ingredient",
-      name: "Garlic",
-      body: "is it just called... a garlic? a garlic... bulb? a head?",
-      amount: Math.ceil(this.cloves / 4)
-    };
-  }
 
-  merge(other: Procedure) {
-    if (other instanceof Garlic) {
-      this.cloves += other.cloves;
-      return this;
-    }
+  name = "Garlic";
+  body = "is it just called... a garlic? a garlic... bulb? a head?";
 
-    return null;
-  }
+  merge: MergeFunction = mergeApply(
+    (other: Garlic) => (this.cloves += other.cloves)
+  );
 
   requires = [];
 }
 
-export class Spaghetti implements Procedure {
+export class Spaghetti implements Ingredient {
+  kind: "ingredient" = "ingredient";
   constructor(public serves: number) {}
-  getNode(): Ingredient {
-    return {
-      id: Spaghetti.name,
-      kind: "ingredient",
-      name: "Spaghetti",
-      body: "It's just spaghetti.",
-      amount: this.serves * 12
-    };
-  }
 
-  merge(other: Procedure) {
-    if (other instanceof Spaghetti) {
-      this.serves += other.serves;
-      return this;
-    }
+  name = "Spaghetti";
+  body = "It's just spaghetti.";
 
-    return null;
-  }
+  merge: MergeFunction = mergeApply(
+    (other: Spaghetti) => (this.serves += other.serves)
+  );
 
   requires = [];
 }

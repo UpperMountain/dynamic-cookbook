@@ -1,23 +1,18 @@
-import { Step } from "../lib/dependencyTree";
-import Procedure from "../lib/Procedure";
+import { Step, MergeFunction } from "../lib/dependencyTree";
+import { mergeApply } from "../lib/Procedure";
 import * as Ingredients from "./ingredients";
 
-export class ChopOnion implements Procedure {
+export class ChopOnion implements Step {
+  kind: "step" = "step";
   constructor(public amount: number) {}
-  getNode(): Step {
-    return {
-      kind: "step",
-      name: `Chop ${this.amount} onions.`,
-      requires: this.requires.map(e => e.getNode())
-    };
+
+  get name() {
+    return `Chop ${this.amount} onions.`;
   }
+
   requires = [new Ingredients.Onion(this.amount)];
-  merge(other: Procedure) {
-    if (other instanceof ChopOnion) {
-      this.amount += other.amount;
-      this.requires = this.requires.concat(other.requires);
-      return this;
-    }
-    return null;
-  }
+
+  merge: MergeFunction = mergeApply(
+    (other: ChopOnion) => (this.amount += other.amount)
+  );
 }

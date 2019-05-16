@@ -1,4 +1,3 @@
-import Procedure from "./Procedure";
 import { Node } from "./dependencyTree";
 import { walk, nodeCount, walkWhere } from "./walk";
 import { ProcedureAll } from "../data/exampleData";
@@ -8,7 +7,7 @@ describe("walk()", () => {
     const root = new ProcedureAll();
 
     let count = 0;
-    for (let _ of walk<Procedure>(root)) {
+    for (let _ of walk(root)) {
       count++;
     }
 
@@ -20,7 +19,7 @@ describe("walk()", () => {
     proc1.requires[0].requires = [...proc1.requires[1].requires];
 
     let count = 0;
-    for (let _ of walk<Procedure>(proc1)) {
+    for (let _ of walk(proc1)) {
       count++;
     }
 
@@ -30,9 +29,9 @@ describe("walk()", () => {
 
 describe("walkWhere()", () => {
   it("should be able to filter for ingredients", () => {
-    const root = new ProcedureAll().getNode();
+    const root = new ProcedureAll();
     let count = 0;
-    const nodes = walkWhere<Node>(root, (el: Node) => el.kind === "ingredient");
+    const nodes = walkWhere(root, (el: Node) => el.kind === "ingredient");
     for (let el of nodes) {
       expect(el.kind).toEqual("ingredient");
       count += 1;

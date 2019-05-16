@@ -1,5 +1,5 @@
 import Recipe from "../lib/Recipe";
 
-import * as recipes from "./recipes";
+import * as _recipes from "./recipes";
 
-export const allRecipes: { [key: string]: Recipe } = recipes;
+export const recipes: { [key: string]: Recipe } = _recipes;

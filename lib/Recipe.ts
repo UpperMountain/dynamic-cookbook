@@ -1,4 +1,4 @@
-import Procedure from "./Procedure";
+import { Node } from "./dependencyTree";
 import { Asset } from "expo";
 
 // Recipe represents something the user can make.
@@ -7,7 +7,7 @@ import { Asset } from "expo";
 export default interface Recipe {
   // Requirements for the recipe.
   // Call this with a map of { parameter.id: its value }
-  requires: (config: { [key: string]: any }) => Procedure[];
+  requires: (config: { [key: string]: any }) => Node[];
 
   // List of parameter definitions for the recipe.
   config: ParameterDef[];

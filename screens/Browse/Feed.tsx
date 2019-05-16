@@ -11,7 +11,7 @@ import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
 import { NavigationScreenConfigProps } from "react-navigation";
 import Recipe from "../../lib/Recipe";
-import { allRecipes } from "../../data";
+import { recipes } from "../../data";
 import shadow from "../../lib/shadow";
 
 const styles = StyleSheet.create({
@@ -64,7 +64,7 @@ function Feed({ navigation }: NavigationScreenConfigProps) {
       contentContainerStyle={{ paddingBottom: padding * 3 }}
       style={styles.feedTrack}
     >
-      {Object.entries(allRecipes).map(([id, recipe], i) => (
+      {Object.entries(recipes).map(([id, recipe], i) => (
         <FeedItem
           key={id}
           recipe={recipe}

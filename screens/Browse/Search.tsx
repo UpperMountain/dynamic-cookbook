@@ -13,7 +13,7 @@ import SafeView from "../../components/SafeView";
 import SearchBar from "../../components/SearchBar";
 import { NavigationScreenConfigProps } from "react-navigation";
 import RecipeIndex, { QueryResult } from "../../lib/RecipeIndex";
-import { allRecipes } from "../../data";
+import { recipes } from "../../data";
 import { padding } from "../../lib/theme";
 
 const styles = StyleSheet.create({
@@ -143,7 +143,7 @@ export default class Search extends React.Component<
 
   componentDidMount() {
     // Generate the search index
-    this.index = new RecipeIndex(allRecipes);
+    this.index = new RecipeIndex(recipes);
   }
 
   private search = (query: string) => {

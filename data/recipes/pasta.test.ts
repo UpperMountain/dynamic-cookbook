@@ -1,33 +1,23 @@
 import { Combine } from "./pasta";
 import { Step } from "../../lib/dependencyTree";
-import Procedure, {
-  simplify,
-  mergeByChildren,
-  repr
-} from "../../lib/Procedure";
+import { simplify, repr } from "../../lib/Procedure";
 
 it("should create a Pasta without error", () => {
   new Combine(4);
 });
 
-it("should create Nodes from a Pasta without error", () => {
+it("should get attributes from a Pasta without error", () => {
   const a = new Combine(4);
-  a.getNode();
+  const _name = a.name;
 });
 
 it("should work with simplify()", () => {
-  class TwoPastas implements Procedure {
+  class TwoPastas implements Step {
+    kind: "step" = "step";
     constructor(public servesA: number, public servesB: number) {}
-    getNode(): Step {
-      return {
-        kind: "step",
-        name: "Two pastas, hopefully merged",
-        body: "",
-        requires: this.requires.map(e => e.getNode())
-      };
-    }
+    name = "Two pastas, hopefully merged";
+
     requires = [new Combine(this.servesA), new Combine(this.servesB)];
-    merge = mergeByChildren;
   }
 
   const root = new TwoPastas(1, 3);
@@ -36,6 +26,9 @@ it("should work with simplify()", () => {
   // The recipe must merge with itself properly.
   const reprA = repr(root.requires[0]);
   const reprB = repr(new Combine(4));
+
+  // console.log("merged:\n", reprA);
+  // console.log("not merged:\n", reprB);
 
   expect(reprA).toEqual(reprB);
 });

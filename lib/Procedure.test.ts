@@ -1,4 +1,5 @@
 import { repr, simplifyOne, simplify } from "./Procedure";
+import { Step } from "./dependencyTree";
 import { nodeCount } from "./walk";
 import {
   ProcedureRoot,
@@ -12,8 +13,8 @@ describe("example procedures", () => {
     new ProcedureAll();
   });
 
-  it("should have working getNode()", () => {
-    new ProcedureAll().getNode();
+  it("should have .name", () => {
+    expect(new ProcedureAll().name).not.toBeUndefined();
   });
 });
 
@@ -35,7 +36,7 @@ describe("mergeByChildren", () => {
   it("should concatenate dependencies together", () => {
     const proc1 = new ProcedureA();
     const proc2 = new ProcedureA();
-    const merged = proc1.merge(proc2);
+    const merged = proc1.merge(proc2) as Step;
     expect(merged!.requires).toHaveLength(new ProcedureA().requires.length * 2);
   });
 });

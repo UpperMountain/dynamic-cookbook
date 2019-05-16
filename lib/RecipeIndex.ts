@@ -55,17 +55,16 @@ export default class RecipeIndex {
       })
     );
 
-    // index the ingredients
-    const ingredients: { [key: string]: IngredientResult } = {};
+    // Map (ingredient.name) => IngredientResult
+    const ingredients = new Map<string, IngredientResult>();
     for (let r of recipeItems) {
       // Run the recipe, gathering its ingredients
       const requires = r.recipe.requires(getRecipeDefaults(r.recipe));
       const roots = simplifyGroup(requires);
       let recipeIngredients: Ingredient[] = [];
       for (let root of roots) {
-        const node = root.getNode();
         const ingredientsIter = walkWhere(
-          node,
+          root,
           (el: Node) => el.kind === "ingredient"
         );
         const foundIngredients = [...ingredientsIter] as Ingredient[];
@@ -74,19 +73,21 @@ export default class RecipeIndex {
 
       // upsert the ingredients into the main mapping
       for (let ing of recipeIngredients) {
-        if (!(ing.id in ingredients)) {
-          ingredients[ing.id] = {
+        let stored = ingredients.get(ing.constructor.name);
+        if (typeof stored === "undefined") {
+          stored = {
             kind: "ingredient",
             ingredient: ing,
             foundIn: []
           };
+          ingredients.set(ing.constructor.name, stored);
         }
 
-        ingredients[ing.id].foundIn.push(r);
+        stored.foundIn.push(r);
       }
     }
 
-    const allItems = [...recipeItems, ...Object.values(ingredients)];
+    const allItems = [...recipeItems, ...ingredients.values()];
     this.fuse = new Fuse(allItems, RecipeIndex.fuseOptions);
   }
 

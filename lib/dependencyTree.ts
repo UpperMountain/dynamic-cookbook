@@ -3,9 +3,9 @@ type Duration = number;
 
 // A user-facing timer.
 export interface Timer {
-  // TODO: link timers to a step
   duration: Duration;
-  until: string;
+  task?: string; // "simmer the sauce"
+  until: string; // "until reduced by 1/3"
 }
 
 export interface OnGoingTimer extends Timer {
@@ -14,15 +14,20 @@ export interface OnGoingTimer extends Timer {
 
 export interface Described {
   // for display in the UI
-  name: string;
-  body?: string;
+  name: Readonly<string>;
+  body?: Readonly<string>;
 }
+
+// Merge behavior for two Nodes, attached to a node of type T.
+// If the merge can be carried out, return the new Node.
+// If the merge cannot be carried out, return null.
+export type MergeFunction = (other: Node) => Node | null;
 
 export interface Ingredient extends Described {
   kind: "ingredient";
-  id: string; // unique identifier
-  name: string;
-  amount: number; // TODO: physical quantities
+  id?: string;
+  amount?: number;
+  merge?: MergeFunction;
 }
 
 export interface Step extends Described {
@@ -33,7 +38,9 @@ export interface Step extends Described {
   timer?: Timer; // passive time after the step
 
   // dependencies
-  requires: (Step | Ingredient)[];
+  requires: Node[];
+
+  merge?: MergeFunction;
 }
 
 // union type discriminated on `kind`

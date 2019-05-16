@@ -7,7 +7,7 @@ import { NavigationScreenConfigProps } from "react-navigation";
 import { simplifyGroup } from "../../lib/Procedure";
 import { RecipeSpec } from "../../lib/Recipe";
 import { next, prune } from "../../lib/Sequencer";
-import { allRecipes } from "../../data";
+import { recipes } from "../../data";
 import { flatten } from "lodash";
 
 interface State {
@@ -37,18 +37,18 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
     // render the recipe specifications into Procedures
     const specProcedures = specs.map(spec =>
-      allRecipes[spec.id].requires(spec.config)
+      recipes[spec.id].requires(spec.config)
     );
-    let requirements = flatten(specProcedures);
+    let requires = flatten(specProcedures);
 
     // group-simplify the required Procedures
-    requirements = simplifyGroup(requirements);
+    requires = simplifyGroup(requires);
 
     // Synthetic root Step with the requirements
     const root: Step = {
       kind: "step",
       name: "Serve",
-      requires: requirements.map(e => e.getNode())
+      requires
     };
 
     prune(root);
