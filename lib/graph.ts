@@ -54,13 +54,32 @@ export function isStep(obj: Node): obj is Step {
 }
 
 // check if a Node is an Ingredient
-export function isIngredient(obj: Node): obj is Step {
+export function isIngredient(obj: Node): obj is Ingredient {
   return obj.kind === "ingredient";
 }
 
 // Function to check if any two objects are instances of the same class
 function sameClass<T>(a: T, b: any): b is T {
   return b.constructor === a.constructor;
+}
+
+export function totalTime(node: Node): Duration {
+  if (isIngredient(node)) {
+    // Ingredients take no time to complete
+    return 0;
+  } else if (isStep(node)) {
+    let time = 0;
+    if (node.duration) {
+      time += node.duration;
+    }
+    if (node.timer) {
+      time += node.timer.duration;
+    }
+    return time;
+  }
+
+  const _exhaustive: never = node;
+  return 0;
 }
 
 // A MergeFunction which merges children when it encounters a Node of the same class.

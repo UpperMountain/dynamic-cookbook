@@ -25,7 +25,6 @@ export class ProcedureA implements Step {
   kind: "step" = "step";
 
   name = "step from Procedure A";
-  body = "";
 
   merge = mergeByChildren;
 
@@ -35,6 +34,8 @@ export class ProcedureA implements Step {
 export class ProcedureB implements Step {
   kind: "step" = "step";
   name = "step from Procedure B";
+  body = "heavier";
+  timer = { duration: 100, until: "something happens" };
 
   merge = mergeByChildren;
   requires = [new ProcedureRoot(), new ProcedureRoot()];
