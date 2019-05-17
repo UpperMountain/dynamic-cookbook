@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "paddingBottom": 20,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "elevation": 2.4000000000000004,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 1.9,
+          "width": 0,
+        },
+        "shadowOpacity": 0.07500000000000001,
+        "shadowRadius": 2,
+      }
+    }
+  >
+    <Text>
+      test
+    </Text>
+  </View>
+</View>
+`;

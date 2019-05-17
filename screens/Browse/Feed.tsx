@@ -9,16 +9,12 @@ import {
 import { Constants } from "expo";
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
+import Card from "../../components/Card";
 import { NavigationScreenConfigProps } from "react-navigation";
 import Recipe from "../../lib/Recipe";
 import { recipes } from "../../data";
-import shadow from "../../lib/shadow";
 
 const styles = StyleSheet.create({
-  feedItem: {
-    backgroundColor: "white",
-    ...shadow(0.1)
-  },
   feedTrack: {
     backgroundColor: "rgba(0,0,0,0.05)"
   }
@@ -34,12 +30,8 @@ interface FeedItemProps {
 
 function FeedItem({ recipe, onPress, first }: FeedItemProps) {
   return (
-    <Padded bottom>
-      <TouchableOpacity
-        style={styles.feedItem}
-        onPress={onPress}
-        delayPressIn={30}
-      >
+    <Card>
+      <TouchableOpacity onPress={onPress} delayPressIn={30}>
         <Image
           style={{
             width: "100%",
@@ -54,7 +46,7 @@ function FeedItem({ recipe, onPress, first }: FeedItemProps) {
           <Text>{recipe.body}</Text>
         </Padded>
       </TouchableOpacity>
-    </Padded>
+    </Card>
   );
 }
 
