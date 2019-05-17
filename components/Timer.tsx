@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-import { OnGoingTimer } from "../lib/dependencyTree";
+import { OnGoingTimer } from "../lib/graph";
 
 const styles = StyleSheet.create({
   clock: {

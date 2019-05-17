@@ -1,4 +1,4 @@
-import { Node, OnGoingTimer, Step } from "./dependencyTree";
+import { Node, OnGoingTimer, Step } from "./graph";
 
 export function isLeaf(node: Node): boolean {
   // ingredient nodes have always no children

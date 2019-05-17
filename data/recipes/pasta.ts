@@ -1,5 +1,4 @@
-import { Step, MergeFunction } from "../../lib/dependencyTree";
-import { mergeApply } from "../../lib/Procedure";
+import { Step, MergeFunction, mergeApply } from "../../lib/graph";
 import Recipe from "../../lib/Recipe";
 import * as Ingredients from "../ingredients";
 import * as Steps from "../steps";

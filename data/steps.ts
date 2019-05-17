@@ -1,5 +1,4 @@
-import { Step, MergeFunction } from "../lib/dependencyTree";
-import { mergeApply } from "../lib/Procedure";
+import { Step, MergeFunction, mergeApply } from "../lib/graph";
 import * as Ingredients from "./ingredients";
 
 export class ChopOnion implements Step {

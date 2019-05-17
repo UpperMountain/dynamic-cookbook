@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import shadow from "../lib/shadow";
 import Timer from "./Timer";
-import { OnGoingTimer } from "../lib/dependencyTree";
+import { OnGoingTimer } from "../lib/graph";
 
 const styles = StyleSheet.create({
   container: {

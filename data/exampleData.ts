@@ -1,5 +1,4 @@
-import { Step, Ingredient, Node } from "../lib/dependencyTree";
-import { mergeByChildren } from "../lib/Procedure";
+import { Step, Ingredient, Node, mergeByChildren } from "../lib/graph";
 
 // Example procedures, for testing.
 export class ProcedureRoot implements Ingredient {

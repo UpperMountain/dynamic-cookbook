@@ -1,5 +1,4 @@
-import { Ingredient, MergeFunction } from "../lib/dependencyTree";
-import { mergeApply } from "../lib/Procedure";
+import { Ingredient, MergeFunction, mergeApply } from "../lib/graph";
 
 // Use this Ingredient to mark incomplete Recipes.
 export class NYI implements Ingredient {

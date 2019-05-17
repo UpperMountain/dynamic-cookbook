@@ -1,12 +1,19 @@
-import { repr, simplifyOne, simplify } from "./Procedure";
-import { Step } from "./dependencyTree";
-import { nodeCount } from "./walk";
 import {
   ProcedureRoot,
   ProcedureA,
   ProcedureB,
   ProcedureAll
 } from "../data/exampleData";
+import {
+  Node,
+  nodeCount,
+  repr,
+  simplify,
+  simplifyOne,
+  Step,
+  walk,
+  walkWhere
+} from "./graph";
 
 describe("example procedures", () => {
   it("should construct without errors", () => {
@@ -89,5 +96,50 @@ describe("simplifyAll()", () => {
     expect(nodeCount(root)).toBe(ProcedureAll.unsimplifiedNodeCount);
     simplify(root);
     expect(nodeCount(root)).toBe(ProcedureAll.simplifiedNodeCount);
+  });
+});
+
+describe("walk()", () => {
+  it("should iterate over the right number of nodes", () => {
+    const root = new ProcedureAll();
+
+    let count = 0;
+    for (let _ of walk(root)) {
+      count++;
+    }
+
+    expect(count).toBe(ProcedureAll.unsimplifiedNodeCount);
+  });
+
+  it("should not repeat nodes", () => {
+    const proc1 = new ProcedureAll();
+    proc1.requires[0].requires = [...proc1.requires[1].requires];
+
+    let count = 0;
+    for (let _ of walk(proc1)) {
+      count++;
+    }
+
+    expect(count).toBeLessThan(ProcedureAll.unsimplifiedNodeCount);
+  });
+});
+
+describe("walkWhere()", () => {
+  it("should be able to filter for ingredients", () => {
+    const root = new ProcedureAll();
+    let count = 0;
+    const nodes = walkWhere(root, (el: Node) => el.kind === "ingredient");
+    for (let el of nodes) {
+      expect(el.kind).toEqual("ingredient");
+      count += 1;
+    }
+    expect(count).toBe(8);
+  });
+});
+
+describe("nodeCount()", () => {
+  it("should count the right number of nodes", () => {
+    const root = new ProcedureAll();
+    expect(nodeCount(root)).toBe(ProcedureAll.unsimplifiedNodeCount);
   });
 });

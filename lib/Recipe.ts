@@ -1,4 +1,4 @@
-import { Node } from "./dependencyTree";
+import { Node } from "./graph";
 import { Asset } from "expo";
 
 // Recipe represents something the user can make.

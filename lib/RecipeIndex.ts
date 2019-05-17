@@ -1,7 +1,5 @@
 import Recipe, { getRecipeDefaults } from "./Recipe";
-import { Ingredient, Node } from "./dependencyTree";
-import { simplifyGroup } from "./Procedure";
-import { walkWhere } from "./walk";
+import { Ingredient, Node, simplifyGroup, walkWhere } from "./graph";
 import Fuse, { FuseOptions } from "fuse.js";
 
 // should return something like:

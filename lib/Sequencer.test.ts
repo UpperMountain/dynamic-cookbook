@@ -1,5 +1,5 @@
 import { isLeaf, getLeaves, next, prune, remove } from "./Sequencer";
-import { Node, OnGoingTimer, Step } from "./dependencyTree";
+import { Node, OnGoingTimer, Step } from "./graph";
 
 let leafStep: Node = {
   kind: "step",

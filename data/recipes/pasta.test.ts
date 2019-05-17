@@ -1,6 +1,5 @@
 import { Combine } from "./pasta";
-import { Step } from "../../lib/dependencyTree";
-import { simplify, repr } from "../../lib/Procedure";
+import { Step, simplify, repr } from "../../lib/graph";
 
 it("should create a Pasta without error", () => {
   new Combine(4);
