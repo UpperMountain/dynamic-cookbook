@@ -1,6 +1,6 @@
 import { Combine } from "./pasta";
 import { Step, simplify, repr } from "../../lib/graph";
-import NewSequencer, { Stage } from "../../lib/NewSequencer";
+import Sequencer, { Stage } from "../../lib/Sequencer";
 
 it("should create a Pasta without error", () => {
   new Combine(4);
@@ -34,10 +34,10 @@ it("should work with simplify()", () => {
   expect(reprA).toEqual(reprB);
 });
 
-it("should work with NewSequencer", () => {
+it("should work with Sequencer", () => {
   const root = new Combine(4);
   simplify(root);
-  const seq = new NewSequencer([root]);
+  const seq = new Sequencer([root]);
 
   const steps: Step[] = [];
   while (true) {

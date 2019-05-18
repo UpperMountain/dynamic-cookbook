@@ -26,7 +26,7 @@ export enum Stage {
   Done = "done"
 }
 
-export default class NewSequencer {
+export default class Sequencer {
   // Store the root Step.
   private root: Step;
 
@@ -38,7 +38,7 @@ export default class NewSequencer {
     this.root = {
       kind: "step",
       get name(): string {
-        throw "NewSequencer: should never return synthetic root node";
+        throw "Sequencer: should never return synthetic root node";
       },
       until: "",
       requires

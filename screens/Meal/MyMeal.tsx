@@ -3,7 +3,7 @@ import { ScrollView } from "react-native";
 import { simplifyGroup, Step } from "../../lib/graph";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipeSpec } from "../../lib/Recipe";
-import NewSequencer, { Stage } from "../../lib/NewSequencer";
+import Sequencer, { Stage } from "../../lib/Sequencer";
 import { recipes } from "../../data";
 import { flatten } from "lodash";
 import LeftLine from "../../components/LeftLine";
@@ -41,7 +41,7 @@ interface State {
 
 class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   scroll: React.RefObject<ScrollView> = React.createRef();
-  seq: NewSequencer;
+  seq: Sequencer;
 
   constructor(props: NavigationScreenConfigProps) {
     super(props);
@@ -58,7 +58,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     requires = simplifyGroup(requires);
 
     // construct a Sequencer with the requirements
-    this.seq = new NewSequencer(requires);
+    this.seq = new Sequencer(requires);
 
     this.state = {
       steps: [],
