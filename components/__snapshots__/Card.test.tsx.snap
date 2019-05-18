@@ -10,23 +10,30 @@ exports[`should match snapshot 1`] = `
         "paddingRight": 0,
         "paddingTop": 0,
       },
-      undefined,
+      Object {
+        "backgroundColor": "red",
+      },
     ]
   }
 >
   <View
     style={
-      Object {
-        "backgroundColor": "white",
-        "elevation": 2.4000000000000004,
-        "shadowColor": "#000",
-        "shadowOffset": Object {
-          "height": 1.9,
-          "width": 0,
+      Array [
+        Object {
+          "backgroundColor": "white",
+          "elevation": 12,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 5.5,
+            "width": 0,
+          },
+          "shadowOpacity": 0.375,
+          "shadowRadius": 10,
         },
-        "shadowOpacity": 0.07500000000000001,
-        "shadowRadius": 2,
-      }
+        Object {
+          "backgroundColor": "blue",
+        },
+      ]
     }
   >
     <Text>

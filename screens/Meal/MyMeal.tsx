@@ -166,13 +166,14 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
               <StepAction
                 until={action.for.timer!.until}
                 onPress={() => this.advance(action)}
-                timer={action.started + action.for.timer!.duration - now()}
+                remaining={action.started + action.for.timer!.duration - now()}
+                timer={true}
               />
             ) : (
               <StepAction
                 until={action.for.until || `"${action.for.name}" done`}
                 onPress={() => this.advance(action)}
-                timer={null}
+                timer={!!action.for.timer}
               />
             )}
           </LeftLine>
@@ -180,6 +181,9 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
         {/* take up the remaining space */}
         <LeftLine style={{ flexGrow: 1, height: 100 }} />
+
+        {/* add extra line for overscroll on iOS */}
+        <LeftLine style={{ height: 1000, marginBottom: -1000 }} />
       </ScrollView>
     );
   }

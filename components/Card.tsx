@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import Padded from "./Padded";
 import shadow from "../lib/shadow";
 
@@ -8,17 +8,26 @@ export interface Props {
 
   // passed to shadow()
   shadowAmt?: number;
+
+  // Container View style overrides
+  style?: ViewProps["style"];
+
+  // Inner view style overrides
+  innerStyle?: ViewProps["style"];
 }
 
 export default function Card(props: Props) {
-  const { children, shadowAmt = 0.1 } = props;
+  const { children, shadowAmt = 0.1, style, innerStyle } = props;
   return (
-    <Padded bottom>
+    <Padded bottom style={style}>
       <View
-        style={{
-          backgroundColor: "white",
-          ...shadow(shadowAmt)
-        }}
+        style={[
+          {
+            backgroundColor: "white",
+            ...shadow(shadowAmt)
+          },
+          innerStyle
+        ]}
       >
         {children}
       </View>

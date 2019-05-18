@@ -54,8 +54,11 @@ function stringFormatInterval(seconds: number) {
 }
 
 export interface StepActionProps {
-  // Time remaining, or null to disable timer
-  timer: number | null;
+  // Time remaining, or undefined if not started
+  remaining?: number;
+
+  // if this card is, or leads to, a timer
+  timer?: boolean;
 
   // "The onions are chopped"
   until: string;
@@ -64,10 +67,20 @@ export interface StepActionProps {
   onPress: () => void;
 }
 export function StepAction(props: StepActionProps) {
-  const { timer, until, onPress } = props;
+  const { timer = false, remaining = null, until, onPress } = props;
   return (
-    <Card shadowAmt={0.5}>
-      <TouchableOpacity onPress={onPress}>
+    <Card
+      shadowAmt={0.5}
+      innerStyle={{
+        marginLeft: padding / 2,
+        marginRight: padding / 2,
+        borderRadius: 10
+      }}
+    >
+      <TouchableOpacity
+        onPress={onPress}
+        style={{ marginLeft: -padding / 2, marginRight: -padding / 2 }}
+      >
         <LeftLine
           hidden
           aside={
@@ -79,17 +92,41 @@ export function StepAction(props: StepActionProps) {
                 justifyContent: "center"
               }}
             >
-              <MaterialIcons name="chevron-right" size={40} />
+              <MaterialIcons
+                name={
+                  timer
+                    ? remaining
+                      ? "timer"
+                      : "play-circle-outline"
+                    : "arrow-forward"
+                }
+                size={40}
+              />
             </View>
           }
         >
           <Padded right vertical>
-            {timer && (
+            {remaining && (
               <Text style={{ fontSize: 30 }}>
-                {stringFormatInterval(timer)}
+                {stringFormatInterval(remaining)}
               </Text>
             )}
-            <Text style={{ fontSize: 20 }}>{until}</Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
+              {remaining && (
+                <MaterialIcons
+                  name="arrow-forward"
+                  size={20}
+                  style={{ marginRight: 5 }}
+                />
+              )}
+              <Text style={{ fontSize: 20 }}>{until}</Text>
+            </View>
           </Padded>
         </LeftLine>
       </TouchableOpacity>

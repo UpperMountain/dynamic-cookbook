@@ -13,7 +13,11 @@ it("should render without exploding", () => {
 
 it("should match snapshot", () => {
   const cmp = Renderer.create(
-    <Card>
+    <Card
+      style={{ backgroundColor: "red" }}
+      innerStyle={{ backgroundColor: "blue" }}
+      shadowAmt={0.5}
+    >
       <Text>test</Text>
     </Card>
   );
