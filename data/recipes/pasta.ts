@@ -17,7 +17,9 @@ Add onion, oregano, and some salt. Cook until the onion is soft.
 Add the tomatoes (with the juicy stuff) and cook for about 20 minutes, or
 until the sauce is reduced.
       `;
-  timer = { duration: 1200, until: "reduced slightly" };
+  timer = { duration: 1200, until: "Sauce is reduced slightly" };
+
+  until = "Sauce is started";
 
   // this is technically a whole clove of garlic, but it's also a proof-of-concept example
   requires = [
@@ -34,13 +36,14 @@ export class CookPasta implements Step {
   kind: "step" = "step";
   constructor(public serves: number) {}
   name = "Start the pasta";
+  until = "Pasta is cooking";
   body = `
 Once the water comes to a boil, throw in the pasta.
 
 Boil it for the time written on the box (generally 9-10 minutes) or until
 [it's al dente](al-dente).
     `;
-  timer = { duration: 540, until: "al dente" };
+  timer = { duration: 540, until: "Pasta is al dente" };
 
   requires = [new Ingredients.Spaghetti(this.serves)];
 
@@ -54,6 +57,7 @@ export class Combine implements Step {
   constructor(public serves: number) {}
 
   name = "Combine the sauce and the pasta";
+  until = "Sauce and pasta are combined";
   body = `
 When the pasta is done, strain the water out of the pot. Throw in some butter.
 

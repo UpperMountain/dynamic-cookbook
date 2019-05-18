@@ -27,21 +27,16 @@ describe(".blockingLeaves()", () => {
     expect(seq.blockingLeaves(el)[0]).toBe(el);
   });
 
-  it("should pay attention to stage", () => {
+  it("should return multiple Steps", () => {
     const root = new ProcedureAll();
     simplify(root);
     const seq = new NewSequencer([root]);
 
-    // complete the rootProcedure node
+    // Nothing has been started
     const cands1 = seq.blockingLeaves();
     expect(cands1).toHaveLength(2);
     expect(cands1.filter(e => e instanceof ProcedureA)).toHaveLength(1);
     expect(cands1.filter(e => e instanceof ProcedureB)).toHaveLength(1);
-
-    // Start one of the other procedures
-    seq.setStage(root.requires[0], Stage.Active);
-    const cands2 = seq.blockingLeaves();
-    expect(cands2).toHaveLength(1);
   });
 });
 
@@ -70,5 +65,18 @@ describe(".next()", () => {
     expect(order[0]).toBeInstanceOf(ProcedureB);
     expect(order[1]).toBeInstanceOf(ProcedureA);
     expect(order[2]).toBeInstanceOf(ProcedureAll);
+  });
+
+  it("should not return candidates in progress", () => {
+    const root = new ProcedureAll();
+    simplify(root);
+    const seq = new NewSequencer([root]);
+
+    // mark A, B as active
+    seq.setStage(root!.requires[0], Stage.Active);
+    seq.setStage(root!.requires[1], Stage.Passive);
+
+    const next = seq.next();
+    expect(next).toBeNull();
   });
 });

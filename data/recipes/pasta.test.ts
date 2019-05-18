@@ -1,5 +1,6 @@
 import { Combine } from "./pasta";
 import { Step, simplify, repr } from "../../lib/graph";
+import NewSequencer, { Stage } from "../../lib/NewSequencer";
 
 it("should create a Pasta without error", () => {
   new Combine(4);
@@ -15,6 +16,7 @@ it("should work with simplify()", () => {
     kind: "step" = "step";
     constructor(public servesA: number, public servesB: number) {}
     name = "Two pastas, hopefully merged";
+    until = "";
 
     requires = [new Combine(this.servesA), new Combine(this.servesB)];
   }
@@ -30,4 +32,23 @@ it("should work with simplify()", () => {
   // console.log("not merged:\n", reprB);
 
   expect(reprA).toEqual(reprB);
+});
+
+it("should work with NewSequencer", () => {
+  const root = new Combine(4);
+  simplify(root);
+  const seq = new NewSequencer([root]);
+
+  const steps: Step[] = [];
+  while (true) {
+    const next = seq.next();
+    if (next) {
+      steps.push(next);
+      seq.setStage(next, Stage.Done);
+    } else {
+      break;
+    }
+  }
+
+  expect(steps).toHaveLength(4);
 });

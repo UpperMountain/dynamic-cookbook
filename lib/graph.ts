@@ -6,8 +6,7 @@ type Duration = number;
 // A user-facing timer.
 export interface Timer {
   duration: Duration;
-  task?: string; // "simmer the sauce"
-  until: string; // "until reduced by 1/3"
+  until: string; // "Reduced by 1/3"
 }
 
 export interface OnGoingTimer extends Timer {
@@ -34,6 +33,9 @@ export interface Ingredient extends Described {
 
 export interface Step extends Described {
   kind: "step";
+
+  // "Onions are soft"
+  until: string;
 
   // timers
   duration?: Duration; // active time during the step
@@ -205,6 +207,7 @@ class SimplifyRoot implements Step {
   get name(): string {
     throw "not an actual step";
   }
+  until = "";
 }
 
 // Simplify a group of Nodes.

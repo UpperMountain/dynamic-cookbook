@@ -9,6 +9,8 @@ export class ChopOnion implements Step {
     return `Chop ${this.amount} onions.`;
   }
 
+  until = "Onions are chopped";
+
   requires = [new Ingredients.Onion(this.amount)];
 
   merge: MergeFunction = mergeApply(

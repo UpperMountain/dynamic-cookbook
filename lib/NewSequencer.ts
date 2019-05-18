@@ -37,7 +37,10 @@ export default class NewSequencer {
     // Create synthetic root node, depending on all the steps.
     this.root = {
       kind: "step",
-      name: "Serve",
+      get name(): string {
+        throw "NewSequencer: should never return synthetic root node";
+      },
+      until: "",
       requires
     };
 
@@ -61,10 +64,10 @@ export default class NewSequencer {
   }
 
   // Return the leaf nodes that must be completed to begin `root`
-  public blockingLeaves(root: Node = this.root): Node[] {
+  public blockingLeaves(root: Node = this.root): Step[] {
     // Check if nothing needs to be completed
     if (isIngredient(root)) return [];
-    if (this.stage(root) !== Stage.Waiting) return [];
+    if (this.stage(root) === Stage.Done) return [];
 
     // If the children aren't all finished, return their candidates
     const childrenCands = root.requires.map((el: Node) =>
@@ -79,18 +82,16 @@ export default class NewSequencer {
   }
 
   // Compares two nodes. If a is more favorable, return -1, 1 for b, and 0 if they're equal.
-  private rank(this: any, a: Node, b: Node): -1 | 0 | 1 {
+  private rank(this: any, a: Step, b: Step): -1 | 0 | 1 {
     // First, compare passive time.
     // Large amounts of passive time are more favorable.
-    const passiveTime = (n: Node) =>
-      n.kind === "step" ? (n.timer ? n.timer.duration : -1) : -1; // -1 is maximimally unfavorable
+    const passiveTime = (s: Step) => (s.timer ? s.timer.duration : -1); // -1 is maximimally unfavorable
     if (passiveTime(a) > passiveTime(b)) return -1;
     if (passiveTime(a) < passiveTime(b)) return 1;
 
     // Second, compare active time.
     // Short amounts of active time are favorable.
-    const activeTime = (n: Node) =>
-      n.kind === "step" ? n.duration || Infinity : Infinity; // Infinity is maximally unfavorable
+    const activeTime = (s: Step) => s.duration || Infinity; // Infinity is maximally unfavorable
     if (activeTime(a) < passiveTime(b)) return -1;
     if (activeTime(a) > activeTime(b)) return 1;
 
@@ -99,12 +100,22 @@ export default class NewSequencer {
   }
 
   // Get the node that's most favorable to start next, or null if nothing is available.
-  public next(): Node | null {
-    // Get the possible nodes
+  public next(): Step | null {
+    // Get the possible steps
     let candidates = this.blockingLeaves();
+
+    // Only show steps that haven't been started
+    candidates = candidates.filter(
+      (s: Step) => this.stage(s) === Stage.Waiting
+    );
 
     // Sort them by `this.rank`
     candidates = candidates.sort(this.rank);
+
+    // If we're finished, return null.
+    if (candidates.length === 1 && candidates[0] === this.root) {
+      return null;
+    }
 
     // Return the first one.
     if (candidates.length > 0) {

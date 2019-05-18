@@ -25,6 +25,7 @@ export class ProcedureA implements Step {
   kind: "step" = "step";
 
   name = "step from Procedure A";
+  until = "procA done";
 
   merge = mergeByChildren;
 
@@ -34,6 +35,8 @@ export class ProcedureA implements Step {
 export class ProcedureB implements Step {
   kind: "step" = "step";
   name = "step from Procedure B";
+  until = "procB done";
+
   body = "heavier";
   timer = { duration: 100, until: "something happens" };
 
@@ -44,6 +47,7 @@ export class ProcedureB implements Step {
 export class ProcedureAll implements Step {
   kind: "step" = "step";
   name = "root recipe";
+  until = "ProcAll done";
   merge = mergeByChildren;
   requires = [new ProcedureA(), new ProcedureA(), new ProcedureB()];
 

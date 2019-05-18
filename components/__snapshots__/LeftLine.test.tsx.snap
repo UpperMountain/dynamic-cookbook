@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshots 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <Text>
+        11
+      </Text>
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 0,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 100,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <Text>
+        11
+      </Text>
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 0,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        Object {
+          "height": 50,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 0,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    />
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <Text>
+        11
+      </Text>
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": -75,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <Text>
+        11
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": -75,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+      <Text>
+        contents
+      </Text>
+    </View>
+  </View>,
+]
+`;

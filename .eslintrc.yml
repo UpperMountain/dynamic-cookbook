@@ -37,7 +37,6 @@ overrides:
   - files: "**/*.test.{ts,js,tsx}"
     rules:
       no-console: off
-      "@typescript-eslint/no-non-null-assertion": off
   - files: "**/*.config.js"
     rules:
       "@typescript-eslint/no-var-requires": off
@@ -76,6 +75,7 @@ rules:
   "@typescript-eslint/explicit-function-return-type": off
   "@typescript-eslint/explicit-member-accessibility": off
   "@typescript-eslint/no-explicit-any": off
+  "@typescript-eslint/no-non-null-assertion": off
 
   # turn these on later, when we have time to clear the errors
   react/prop-types: off
