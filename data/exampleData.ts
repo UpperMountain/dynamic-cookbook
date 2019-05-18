@@ -26,6 +26,7 @@ export class ProcedureA implements Step {
 
   name = "step from Procedure A";
   until = "procA done";
+  duration = 50;
 
   merge = mergeByChildren;
 

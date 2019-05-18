@@ -40,6 +40,28 @@ describe(".blockingLeaves()", () => {
   });
 });
 
+describe(".timeBlocked()", () => {
+  it("should return total blocked time", () => {
+    const root = new ProcedureAll();
+    simplify(root);
+    const seq = new Sequencer([root]);
+
+    const total = seq.blockedTime(root!.requires[0]!.requires[0]);
+    const child1 = seq.blockedTime(root!.requires[0]);
+    const child2 = seq.blockedTime(root!.requires[1]);
+
+    expect(total).toEqual(child1 + child2);
+  });
+
+  it("should return the correct value for the root node", () => {
+    const root = new ProcedureAll();
+    simplify(root);
+    const seq = new Sequencer([root]);
+
+    expect(seq.blockedTime(root)).toEqual(0);
+  });
+});
+
 describe(".next()", () => {
   it("should return a next candidate with the longest timer", () => {
     const root = new ProcedureAll();

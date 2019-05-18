@@ -1,7 +1,7 @@
 import { uniq, omit, sortBy } from "lodash";
 
 // A duration, in minutes.
-type Duration = number;
+export type Duration = number;
 
 // A user-facing timer.
 export interface Timer {

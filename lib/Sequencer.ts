@@ -1,4 +1,4 @@
-import { Step, Node, isIngredient } from "./graph";
+import { Step, Node, isIngredient, Duration } from "./graph";
 import { flatten, uniq } from "lodash";
 
 export enum Stage {
@@ -31,7 +31,10 @@ export default class Sequencer {
   private root: Step;
 
   // Store the status of each node.
-  private stages: Map<Node, Stage>;
+  private stages: Map<Node, Stage> = new Map();
+
+  // Store the parents of each node.
+  private parents: Map<Node, Step[]> = new Map();
 
   constructor(requires: Node[]) {
     // Create synthetic root node, depending on all the steps.
@@ -44,8 +47,24 @@ export default class Sequencer {
       requires
     };
 
-    // set up the stage map
-    this.stages = new Map<Node, Stage>();
+    // Initialize the parents map
+    this.discoverParents(this.root);
+  }
+
+  // Add, recursively, parent information for a node to this.parents
+  private discoverParents(root: Node, parent: Step | null = null) {
+    let currentParents = this.parents.get(root);
+    if (currentParents && parent) {
+      currentParents.push(parent);
+    } else {
+      this.parents.set(root, parent ? [parent] : []);
+    }
+
+    if (root.kind === "step") {
+      for (let req of root.requires) {
+        this.discoverParents(req, root);
+      }
+    }
   }
 
   // Set the stage of a Node
@@ -61,6 +80,28 @@ export default class Sequencer {
     } else {
       return stat;
     }
+  }
+
+  // Gets the total amount of active and passive time in all nodes which require a Step.
+  public blockedTime(root: Node): Duration {
+    let ownTime = 0;
+    if (root.kind === "step") {
+      if (root.duration) ownTime += root.duration;
+      if (root.timer) ownTime += root.timer.duration;
+    }
+
+    let totalTime = ownTime;
+    const parents = this.parents.get(root);
+    if (typeof parents === "undefined") {
+      throw `Sequencer: discoverParents did not index everything: Missing parents of '${
+        root.name
+      }'`;
+    }
+    for (let parent of parents) {
+      totalTime += this.blockedTime(parent);
+    }
+
+    return totalTime;
   }
 
   // Return the leaf nodes that must be completed to begin `root`
@@ -83,17 +124,12 @@ export default class Sequencer {
 
   // Compares two nodes. If a is more favorable, return -1, 1 for b, and 0 if they're equal.
   private rank(this: any, a: Step, b: Step): -1 | 0 | 1 {
-    // First, compare passive time.
-    // Large amounts of passive time are more favorable.
-    const passiveTime = (s: Step) => (s.timer ? s.timer.duration : -1); // -1 is maximimally unfavorable
-    if (passiveTime(a) > passiveTime(b)) return -1;
-    if (passiveTime(a) < passiveTime(b)) return 1;
+    // Compare the nodes based on their amount of blocked time
+    const aBlocked = this.blockedTime(a);
+    const bBlocked = this.blockedTime(b);
 
-    // Second, compare active time.
-    // Short amounts of active time are favorable.
-    const activeTime = (s: Step) => s.duration || Infinity; // Infinity is maximally unfavorable
-    if (activeTime(a) < passiveTime(b)) return -1;
-    if (activeTime(a) > activeTime(b)) return 1;
+    if (aBlocked > bBlocked) return -1;
+    if (aBlocked < bBlocked) return 1;
 
     // Otherwise, don't render an opinion
     return 0;
@@ -110,7 +146,7 @@ export default class Sequencer {
     );
 
     // Sort them by `this.rank`
-    candidates = candidates.sort(this.rank);
+    candidates = candidates.sort((a: Step, b: Step) => this.rank(a, b));
 
     // If we're finished, return null.
     if (candidates.length === 1 && candidates[0] === this.root) {
