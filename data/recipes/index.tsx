@@ -1,5 +1,6 @@
 import Recipe from "../../lib/Recipe";
 import * as Ingredients from "../ingredients";
+import * as Steps from "../steps";
 
 // Re-export all the recipes in /data/recipes for app use
 //
@@ -14,6 +15,7 @@ import * as Ingredients from "../ingredients";
 // for the step's constructor, as a way of referencing the recipe.
 
 export { Pasta } from "./pasta";
+export { Pancakes } from "./pancakes";
 
 // Temporary recipes, to demonstrate the UI
 
@@ -22,21 +24,13 @@ export const Burritos: Recipe = {
   body: "Classic Mexican staple.",
   images: [require("../../assets/images/burritos.jpg")],
   config: [],
-  requires: _ => [new Ingredients.NYI()]
+  requires: _ => [new Steps.SeparateEggs(2)]
 };
 
 export const ChaiLatte: Recipe = {
   name: "Chai Latte",
   body: "Warm, sweet, and spicy. Perfect for a cold day.",
   images: [require("../../assets/images/chai-latte.jpg")],
-  config: [],
-  requires: _ => [new Ingredients.NYI()]
-};
-
-export const Pancakes: Recipe = {
-  name: "Pancakes",
-  body: "Easy and tasty breakfast.",
-  images: [require("../../assets/images/pancakes.jpg")],
   config: [],
   requires: _ => [new Ingredients.NYI()]
 };

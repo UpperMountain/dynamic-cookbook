@@ -27,6 +27,88 @@ export class Onion implements Ingredient {
   requires = [];
 }
 
+export class Milk implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public cups: number) {}
+
+  name = "Milk";
+
+  merge: MergeFunction = mergeApply((other: Milk) => (this.cups += other.cups));
+}
+
+export class Egg implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public count: number) {}
+
+  name = "Egg";
+
+  merge: MergeFunction = mergeApply(
+    (other: Egg) => (this.count += other.count)
+  );
+}
+
+export class BakingPowder implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public tsp: number) {}
+
+  name = "Baking Powder";
+
+  merge: MergeFunction = mergeApply(
+    (other: BakingPowder) => (this.tsp += other.tsp)
+  );
+}
+
+export class Flour implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public cups: number) {}
+
+  name = "Flour";
+
+  merge: MergeFunction = mergeApply(
+    (other: Flour) => (this.cups += other.cups)
+  );
+}
+
+export class Sugar implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public tbsp: number) {}
+
+  name = "Sugar";
+
+  merge: MergeFunction = mergeApply(
+    (other: Sugar) => (this.tbsp += other.tbsp)
+  );
+}
+
+export class Blueberries implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public count: number) {}
+
+  name = "Blueberries";
+
+  merge: MergeFunction = mergeApply(
+    (other: Blueberries) => (this.count += other.count)
+  );
+}
+
+export class Butter implements Ingredient {
+  kind: "ingredient" = "ingredient";
+
+  constructor(public tbsp: number) {}
+
+  name = "Butter";
+
+  merge: MergeFunction = mergeApply(
+    (other: Butter) => (this.tbsp += other.tbsp)
+  );
+}
+
 export class Garlic implements Ingredient {
   kind: "ingredient" = "ingredient";
 
@@ -38,8 +120,6 @@ export class Garlic implements Ingredient {
   merge: MergeFunction = mergeApply(
     (other: Garlic) => (this.cloves += other.cloves)
   );
-
-  requires = [];
 }
 
 export class Spaghetti implements Ingredient {
@@ -52,6 +132,4 @@ export class Spaghetti implements Ingredient {
   merge: MergeFunction = mergeApply(
     (other: Spaghetti) => (this.serves += other.serves)
   );
-
-  requires = [];
 }
