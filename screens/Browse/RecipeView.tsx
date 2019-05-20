@@ -7,6 +7,7 @@ import {
   Text,
   View
 } from "react-native";
+import Markdown from "react-native-markdown-renderer";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
@@ -94,7 +95,7 @@ function Configurator({
                 id === value ? styles.radioActive : {}
               ]}
             />
-            <Text>{text}</Text>
+            <Markdown>{text}</Markdown>
           </TouchableOpacity>
         ))}
       </>
