@@ -12,7 +12,8 @@ import {
   simplifyOne,
   Step,
   walk,
-  walkWhere
+  walkWhere,
+  totalTime
 } from "./graph";
 
 describe("example procedures", () => {
@@ -141,5 +142,55 @@ describe("nodeCount()", () => {
   it("should count the right number of nodes", () => {
     const root = new ProcedureAll();
     expect(nodeCount(root)).toBe(ProcedureAll.unsimplifiedNodeCount);
+  });
+});
+
+describe("totalTime()", () => {
+  it("should return a step's active time", () => {
+    const time = totalTime({
+      kind: "step",
+      name: "",
+      until: "",
+      requires: [],
+      duration: 10
+    });
+    expect(time).toEqual(10);
+  });
+
+  it("should return a step's passive time", () => {
+    const time = totalTime({
+      kind: "step",
+      name: "",
+      until: "",
+      requires: [],
+      timer: { until: "", duration: 10 }
+    });
+    expect(time).toEqual(10);
+  });
+
+  it("should return a step's total time", () => {
+    const time = totalTime({
+      kind: "step",
+      name: "",
+      until: "",
+      requires: [],
+      duration: 10,
+      timer: { until: "", duration: 10 }
+    });
+    expect(time).toEqual(20);
+  });
+
+  it("should return 0 for ingredients", () => {
+    expect(totalTime({ kind: "ingredient", name: "" })).toEqual(0);
+  });
+
+  it("should return 0 for a step with undefined active and passive time", () => {
+    const time = totalTime({
+      kind: "step",
+      name: "",
+      until: "",
+      requires: []
+    });
+    expect(time).toEqual(0);
   });
 });
