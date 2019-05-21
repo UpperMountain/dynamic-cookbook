@@ -31,8 +31,10 @@
     "react-native-markdown-renderer": "^3.2.8",
     "react-native-paper": "^2.13.0",
     "react-native-screens": "^1.0.0-alpha.22",
+    "react-native-sentry": "^0.43.1",
     "react-navigation": "^3.3.2",
     "react-navigation-material-bottom-tabs": "^1.0.0",
+    "sentry-expo": "^1.12.0",
     "typescript": "^3.4.5"
   },
   "resolutions": {

@@ -4,16 +4,18 @@ import { Font, AppLoading } from "expo";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
+import Sentry from "sentry-expo";
 
+// Create root app navigator
 const AppContainer = createAppContainer(RootNavigator);
 
+// Register Sentry for error reporting
+Sentry.config(
+  "https://40e9befbb61c4ba9b0e3e2d181fd24f0@sentry.io/1464818"
+).install();
+
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      ready: false
-    };
-  }
+  state = { ready: false };
 
   _loadResources = async () => {
     // Load all fonts and assets

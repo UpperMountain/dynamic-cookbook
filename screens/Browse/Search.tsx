@@ -16,6 +16,8 @@ import RecipeIndex, { QueryResult } from "../../lib/RecipeIndex";
 import { recipes } from "../../data";
 import { padding } from "../../lib/theme";
 
+const DEBUG_PASSWORD = "when in the course of human events it becomes";
+
 const styles = StyleSheet.create({
   result: {
     display: "flex",
@@ -149,6 +151,12 @@ export default class Search extends React.Component<
   private search = (query: string) => {
     // immediately update field
     this.setState({ query });
+
+    // If it's the debug code, open the debug view
+    if (query.toLowerCase() === DEBUG_PASSWORD) {
+      const { navigation } = this.props;
+      navigation.push("Debug");
+    }
 
     // run the search
     const index = this.index as RecipeIndex; // definitely not undefined

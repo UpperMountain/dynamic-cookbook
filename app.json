@@ -23,6 +23,13 @@
     },
     "android": {
       "package": "io.uppermountain.cookie"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "./scripts/sentryPostPublish"
+        }
+      ]
     }
   }
 }
