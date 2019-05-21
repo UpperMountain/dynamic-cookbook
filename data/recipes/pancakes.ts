@@ -3,6 +3,9 @@ import Recipe from "../../lib/Recipe";
 import * as Ingredients from "../ingredients";
 import * as Steps from "../steps";
 
+// How many people did the test feed?
+const PARTY = 6;
+
 interface Context {
   separateEggs: Step | null;
   serves: number;
@@ -18,20 +21,20 @@ class WetIngredients implements Step {
   requires: Node[] = [];
 
   constructor(public ctx: Context) {
-    this.requires.push(new Ingredients.Milk(ctx.serves * (1.25 / 4)));
+    this.requires.push(new Ingredients.Milk(ctx.serves * (1.75 / PARTY)));
     if (ctx.separateEggs !== null) {
       this.requires.push(ctx.separateEggs);
     } else {
-      this.requires.push(new Ingredients.Egg(ctx.serves * (2 / 4)));
+      this.requires.push(new Ingredients.Egg(ctx.serves * (2 / PARTY)));
     }
-    this.requires.push(new Steps.MeltButter(ctx.serves * (2 / 4)));
+    this.requires.push(new Steps.MeltButter(ctx.serves * (2 / PARTY)));
   }
 
   name = "Mix together the wet ingredients";
 
   get body() {
     return `
-Before starting, make sure your melted butter has cooled. You
+Before starting, make sure your melted butter has cooled. You 
 don't want to cook your eggs with the heat from the butter.
 
 In a bowl, beat together the milk, 
@@ -46,18 +49,28 @@ and melted butter.
 class DryIngredients implements Step {
   kind: "step" = "step";
   constructor(public ctx: Context) {}
+  cupsFlour = this.ctx.serves * (2 / PARTY);
+  tbspSugar = this.ctx.serves * (4 / PARTY);
+  tspBakingPowder = this.ctx.serves * (2 / PARTY);
 
   name = "Mix together the dry ingredients";
-  body = `
-In a bowl, sift together the flour, sugar, and baking powder.
-  `;
+
+  get body() {
+    return `
+    Into a bowl, sift and mix together:
+
+     - ${this.cupsFlour} cups of flour
+     - ${this.tbspSugar} tablespoons of sugar
+     - ${this.tspBakingPowder} tsp of baking powder
+    `;
+  }
 
   until = "Dry ingredients are mixed together";
 
   requires = [
-    new Ingredients.Flour(this.ctx.serves * (2 / 4)),
-    new Ingredients.Sugar(this.ctx.serves * (2 / 4)),
-    new Ingredients.BakingPowder(this.ctx.serves * (2 / 4))
+    new Ingredients.Flour(this.cupsFlour),
+    new Ingredients.Sugar(this.tbspSugar),
+    new Ingredients.BakingPowder(this.tspBakingPowder)
   ];
 }
 
@@ -66,7 +79,7 @@ class MixIngredients implements Step {
   constructor(public ctx: Context) {}
   name = "Mix the wet and dry ingredients";
   body = `
-A large spoonful at a time, add the dry ingredients into the bowl with 
+Gradually add the dry ingredients into the bowl with 
 the wet, while mixing gently. 
 
 Don't mix too vigorously---it's okay to have some lumps, as they lead 
@@ -96,7 +109,7 @@ class FoldEggWhites implements Step {
   body = `
 Add the egg whites to the bowl with the batter.
 
-Very gently, *fold* in the beaten egg whites. They need to be 
+Very gently, __fold__ in the beaten egg whites. They need to be 
 incorporated evenly, without letting the air out.
   `;
   until = "Egg whites are incorporated";
@@ -105,7 +118,11 @@ incorporated evenly, without letting the air out.
 
 class HeatPan implements Step {
   kind: "step" = "step";
-  constructor(public ctx: Context) {}
+
+  noun: string; // the <NOUN> is on the heat
+  constructor(public ctx: Context) {
+    this.noun = this.ctx.castIron ? "skillet" : "pan";
+  }
   get name() {
     if (this.ctx.castIron) {
       return "Heat up the cast iron skillet";
@@ -114,8 +131,7 @@ class HeatPan implements Step {
     }
   }
   get body() {
-    const pan = this.ctx.castIron ? "skillet" : "pan";
-    return `Put the ${pan} over medium heat.`;
+    return `Put the ${this.noun} over medium heat.`;
   }
   get timer() {
     if (this.ctx.castIron) {
@@ -125,14 +141,14 @@ class HeatPan implements Step {
     }
   }
   get until() {
-    return `The ${this.ctx.castIron ? "skillet" : "pan"} is hot`;
+    return `The ${this.noun} is on the heat`;
   }
   requires = [];
 }
 
 class Frying implements Step {
   // number of pancakes per batch
-  static BATCH_SIZE = 2;
+  static BATCH_SIZE = 3;
 
   kind: "step" = "step";
   requires: Node[] = [];
@@ -160,22 +176,25 @@ class Frying implements Step {
     }
   }
 
-  name = "Fry the pancakes";
+  get name() {
+    const total = this.ctx.serves;
+    const current = total - this.count;
+    return `Fry the pancakes (${total -
+      Math.min(current + Frying.BATCH_SIZE, total)}-${total -
+      current} of ${total})`;
+  }
+
   get body() {
     const pan = this.ctx.castIron ? "cast iron skillet" : "pan";
+    const secondaryText = `Clean out the ${pan} with a paper towel, so the butter doesn't burn.`;
     return `
-${
-  this.first
-    ? ""
-    : `Clean out the ${pan} with a paper towel, so the butter doesn't burn.`
-}
+${this.first ? "" : secondaryText}
 Add a hunk of butter to the hot ${pan}, and let it melt.
 
-Add three palm-sized dollops of batter into the pan. Add five 
+Add ${Frying.BATCH_SIZE} palm-sized dollops of batter into the pan. Add five 
 or six blueberries to each pancake.
 
-Fry them until
-bubbles start to break through the top side, then flip.
+Fry them until bubbles start to break through the top side, then flip.
   `;
   }
   until = "Pancakes are added";
@@ -225,7 +244,9 @@ export const Pancakes: Recipe = {
   requires: ({ serves, skillet, eggWhites }) => [
     new Frying(serves, {
       separateEggs:
-        eggWhites === "separated" ? new Steps.SeparateEggs(4 / serves) : null,
+        eggWhites === "separated"
+          ? new Steps.SeparateEggs(serves * (2 / PARTY))
+          : null,
       serves,
       castIron: skillet === "true"
     })

@@ -27,7 +27,7 @@ export class SeparateEggs implements Step {
   }
 
   body = `
- Crack the egg on a flat surface, separating both halves of the shell. *Do not* dump out the egg.
+ Crack the egg on a flat surface, separating both halves of the shell. __Do not__ dump out the egg.
  
  Over a bowl, repeatedly pour the egg back and forth between both halves of the shell, letting the white fall into the bowl, while keeping the yolk in one of the halves.
  
@@ -61,6 +61,8 @@ You can melt butter either in a pan, or in a microwave:
  - In a microwave: put the butter in a microwave-safe container. 
    Microwave for 30s. Repeatedly microwave for 10s more, until the 
    butter is completely melted.
+
+Set aside when it's melted.
 `;
 
   until = "Butter is melted";

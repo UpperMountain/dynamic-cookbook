@@ -1,0 +1,19 @@
+Fix crash on elapsed timer
+Make markdown-formatted text more legible
+Fix task doubling on timer completion
+show ingredient dependencies in each Step
+add 'start timer' text to timer start buttons
+Solution for recursive batching
+tentative: step post-completion hooks?
+tentative: sentry for error tracking
+tentative: app analytics
+pancakes: fractional eggs
+pancakes: too much reading
+pancakes: merge function implementations
+pancakes: don't heat the pan until it is needed
+pancakes: estimate active time for everything
+pancakes: egg whites are whipped too early
+pancakes: more sugar
+pancakes: serve with maple syrup
+pancakes: respond to raw/overdone by changing heat
+implement knowledgebase
