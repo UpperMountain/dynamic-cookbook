@@ -122,26 +122,45 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
       // Start timer, replace in the UI
       const newAction = { ...action, started: now() };
-      this.setState(old => ({
-        ...old,
-        actions: old.actions.map((el: Action) =>
-          el !== action ? el : newAction
-        )
-      }));
+      this.setState(
+        old => ({
+          ...old,
+          actions: old.actions.map((el: Action) =>
+            el !== action ? el : newAction
+          )
+        }),
+        () => {
+          this.proceed();
+        }
+      );
     } else {
       // Everything else:
 
       this.seq.setStage(action.for, Stage.Done); // Mark as done
 
       // remove from UI
-      this.setState(old => ({
-        ...old,
-        actions: old.actions.filter((el: Action) => el !== action)
-      }));
+      this.setState(
+        old => ({
+          ...old,
+          actions: old.actions.filter((el: Action) => el !== action)
+        }),
+        () => {
+          this.proceed();
+        }
+      );
     }
+  }
+
+  private proceed() {
+    // Check if there are already pending button actions
+    const hasPendingAction = this.state.actions.some(
+      (e: Action) => e.kind === "buttonAction"
+    );
 
     // Finally, call nextStep() to see if we can do anything else
-    this.nextStep();
+    if (!hasPendingAction) {
+      this.nextStep();
+    }
   }
 
   render() {
