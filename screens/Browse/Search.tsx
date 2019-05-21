@@ -16,7 +16,7 @@ import RecipeIndex, { QueryResult } from "../../lib/RecipeIndex";
 import { recipes } from "../../data";
 import { padding } from "../../lib/theme";
 
-const DEBUG_PASSWORD = "when in the course of human events it becomes";
+const DEBUG_PASSWORD = "when in the course of human events";
 
 const styles = StyleSheet.create({
   result: {

@@ -21,6 +21,12 @@ _expo(){
 echo "----- Signing in to expo..."
 yes | _expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
 
+# Export Travis environment to the app, for Debug view
+export COOKIE_BUILD_COMMIT="$TRAVIS_COMMIT"
+export COOKIE_BUILD_COMMIT_MESSAGE="$TRAVIS_COMMIT_MESSAGE"
+export COOKIE_BUILD_JOB_NUMBER="$TRAVIS_JOB_NUMBER"
+export COOKIE_BUILD_NODE_VERSION="$TRAVIS_NODE_VERSION"
+
 echo "----- Publishing expo app..."
 _expo publish
 
