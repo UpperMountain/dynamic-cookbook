@@ -23,7 +23,13 @@ expoPreset.globals = {
 expoPreset.collectCoverageFrom = [
   "./{**/,}*.{js,ts,tsx}",
   "!./{**/,}*.config.js",
-  "!./coverage/**"
+  "!./coverage/**",
+
+  // Ignore navigation index files, they're mostly 3rd-party glue code and hard to test
+  "!./screens/{Browse/,Meal/,}index.tsx",
+
+  // Same with the main index file.
+  "!./App.js"
 ];
 
 module.exports = expoPreset;

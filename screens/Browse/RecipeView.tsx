@@ -11,7 +11,7 @@ import Markdown from "react-native-markdown-renderer";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
-import { RecipesScreenProps } from "./index";
+import { RecipesScreenProps } from "./BrowseNavigator";
 import { ParameterDef } from "../../lib/Recipe";
 import { recipes } from "../../data";
 import Padded from "../../components/Padded";
