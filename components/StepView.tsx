@@ -50,6 +50,10 @@ function stringFormatInterval(seconds: number) {
   if (minutes) out += minutes.toString().padStart(2, "0") + ":";
   out += seconds.toString().padStart(2, "0");
 
+  if (!hours && !minutes) {
+    out += " s";
+  }
+
   return out;
 }
 
@@ -95,7 +99,7 @@ export function StepAction(props: StepActionProps) {
               <MaterialIcons
                 name={
                   timer
-                    ? remaining
+                    ? remaining != null
                       ? "timer"
                       : "play-circle-outline"
                     : "arrow-forward"
@@ -106,7 +110,7 @@ export function StepAction(props: StepActionProps) {
           }
         >
           <Padded right vertical>
-            {remaining && (
+            {remaining != null && (
               <Text style={{ fontSize: 30 }}>
                 {stringFormatInterval(remaining)}
               </Text>
@@ -118,7 +122,7 @@ export function StepAction(props: StepActionProps) {
                 alignItems: "center"
               }}
             >
-              {remaining && (
+              {remaining != null && (
                 <MaterialIcons
                   name="arrow-forward"
                   size={20}
