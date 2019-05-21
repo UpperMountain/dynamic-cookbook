@@ -1,8 +1,12 @@
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function tabIcon(name) {
-  return function TabIcon({ tintColor }) {
+interface Props {
+  tintColor?: string;
+}
+
+export default function tabIcon(name: string) {
+  return function TabIcon({ tintColor }: Props) {
     return <MaterialIcons name={name} color={tintColor} size={24} />;
   };
 }

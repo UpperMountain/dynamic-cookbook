@@ -28,6 +28,7 @@ exports[`passes snapshot tests 1`] = `
       }
     }
     underlineColorAndroid="transparent"
+    value=""
   />
   <View
     style={

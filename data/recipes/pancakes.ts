@@ -57,11 +57,11 @@ class DryIngredients implements Step {
 
   get body() {
     return `
-    Into a bowl, sift and mix together:
+Into a bowl, sift and mix together:
 
-     - ${this.cupsFlour} cups of flour
-     - ${this.tbspSugar} tablespoons of sugar
-     - ${this.tspBakingPowder} tsp of baking powder
+- ${this.cupsFlour} cups of flour
+- ${this.tbspSugar} tablespoons of sugar
+- ${this.tspBakingPowder} tsp of baking powder
     `;
   }
 

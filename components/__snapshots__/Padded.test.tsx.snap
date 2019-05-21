@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should consistently handle multiple parameters 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 0,
+          "paddingLeft": 10,
+          "paddingRight": 0,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 40,
+          "paddingLeft": 60,
+          "paddingRight": 60,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 200,
+          "paddingRight": 20,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 40,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+]
+`;
+
+exports[`should pass snapshow tests 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 0,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 0,
+          "paddingLeft": 20,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 0,
+          "paddingLeft": 0,
+          "paddingRight": 20,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 0,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text>
+      testing
+    </Text>
+  </View>,
+]
+`;

@@ -1,0 +1,993 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepAction/> should pass snapshot tests 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "elevation": 12,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 5.5,
+              "width": 0,
+            },
+            "shadowOpacity": 0.375,
+            "shadowRadius": 10,
+          },
+          Object {
+            "borderRadius": 10,
+            "marginLeft": 10,
+            "marginRight": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginLeft": -10,
+            "marginRight": -10,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "stretch",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "width": 75,
+                },
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "column",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 0,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "paddingBottom": 20,
+                    "paddingLeft": 0,
+                    "paddingRight": 20,
+                    "paddingTop": 20,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  until text
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "elevation": 12,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 5.5,
+              "width": 0,
+            },
+            "shadowOpacity": 0.375,
+            "shadowRadius": 10,
+          },
+          Object {
+            "borderRadius": 10,
+            "marginLeft": 10,
+            "marginRight": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginLeft": -10,
+            "marginRight": -10,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "stretch",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "width": 75,
+                },
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "column",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 0,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "paddingBottom": 20,
+                    "paddingLeft": 0,
+                    "paddingRight": 20,
+                    "paddingTop": 20,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "fontSize": 30,
+                  }
+                }
+              >
+                02:46:40
+              </Text>
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text />
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  until text
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "elevation": 12,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 5.5,
+              "width": 0,
+            },
+            "shadowOpacity": 0.375,
+            "shadowRadius": 10,
+          },
+          Object {
+            "borderRadius": 10,
+            "marginLeft": 10,
+            "marginRight": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginLeft": -10,
+            "marginRight": -10,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "stretch",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "width": 75,
+                },
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "column",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 0,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "paddingBottom": 20,
+                    "paddingLeft": 0,
+                    "paddingRight": 20,
+                    "paddingTop": 20,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "fontSize": 30,
+                  }
+                }
+              >
+                01:40
+              </Text>
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text />
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  until text
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "elevation": 12,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 5.5,
+              "width": 0,
+            },
+            "shadowOpacity": 0.375,
+            "shadowRadius": 10,
+          },
+          Object {
+            "borderRadius": 10,
+            "marginLeft": 10,
+            "marginRight": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginLeft": -10,
+            "marginRight": -10,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "stretch",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "width": 75,
+                },
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "column",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 0,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "paddingBottom": 20,
+                    "paddingLeft": 0,
+                    "paddingRight": 20,
+                    "paddingTop": 20,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "fontSize": 30,
+                  }
+                }
+              >
+                10 s
+              </Text>
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text />
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  until text
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "paddingBottom": 20,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "elevation": 12,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 5.5,
+              "width": 0,
+            },
+            "shadowOpacity": 0.375,
+            "shadowRadius": 10,
+          },
+          Object {
+            "borderRadius": 10,
+            "marginLeft": 10,
+            "marginRight": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginLeft": -10,
+            "marginRight": -10,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "stretch",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "width": 75,
+                },
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "column",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 0,
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "paddingBottom": 20,
+                    "paddingLeft": 0,
+                    "paddingRight": 20,
+                    "paddingTop": 20,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontSize": 20,
+                    }
+                  }
+                >
+                  until text
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+]
+`;
+
+exports[`<StepView/> should pass snapshot tests 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 25,
+            "borderWidth": 1,
+            "display": "flex",
+            "height": 40,
+            "justifyContent": "center",
+            "width": 40,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+            }
+          }
+        >
+          1
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 0,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "paddingBottom": 20,
+              "paddingLeft": 0,
+              "paddingRight": 20,
+              "paddingTop": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "center",
+              "minHeight": 40,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 20,
+              }
+            }
+          >
+            name 1
+          </Text>
+        </View>
+        <View
+          style={Object {}}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-start",
+                "marginBottom": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            <Text
+              style={Object {}}
+            >
+              <Text>
+                body 1
+              </Text>
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "width": 75,
+          },
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 25,
+            "borderWidth": 1,
+            "display": "flex",
+            "height": 40,
+            "justifyContent": "center",
+            "width": 40,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+            }
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "borderLeftColor": "black",
+            "borderLeftWidth": 1,
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 0,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "paddingBottom": 20,
+              "paddingLeft": 0,
+              "paddingRight": 20,
+              "paddingTop": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "center",
+              "minHeight": 40,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 20,
+              }
+            }
+          >
+            name 2
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "height": 20,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>,
+]
+`;
