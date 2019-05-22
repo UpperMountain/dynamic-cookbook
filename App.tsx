@@ -26,19 +26,15 @@ export default class App extends React.Component {
     // @ts-ignore
     const { exp } = this.props;
     if (typeof exp.errorRecovery !== "undefined") {
-      console.log("found crash");
       this.crashed = true;
     }
 
-    console.log("set recovery props");
     ErrorRecovery.setRecoveryProps({ didCrash: true });
   }
 
   private async loadResources(this: any) {
     // Reset storage on crash
-    console.log("loadResources()");
     if (this.crashed) {
-      console.log("crash alert");
       Alert.alert(
         "Issue reported",
         "Cookie just closed unexpectedly.\n\nThis issue has been reported to the developers, and the app has been reset to (hopefully) working condition."
