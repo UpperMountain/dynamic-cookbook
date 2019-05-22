@@ -128,6 +128,7 @@ Very gently, __fold__ in the beaten egg whites. They need to be
 incorporated evenly, without letting the air out.
   `;
   until = "Egg whites are incorporated";
+  duration = 60 * 3; // this takes a while
   requires = [new BeatEggWhites(this.ctx), new MixIngredients(this.ctx)];
   merge = mergeByChildren; // ignore context, it's never used again
 }
