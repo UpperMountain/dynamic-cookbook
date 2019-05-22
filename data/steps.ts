@@ -67,5 +67,9 @@ Set aside when it's melted.
 
   until = "Butter is melted";
 
+  merge: MergeFunction = mergeApply(
+    (other: MeltButter) => (this.tbsp += other.tbsp)
+  );
+
   requires = [new Ingredients.Butter(this.tbsp)];
 }

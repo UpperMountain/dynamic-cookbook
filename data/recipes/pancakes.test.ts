@@ -1,6 +1,11 @@
 import { Pancakes } from "./pancakes";
 import { ParameterDef } from "../../lib/Recipe";
-import { simplifyGroup, walk } from "../../lib/graph";
+import {
+  simplifyGroup,
+  walk,
+  nodeCount,
+  nodeCountGroup
+} from "../../lib/graph";
 
 function getOptionsForId(id: string): string[] {
   const param: ParameterDef = Pancakes.config.filter(
@@ -39,6 +44,22 @@ for (const serves of [2, 20]) {
             const a = Pancakes.requires(params);
             const b = Pancakes.requires(params);
             simplifyGroup(a.concat(b));
+          });
+
+          it("should simplify properly with itself", () => {
+            const original = Pancakes.requires({
+              ...params,
+              serves: 2 * params.serves
+            });
+            const a = Pancakes.requires(params);
+            const b = Pancakes.requires(params);
+            simplifyGroup(a.concat(b));
+
+            // should mostly simplify most of the way
+            const originalCount = nodeCount(original[0]);
+            const simplifiedCount = nodeCountGroup([a[0], b[0]]);
+            expect(simplifiedCount).toBeGreaterThan(originalCount * 0.9);
+            expect(simplifiedCount).toBeLessThan(originalCount * 1.1);
           });
         });
       }

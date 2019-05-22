@@ -1,4 +1,10 @@
-import { Step, Node } from "../../lib/graph";
+import {
+  Step,
+  Node,
+  MergeFunction,
+  mergeByChildren,
+  mergeApply
+} from "../../lib/graph";
 import Recipe from "../../lib/Recipe";
 import * as Ingredients from "../ingredients";
 import * as Steps from "../steps";
@@ -12,7 +18,6 @@ interface Context {
   castIron: boolean;
 }
 
-// TODO: write merge functions for everything in this file!
 // TODO: premade mix
 
 class WetIngredients implements Step {
@@ -44,6 +49,8 @@ and melted butter.
   }
 
   until = "Ingredients are well combined";
+
+  merge = mergeByChildren; // ignore context, it's never used again
 }
 
 class DryIngredients implements Step {
@@ -72,6 +79,12 @@ Into a bowl, sift and mix together:
     new Ingredients.Sugar(this.tbspSugar),
     new Ingredients.BakingPowder(this.tspBakingPowder)
   ];
+
+  merge: MergeFunction = mergeApply((other: DryIngredients) => {
+    this.cupsFlour += other.cupsFlour;
+    this.tbspSugar += other.tbspSugar;
+    this.tspBakingPowder += other.tspBakingPowder;
+  });
 }
 
 class MixIngredients implements Step {
@@ -87,6 +100,7 @@ to fluffier pancakes.
   `;
   until = "Wet and dry ingredients are mixed";
   requires = [new WetIngredients(this.ctx), new DryIngredients(this.ctx)];
+  merge = mergeByChildren; // ignore context, it's never used again
 }
 
 class BeatEggWhites implements Step {
@@ -100,6 +114,7 @@ class BeatEggWhites implements Step {
   body = `Using an egg beater or whisk, beat the egg whites. Stop at soft peaks.`;
   until = "Egg whites are beaten";
   requires = [this.ctx.separateEggs as Step];
+  merge = mergeByChildren; // ignore context, it's never used again
 }
 
 class FoldEggWhites implements Step {
@@ -114,6 +129,7 @@ incorporated evenly, without letting the air out.
   `;
   until = "Egg whites are incorporated";
   requires = [new BeatEggWhites(this.ctx), new MixIngredients(this.ctx)];
+  merge = mergeByChildren; // ignore context, it's never used again
 }
 
 class HeatPan implements Step {
@@ -144,6 +160,14 @@ class HeatPan implements Step {
     return `The ${this.noun} is on the heat`;
   }
   requires = [];
+
+  merge(other: Node) {
+    if (other instanceof HeatPan && other.ctx.castIron === this.ctx.castIron) {
+      return this;
+    }
+
+    return null;
+  }
 }
 
 class Frying implements Step {
@@ -199,6 +223,8 @@ Fry them until bubbles start to break through the top side, then flip.
   }
   until = "Pancakes are added";
   timer = { duration: 60 * 2, until: "Both sides are golden brown" };
+
+  // this does not merge.
 }
 
 export const Pancakes: Recipe = {
