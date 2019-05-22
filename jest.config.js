@@ -29,7 +29,7 @@ expoPreset.collectCoverageFrom = [
   "!./screens/{Browse/,Meal/,}index.tsx",
 
   // Same with the main index file.
-  "!./App.js"
+  "!./App.tsx"
 ];
 
 module.exports = expoPreset;
