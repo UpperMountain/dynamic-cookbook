@@ -71,12 +71,20 @@ export function totalTime(node: Node): Duration {
     return 0;
   } else if (isStep(node)) {
     let time = 0;
+    // Step passive/active time
     if (node.duration) {
       time += node.duration;
     }
     if (node.timer) {
       time += node.timer.duration;
     }
+
+    if (time === 0) {
+      // Everything takes SOME time to complete.
+      // Default to 30s if it's not defined.
+      time = 30;
+    }
+
     return time;
   }
 

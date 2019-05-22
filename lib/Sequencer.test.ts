@@ -58,7 +58,7 @@ describe(".timeBlocked()", () => {
     simplify(root);
     const seq = new Sequencer([root]);
 
-    expect(seq.blockedTime(root)).toEqual(0);
+    expect(seq.blockedTime(root)).toEqual(30);
   });
 });
 

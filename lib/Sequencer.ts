@@ -1,4 +1,4 @@
-import { Step, Node, isIngredient, Duration } from "./graph";
+import { Step, Node, isIngredient, Duration, totalTime } from "./graph";
 import { flatten, uniq } from "lodash";
 
 export enum Stage {
@@ -43,21 +43,26 @@ export default class Sequencer {
       get name(): string {
         throw "Sequencer: should never return synthetic root node";
       },
+      get duration(): number {
+        throw "Sequencer: should never return synthetic root node";
+      },
       until: "",
       requires
     };
 
     // Initialize the parents map
-    this.discoverParents(this.root);
+    this.root.requires.forEach((el: Node) => this.discoverParents(el));
   }
 
   // Add, recursively, parent information for a node to this.parents
   private discoverParents(root: Node, parent: Step | null = null) {
-    let currentParents = this.parents.get(root);
-    if (currentParents && parent) {
-      currentParents.push(parent);
-    } else {
-      this.parents.set(root, parent ? [parent] : []);
+    if (parent !== null) {
+      let currentParents = this.parents.get(root);
+      if (currentParents) {
+        currentParents.push(parent);
+      } else {
+        this.parents.set(root, parent ? [parent] : []);
+      }
     }
 
     if (root.kind === "step") {
@@ -84,24 +89,17 @@ export default class Sequencer {
 
   // Gets the total amount of active and passive time in all nodes which require a Step.
   public blockedTime(root: Node): Duration {
-    let ownTime = 0;
-    if (root.kind === "step") {
-      if (root.duration) ownTime += root.duration;
-      if (root.timer) ownTime += root.timer.duration;
-    }
+    let timeSum: number = totalTime(root);
 
-    let totalTime = ownTime;
     const parents = this.parents.get(root);
     if (typeof parents === "undefined") {
-      throw `Sequencer: discoverParents did not index everything: Missing parents of '${
-        root.name
-      }'`;
-    }
-    for (let parent of parents) {
-      totalTime += this.blockedTime(parent);
+      return timeSum;
     }
 
-    return totalTime;
+    for (let parent of parents) {
+      timeSum += this.blockedTime(parent);
+    }
+    return timeSum;
   }
 
   // Return the leaf nodes that must be completed to begin `root`

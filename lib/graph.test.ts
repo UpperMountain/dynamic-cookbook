@@ -206,13 +206,13 @@ describe("totalTime()", () => {
     expect(totalTime({ kind: "ingredient", name: "" })).toEqual(0);
   });
 
-  it("should return 0 for a step with undefined active and passive time", () => {
+  it("should return 30 for a step with undefined active and passive time", () => {
     const time = totalTime({
       kind: "step",
       name: "",
       until: "",
       requires: []
     });
-    expect(time).toEqual(0);
+    expect(time).toEqual(30);
   });
 });
