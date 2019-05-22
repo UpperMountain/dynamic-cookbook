@@ -125,6 +125,7 @@ export function repr(node: Node, tab: number = 0): string {
   const indent = "  ".repeat(tab);
 
   const otherInfo: Partial<Node> = omit(node, [
+    "ctx", // sometimes has a lot of junk
     "name",
     "body",
     "kind",
@@ -234,6 +235,14 @@ export function* walk(
   }
 }
 
+// Walks a group of nodes.
+export function* walkGroup(roots: Node[]): IterableIterator<Node> {
+  const root = new SimplifyRoot(roots);
+  const walker = walk(root);
+  walker.next(); // skip the root (first item)
+  yield* walker;
+}
+
 // Traverse every requirement for a given Node which satisfies a predicate
 export function* walkWhere(root: Node, predicate: (el: Node) => boolean) {
   for (let item of walk(root)) {
@@ -247,6 +256,15 @@ export function* walkWhere(root: Node, predicate: (el: Node) => boolean) {
 export function nodeCount(root: Node): number {
   let count = 0;
   for (let _ of walk(root)) {
+    count += 1;
+  }
+  return count;
+}
+
+// Counts the requirements for a group of nodes.
+export function nodeCountGroup(roots: Node[]): number {
+  let count = 0;
+  for (let _ of walkGroup(roots)) {
     count += 1;
   }
   return count;

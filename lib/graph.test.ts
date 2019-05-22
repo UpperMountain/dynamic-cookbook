@@ -12,6 +12,8 @@ import {
   simplifyOne,
   Step,
   walk,
+  walkGroup,
+  nodeCountGroup,
   walkWhere,
   totalTime
 } from "./graph";
@@ -125,6 +127,16 @@ describe("walk()", () => {
   });
 });
 
+describe("walkGroup()", () => {
+  it("should iterate the right number of nodes", () => {
+    const a = new ProcedureAll();
+    const b = new ProcedureAll();
+
+    const groupCount = [...walkGroup([a, a, b])].length;
+    expect(groupCount).toEqual(nodeCount(a) * 2);
+  });
+});
+
 describe("walkWhere()", () => {
   it("should be able to filter for ingredients", () => {
     const root = new ProcedureAll();
@@ -142,6 +154,16 @@ describe("nodeCount()", () => {
   it("should count the right number of nodes", () => {
     const root = new ProcedureAll();
     expect(nodeCount(root)).toBe(ProcedureAll.unsimplifiedNodeCount);
+  });
+});
+
+describe("nodeCountGroup()", () => {
+  it("should count the right number of nodes", () => {
+    const a = new ProcedureAll();
+    const b = new ProcedureAll();
+    expect(nodeCountGroup([a, b])).toEqual(
+      ProcedureAll.unsimplifiedNodeCount * 2
+    );
   });
 });
 
