@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, StatusBar, AsyncStorage } from "react-native";
-import { Font, AppLoading, ErrorRecovery } from "expo";
+import { Constants, Segment, Font, AppLoading, ErrorRecovery } from "expo";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
@@ -15,6 +15,11 @@ const AppContainer = createAppContainer(RootNavigator);
 Sentry.config(
   "https://40e9befbb61c4ba9b0e3e2d181fd24f0@sentry.io/1464818"
 ).install();
+
+Segment.initialize({
+  androidWriteKey: "vHomtRC0DwAPbwS0ztqljf2tUmgrdy19"
+});
+Segment.identify(Constants.installationId);
 
 export default class App extends React.Component {
   state = { ready: false };
