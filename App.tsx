@@ -17,7 +17,8 @@ Sentry.config(
 ).install();
 
 Segment.initialize({
-  androidWriteKey: "vHomtRC0DwAPbwS0ztqljf2tUmgrdy19"
+  androidWriteKey: "vHomtRC0DwAPbwS0ztqljf2tUmgrdy19",
+  iosWriteKey: "GIwWSlcucci2UYi1eEHyyBqHqM9X7g33"
 });
 Segment.identify(Constants.installationId);
 
