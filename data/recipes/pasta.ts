@@ -94,8 +94,5 @@ export const Pasta: Recipe = {
   ],
   requires: ({ serves }) => [new Combine(serves)],
 
-  images: [
-    require("../../assets/images/pasta.jpg"),
-    require("../../assets/images/other-pasta.jpg")
-  ]
+  images: [require("../../assets/images/pasta-1.jpg")]
 };

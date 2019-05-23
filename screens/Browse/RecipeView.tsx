@@ -15,11 +15,13 @@ import { RecipesScreenProps } from "./BrowseNavigator";
 import { ParameterDef } from "../../lib/Recipe";
 import { recipes } from "../../data";
 import Padded from "../../components/Padded";
-import { colorPrimary } from "../../lib/theme";
+import { padding, colorPrimary } from "../../lib/theme";
 
 const Hr = () => (
-  <Padded all>
-    <View style={{ borderBottomColor: "black", borderBottomWidth: 1 }} />
+  <Padded top={5 / 2} bottom={3 / 2}>
+    <View
+      style={{ borderBottomColor: "rgba(0,0,0,0.3)", borderBottomWidth: 1 }}
+    />
   </Padded>
 );
 
@@ -134,9 +136,21 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
 
     return (
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <ScrollView horizontal>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{ paddingRight: padding }}
+        >
           {recipe.images.map((image: Asset, i: number) => (
-            <Image key={i} source={image} style={{ height: 300, width: 450 }} />
+            <Image
+              key={i}
+              source={image}
+              style={{
+                height: 350,
+                width: 350,
+                marginLeft: padding,
+                marginTop: padding
+              }}
+            />
           ))}
         </ScrollView>
         <Padded top horizontal>

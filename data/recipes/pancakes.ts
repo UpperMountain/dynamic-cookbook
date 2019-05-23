@@ -279,5 +279,5 @@ export const Pancakes: Recipe = {
     })
   ],
 
-  images: [require("../../assets/images/pancakes.jpg")]
+  images: [require("../../assets/images/pancakes-1.jpg")]
 };
