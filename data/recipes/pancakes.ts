@@ -252,7 +252,7 @@ export const Pancakes: Recipe = {
       kind: "categorical",
       question: "Do you want to use boxed pancake mix?",
       options: {
-        homemeade: "No, I'd like to make my own",
+        homemade: "No, I'd like to make my own",
         premade: "Yes, I have premade mix"
       },
       default: "homemade"

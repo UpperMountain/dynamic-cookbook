@@ -12,7 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./BrowseNavigator";
-import { ParameterDef } from "../../lib/Recipe";
+import { ParameterDef, getRecipeDefaults } from "../../lib/Recipe";
 import { recipes } from "../../data";
 import Padded from "../../components/Padded";
 import { padding, colorPrimary } from "../../lib/theme";
@@ -121,7 +121,7 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
 
   render() {
     const { screenProps, navigation } = this.props;
-    const { config } = this.state;
+    const { config: storedConfig } = this.state;
     const { setRecipes } = screenProps as RecipesScreenProps;
 
     const recipeId: string | null = navigation.getParam("recipeId", null);
@@ -133,6 +133,9 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
     if (typeof recipe === "undefined") {
       throw "Recipe ID doesn't exist.";
     }
+
+    const defaults = getRecipeDefaults(recipe);
+    const config = { ...defaults, ...storedConfig };
 
     return (
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
