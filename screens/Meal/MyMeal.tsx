@@ -50,7 +50,9 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   constructor(props: NavigationScreenConfigProps) {
     super(props);
 
-    const specs: RecipeSpec[] = this.props.navigation.getParam("recipes", []);
+    const specs: RecipeSpec[] = Object.values(
+      this.props.navigation.getParam("recipes", {})
+    );
 
     // render the recipe specifications into Procedures
     const specProcedures = specs.map(spec =>

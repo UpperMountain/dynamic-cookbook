@@ -71,14 +71,13 @@ const styles = StyleSheet.create({
 });
 
 interface BrowseNavigatorState {
-  recipes: RecipeSpec[];
+  recipes: { [key: string]: RecipeSpec };
 }
 
 export interface RecipesScreenProps {
-  recipes: RecipeSpec[];
-  setRecipes: (
-    setter: ((old: RecipeSpec[]) => RecipeSpec[]) | RecipeSpec[]
-  ) => void;
+  recipes: { [key: string]: RecipeSpec };
+  updateRecipe: (recipe: RecipeSpec) => void;
+  removeRecipe: (id: string) => void;
 }
 
 export default function createBrowseNavigator(Base: NavigationContainer) {
@@ -89,43 +88,49 @@ export default function createBrowseNavigator(Base: NavigationContainer) {
     static router = Base.router;
 
     state = {
-      recipes: []
+      recipes: {}
     };
 
     // pass in a setState-like updater function, or just an array
-    setRecipes = (
-      setter: ((old: RecipeSpec[]) => RecipeSpec[]) | RecipeSpec[]
-    ) => {
-      if (typeof setter === "function") {
-        this.setState(oldState => ({
-          recipes: setter(oldState.recipes)
-        }));
-      } else {
-        this.setState({ recipes: setter });
-      }
+    updateRecipe = (recipe: RecipeSpec) => {
+      this.setState(old => ({
+        recipes: { ...old.recipes, [recipe.id]: recipe }
+      }));
+    };
+
+    removeRecipe = (id: string) => {
+      this.setState(old => {
+        const recipes = old.recipes;
+        delete recipes[id];
+        return { ...old, recipes };
+      });
     };
 
     render() {
       const { navigation } = this.props;
       const { recipes } = this.state;
+      const amount = Object.keys(recipes).length;
 
       return (
         <>
           <Base
             navigation={navigation}
-            screenProps={{ recipes, setRecipes: this.setRecipes }}
+            screenProps={{
+              recipes,
+              updateRecipe: this.updateRecipe,
+              removeRecipe: this.removeRecipe
+            }}
           />
-          {recipes.length > 0 && (
+          {amount > 0 && (
             <View style={styles.floatingBar}>
               <TouchableOpacity
                 style={styles.cancelButton}
-                onPress={() => this.setRecipes([])}
+                onPress={() => this.setState({ recipes: {} })}
               >
                 <MaterialIcons name="close" size={20} color={colorShade} />
               </TouchableOpacity>
               <Text style={{ marginLeft: 20 }}>
-                {recipes.length} recipe{recipes.length > 1 ? "s" : ""} in your
-                meal
+                {amount} recipe{amount > 1 ? "s" : ""} in your meal
               </Text>
               <TouchableOpacity
                 style={styles.startButton}

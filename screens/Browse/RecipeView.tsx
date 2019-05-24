@@ -147,7 +147,10 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
   render() {
     const { screenProps, navigation } = this.props;
     const { config: storedConfig } = this.state;
-    const { setRecipes } = screenProps as RecipesScreenProps;
+    const {
+      updateRecipe,
+      recipes: addedRecipes
+    } = screenProps as RecipesScreenProps;
 
     const recipeId: string | null = navigation.getParam("recipeId", null);
     if (recipeId == null) {
@@ -213,9 +216,13 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
               alignItems: "center",
               justifyContent: "center"
             }}
-            onPress={() => setRecipes(r => [...r, { id: recipeId, config }])}
+            onPress={() => updateRecipe({ id: recipeId, config })}
           >
-            <Text>Add to Meal</Text>
+            {addedRecipes[recipeId] == null ? (
+              <Text>Add to Meal</Text>
+            ) : (
+              <Text>Update Recipe</Text>
+            )}
           </TouchableOpacity>
         </Padded>
       </ScrollView>
