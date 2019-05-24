@@ -16,6 +16,8 @@ function now() {
 interface ButtonAction {
   kind: "buttonAction";
   for: Step; // step to complete
+
+  analyticsStart: number; // epoch, when added
 }
 
 interface ActiveTimer {
@@ -28,6 +30,8 @@ interface ActiveTimer {
   // Epoch seconds, beginning of timer.
   // Null if timer has not been started.
   started: number | null;
+
+  analyticsStart: number; // epoch, when added
 }
 
 // Readonly, because they're in React state.
@@ -92,9 +96,11 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     }
 
     // Add the step, and its actions, to the UI
+    const actionBase = { for: next, analyticsStart: Date.now() };
     const action: Action = next.timer
-      ? { for: next, kind: "activeTimer", started: null }
-      : { for: next, kind: "buttonAction" };
+      ? { ...actionBase, kind: "activeTimer", started: null }
+      : { ...actionBase, kind: "buttonAction" };
+
     this.setState(old => ({
       ...old,
       waiting: false,
@@ -148,7 +154,30 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
           this.proceed();
         }
       );
+      this.trackActionEnd(action);
     }
+  }
+
+  // track action end events to Segment analytics
+  private trackActionEnd(_action: Action) {
+    // Send a BUNCH of information about what just happened to Segment.
+    // Hopefully we can use this to tweak the time estimates for each step.
+    return;
+    // TODO: for the time being, the following will crash RN, without a trace.
+    //       I have no clue why. Maybe fix this later.
+    //
+    // Segment.trackWithProperties("cookingAction", {
+    //   kind: action.kind,
+    //   constructorName: action.for.constructor.name,
+    //   name: action.for.name,
+    //   body: action.for.body,
+    //   until: action.for.until,
+    //   timer: action.for.timer,
+    //   duration: action.for.duration,
+    //   started: action.analyticsStart,
+    //   timerStarted: action.started,
+    //   duration: Date.now() - action.analyticsStart
+    // });
   }
 
   private proceed() {

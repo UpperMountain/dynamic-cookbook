@@ -4,6 +4,7 @@ import { Constants, Segment, Font, AppLoading, ErrorRecovery } from "expo";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
+import { trackNavStateChange } from "./lib/screenTracking";
 import Sentry from "sentry-expo";
 
 export const navStatePersistenceKey = "navStatePersistence";
@@ -16,11 +17,18 @@ Sentry.config(
   "https://40e9befbb61c4ba9b0e3e2d181fd24f0@sentry.io/1464818"
 ).install();
 
-Segment.initialize({
-  androidWriteKey: "vHomtRC0DwAPbwS0ztqljf2tUmgrdy19",
-  iosWriteKey: "GIwWSlcucci2UYi1eEHyyBqHqM9X7g33"
-});
-Segment.identify(Constants.installationId);
+if (!__DEV__) {
+  // Only initialize Segment in prod.
+  // Avoids warnings in dev.
+  Segment.initialize({
+    androidWriteKey: "vHomtRC0DwAPbwS0ztqljf2tUmgrdy19",
+    iosWriteKey: "GIwWSlcucci2UYi1eEHyyBqHqM9X7g33"
+  });
+  Segment.identify(Constants.installationId);
+  console.log("segment: initialized");
+} else {
+  console.log("segment: not initializing in dev mode");
+}
 
 export default class App extends React.Component {
   state = { ready: false };
@@ -61,7 +69,10 @@ export default class App extends React.Component {
       return (
         <>
           <StatusBar barStyle="default" />
-          <AppContainer persistenceKey={navStatePersistenceKey} />
+          <AppContainer
+            onNavigationStateChange={trackNavStateChange}
+            persistenceKey={navStatePersistenceKey}
+          />
         </>
       );
     }

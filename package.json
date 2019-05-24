@@ -23,7 +23,7 @@
     "@types/react-test-renderer": "^16.8.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "expo": "^32.0.0",
-    "expo-cli": "^2.13.0",
+    "expo-cli": "^2.18.3",
     "fuse.js": "^3.4.4",
     "js-yaml": "^3.12.2",
     "lodash": "^4.17.11",

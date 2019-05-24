@@ -7,7 +7,7 @@ import {
   Text,
   Platform
 } from "react-native";
-import { Updates, Constants } from "expo";
+import { Updates, Constants, Segment } from "expo";
 
 function crash() {
   throw new Error("Crash test for Sentry");
@@ -89,6 +89,12 @@ export default function Debug() {
         Force OTA update to latest
       </Button>
       <Button onPress={() => AsyncStorage.clear()}>Clear AsyncStorage</Button>
+      <Button onPress={() => Segment.setEnabledAsync(false)}>
+        Disable Segment tracking
+      </Button>
+      <Button onPress={() => Segment.setEnabledAsync(true)}>
+        Enable Segment tracking
+      </Button>
       <Header>Build information</Header>
       <Info name="NODE_ENV">{env.NODE_ENV}</Info>
       <Info name="Node Version">{env.nodeVersion}</Info>
