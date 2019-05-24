@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`communityTabIcon("account") should pass snapshot tests 1`] = `
+Array [
+  <Text />,
+  <Text />,
+]
+`;
+
 exports[`tabIcon("home") should pass snapshot tests 1`] = `
 Array [
   <Text />,

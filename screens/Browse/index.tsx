@@ -1,12 +1,22 @@
 import { createStackNavigator } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import tabIcon from "../../components/tabIcon";
+import tabIcon, { communityTabIcon } from "../../components/tabIcon";
 import { colorShade, colorPrimary } from "../../lib/theme";
 import createBrowseNavigator from "./BrowseNavigator";
 
 import Feed from "./Feed";
 import Search from "./Search";
 import RecipeView from "./RecipeView";
+import Plan from "./Plan";
+
+const RecipePage = {
+  RecipeView: {
+    screen: RecipeView,
+    navigationOptions: {
+      title: "Recipe"
+    }
+  }
+};
 
 const FeedStack = createStackNavigator({
   Feed: {
@@ -15,12 +25,7 @@ const FeedStack = createStackNavigator({
       header: null
     }
   },
-  RecipeView: {
-    screen: RecipeView,
-    navigationOptions: {
-      title: "Recipe"
-    }
-  }
+  ...RecipePage
 });
 
 const SearchStack = createStackNavigator({
@@ -28,13 +33,12 @@ const SearchStack = createStackNavigator({
     screen: Search,
     navigationOptions: { header: null }
   },
-  // different name to disambiguate
-  RecipeView: {
-    screen: RecipeView,
-    navigationOptions: {
-      title: "Recipe"
-    }
-  }
+  ...RecipePage
+});
+
+const PlanStack = createStackNavigator({
+  Plan: { screen: Plan, navigationOptions: { title: "Meal Plan" } },
+  ...RecipePage
 });
 
 const Base = createMaterialBottomTabNavigator(
@@ -43,8 +47,7 @@ const Base = createMaterialBottomTabNavigator(
       screen: FeedStack,
       navigationOptions: {
         title: "Feed",
-        // tabBarIcon: tabIcon("collections")
-        tabBarIcon: tabIcon("dashboard")
+        tabBarIcon: tabIcon("collections-bookmark")
       }
     },
     Search: {
@@ -53,10 +56,17 @@ const Base = createMaterialBottomTabNavigator(
         title: "Search",
         tabBarIcon: tabIcon("search")
       }
+    },
+    Plan: {
+      screen: PlanStack,
+      navigationOptions: {
+        title: "Meal Plan",
+        tabBarIcon: communityTabIcon("clipboard-text-outline")
+      }
     }
   },
   {
-    order: ["Feed", "Search"],
+    order: ["Feed", "Search", "Plan"],
     initialRouteName: "Feed",
     activeTintColor: colorPrimary,
     inactiveTintColor: colorShade,

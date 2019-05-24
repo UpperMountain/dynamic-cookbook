@@ -185,7 +185,9 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   private proceed() {
     // Check if there are already pending button actions
     const hasPendingAction = this.state.actions.some(
-      (e: Action) => e.kind === "buttonAction"
+      (e: Action) =>
+        e.kind === "buttonAction" ||
+        (e.kind === "activeTimer" && e.started !== null)
     );
 
     // Finally, call nextStep() to see if we can do anything else
