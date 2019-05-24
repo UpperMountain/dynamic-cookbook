@@ -266,7 +266,7 @@ export const Pancakes: Recipe = {
       id: "serves",
       kind: "integer",
       question: "How many servings?",
-      min: 1,
+      min: 4,
       max: null,
       default: 4
     },
