@@ -139,6 +139,8 @@ class BeatEggWhites implements Step {
     return `Egg ${plural(this.count, 1, "white is", "whites are")} beaten`;
   }
 
+  duration = 60 * 4; // measured this well
+
   requires = [this.ctx.separateEggs as Step];
 
   merge: MergeFunction = mergeApply((other: BeatEggWhites) => {
@@ -157,7 +159,7 @@ Very gently, __fold__ in the beaten egg whites. They need to be
 incorporated evenly, without letting the air out.
   `;
   until = "Egg whites are incorporated";
-  duration = 60 * 3; // this takes a while
+  duration = 60 * 2; // measured this
   requires = [new BeatEggWhites(this.ctx), new MixIngredients(this.ctx)];
   merge = mergeByChildren; // ignore context, it's never used again
 }
@@ -177,13 +179,13 @@ class HeatPan implements Step {
     }
   }
   get body() {
-    return `Put the ${this.noun} over medium-low heat.`;
+    return `Put the ${this.noun} over medium heat.`;
   }
   get timer() {
     if (this.ctx.castIron) {
-      return { duration: 60 * 5, until: "The cast iron is hot" };
+      return { duration: 60 * 3, until: "The cast iron is hot" };
     } else {
-      return { duration: 60, until: "The pan is hot" };
+      return { duration: 30, until: "The pan is hot" };
     }
   }
   get until() {
@@ -245,7 +247,7 @@ Add a hunk of butter to the hot ${pan}, and let it melt.
 
 Add ${
       Frying.BATCH_SIZE
-    } fist-sized dollop of batter into the pan. Add toppings to each pancake.
+    } fist-sized dollop of batter into the center of the pan. Add whatever toppings you'd like.
 
 Fry until bubbles start to break through the top side, then flip. You can always look underneath to see if a side is done.
   `;
