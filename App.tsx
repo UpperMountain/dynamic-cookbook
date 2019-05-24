@@ -49,10 +49,14 @@ export default class App extends React.Component {
   private async loadResources(this: any) {
     // Reset storage on crash
     if (this.crashed) {
-      Alert.alert(
-        "Issue reported",
-        "Cookie just closed unexpectedly.\n\nThis issue has been reported to the developers, and the app has been reset to (hopefully) working condition."
-      );
+      if (!__DEV__) {
+        Alert.alert(
+          "Issue reported",
+          "Cookie just closed unexpectedly.\n\nThis issue has been reported to the developers, and the app has been reset to (hopefully) working condition."
+        );
+      } else {
+        console.log("App.tsx: cleared AsyncStorage on crash");
+      }
       await AsyncStorage.clear();
     }
 
