@@ -5,13 +5,16 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { NavigationInjectedProps, NavigationContainer } from "react-navigation";
 import shadow from "../../lib/shadow";
 import { colorShade, colorPrimary } from "../../lib/theme";
 import { RecipeSpec } from "../../lib/Recipe";
+
+const storageKey = "BrowseNavigator_recipesCache";
 
 // adapted from https://github.com/wix/react-native-navigation/issues/1633#issuecomment-379337969
 function getNavbarHeight() {
@@ -91,6 +94,27 @@ export default function createBrowseNavigator(Base: NavigationContainer) {
       recipes: {}
     };
 
+    componentDidUpdate(
+      _prevProps: NavigationInjectedProps,
+      prevState: BrowseNavigatorState
+    ) {
+      const { recipes } = this.state;
+      if (prevState.recipes !== recipes) {
+        // persist recipe list to AsyncStorage
+        AsyncStorage.setItem(storageKey, JSON.stringify(recipes));
+      }
+    }
+
+    async componentDidMount() {
+      // if available, restore recipe list from AsyncStorage
+      const raw = await AsyncStorage.getItem(storageKey);
+      if (raw !== null) {
+        const restored = JSON.parse(raw);
+        console.log("restored recipes:", restored);
+        this.setState({ recipes: restored });
+      }
+    }
+
     // pass in a setState-like updater function, or just an array
     updateRecipe = (recipe: RecipeSpec) => {
       this.setState(old => ({
@@ -100,7 +124,7 @@ export default function createBrowseNavigator(Base: NavigationContainer) {
 
     removeRecipe = (id: string) => {
       this.setState(old => {
-        const recipes = old.recipes;
+        const recipes = { ...old.recipes };
         delete recipes[id];
         return { ...old, recipes };
       });
