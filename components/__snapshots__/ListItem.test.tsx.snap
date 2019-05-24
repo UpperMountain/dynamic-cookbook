@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should pass snapshot tests 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0,0,0,0.05)",
+          "borderRadius": 25,
+          "height": 50,
+          "overflow": "hidden",
+          "width": 50,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginLeft": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "height": 50,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+        >
+          test name
+        </Text>
+        <Text
+          numberOfLines={1}
+          style={
+            Object {
+              "color": "rgba(0,0,0,0.55)",
+            }
+          }
+        >
+          test body
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0,0,0,0.05)",
+          "borderRadius": 25,
+          "height": 50,
+          "overflow": "hidden",
+          "width": 50,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginLeft": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "height": 50,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+        >
+          nested outer
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0,0,0,0.05)",
+              "borderRadius": 25,
+              "height": 50,
+              "overflow": "hidden",
+              "width": 50,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "marginLeft": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "display": "flex",
+                "flexDirection": "column",
+                "height": 50,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              numberOfLines={1}
+            >
+              nested inner
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0,0,0,0.05)",
+          "borderRadius": 25,
+          "height": 50,
+          "overflow": "hidden",
+          "width": 50,
+        }
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 50,
+            "width": 50,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginLeft": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "height": 50,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+        >
+          with image
+        </Text>
+        <Text
+          numberOfLines={1}
+          style={
+            Object {
+              "color": "rgba(0,0,0,0.55)",
+            }
+          }
+        >
+          ooooohh pretty
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0,0,0,0.05)",
+          "borderRadius": 25,
+          "height": 50,
+          "overflow": "hidden",
+          "width": 50,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginLeft": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "height": 50,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+        >
+          with press handler
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        Object {
+          "backgroundColor": "red",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "rgba(0,0,0,0.05)",
+          "borderRadius": 25,
+          "height": 50,
+          "overflow": "hidden",
+          "width": 50,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginLeft": 15,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "height": 50,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+        >
+          with custom style
+        </Text>
+      </View>
+    </View>
+  </View>,
+]
+`;

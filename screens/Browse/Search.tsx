@@ -1,93 +1,15 @@
 import React from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
-import { Asset } from "expo";
+import { ScrollView, Text } from "react-native";
 import Padded from "../../components/Padded";
 import SafeView from "../../components/SafeView";
 import SearchBar from "../../components/SearchBar";
+import ListItem from "../../components/ListItem";
 import { NavigationScreenConfigProps } from "react-navigation";
 import RecipeIndex, { QueryResult } from "../../lib/RecipeIndex";
 import { recipes } from "../../data";
 import { padding } from "../../lib/theme";
 
 const DEBUG_PASSWORD = "when in the course of human events";
-
-const styles = StyleSheet.create({
-  result: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  resultImageContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "rgba(0,0,0,0.05)",
-    overflow: "hidden"
-  },
-  resultImage: {
-    width: 50,
-    height: 50
-  },
-  resultBody: {
-    flex: 1,
-    marginLeft: 15
-  },
-  resultBodyText: {
-    height: 50,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  }
-});
-
-const ResultItem = ({
-  name,
-  body,
-  children,
-  image,
-  onPress
-}: {
-  name: string;
-  body?: string;
-  image?: Asset;
-  children?: React.ReactNode;
-  onPress?: () => void;
-}) => {
-  const contents = (
-    <React.Fragment>
-      <View style={styles.resultImageContainer}>
-        {image && <Image style={styles.resultImage} source={image} />}
-      </View>
-      <View style={styles.resultBody}>
-        <View style={styles.resultBodyText}>
-          <Text numberOfLines={1}>{name}</Text>
-          {body && (
-            <Text numberOfLines={1} style={{ color: "rgba(0,0,0,0.55)" }}>
-              {body}
-            </Text>
-          )}
-        </View>
-        {children}
-      </View>
-    </React.Fragment>
-  );
-
-  if (onPress) {
-    return (
-      <TouchableOpacity onPress={onPress} style={styles.result}>
-        {contents}
-      </TouchableOpacity>
-    );
-  } else {
-    return <View style={styles.result}>{contents}</View>;
-  }
-};
 
 function Result({
   result,
@@ -98,7 +20,7 @@ function Result({
 }) {
   if (result.kind == "ingredient") {
     return (
-      <ResultItem name={result.ingredient.name} body={result.ingredient.body}>
+      <ListItem name={result.ingredient.name} body={result.ingredient.body}>
         <Padded top={1 / 2}>
           <Text style={{ color: "rgba(0,0,0,0.55)" }}>Found in:</Text>
         </Padded>
@@ -107,11 +29,11 @@ function Result({
             <Result result={e} onOpenRecipe={onOpenRecipe} />
           </Padded>
         ))}
-      </ResultItem>
+      </ListItem>
     );
   } else if (result.kind === "recipe") {
     return (
-      <ResultItem
+      <ListItem
         name={result.recipe.name}
         body={result.recipe.body}
         image={result.recipe.images[0] || undefined}
