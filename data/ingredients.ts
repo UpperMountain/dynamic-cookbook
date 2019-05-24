@@ -27,6 +27,17 @@ export class Onion implements Ingredient {
   requires = [];
 }
 
+export class Chai implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public spoons: number) {}
+  name = "Chai";
+  body = "This stuff smells AMAZING";
+
+  merge: MergeFunction = mergeApply((other: Chai) => {
+    this.spoons += other.spoons;
+  });
+}
+
 export class Milk implements Ingredient {
   kind: "ingredient" = "ingredient";
 

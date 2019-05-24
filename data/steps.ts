@@ -19,6 +19,30 @@ export class ChopOnion implements Step {
   );
 }
 
+export class BoilKettle implements Step {
+  kind: "step" = "step";
+  constructor(public cups: number) {}
+
+  get name() {
+    return `Boil ${qty(
+      this.cups,
+      0.25,
+      "cup",
+      "cups"
+    )} of water in an electric kettle.`;
+  }
+
+  until = "Kettle is heating up";
+
+  timer = { until: "Electric kettle is boiling", duration: 60 * 3 };
+
+  merge: MergeFunction = mergeApply((other: BoilKettle) => {
+    this.cups += other.cups;
+  });
+
+  requires = [];
+}
+
 export class SeparateEggs implements Step {
   kind: "step" = "step";
   constructor(public count: number) {}

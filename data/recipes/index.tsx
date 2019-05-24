@@ -6,6 +6,7 @@ import * as Ingredients from "../ingredients";
 // yep, that's a dirty hack
 import { Pasta as _Pasta } from "./pasta";
 import { Pancakes as _Pancakes } from "./pancakes";
+import { ChaiLatte as _ChaiLatte } from "./chai";
 
 // Re-export all the recipes in /data/recipes for app use
 //
@@ -35,10 +36,4 @@ export const Pasta = _Pasta;
 
 export const Pancakes = _Pancakes;
 
-export const ChaiLatte: Recipe = {
-  name: "Chai Latte",
-  body: "Warm, sweet, and spicy. Perfect for a cold day.",
-  images: [require("../../assets/images/chai-latte-1.jpg")],
-  config: [],
-  requires: _ => [new Ingredients.NYI()]
-};
+export const ChaiLatte = _ChaiLatte;
