@@ -1,12 +1,13 @@
 import { Step, MergeFunction, mergeApply } from "../lib/graph";
 import * as Ingredients from "./ingredients";
+import { qty, plural } from "../lib/plural";
 
 export class ChopOnion implements Step {
   kind: "step" = "step";
   constructor(public amount: number) {}
 
   get name() {
-    return `Chop ${this.amount} onions.`;
+    return `Chop ${qty(this.amount, 0.25, "onion", "onions")}.`;
   }
 
   until = "Onions are chopped";
@@ -23,7 +24,7 @@ export class SeparateEggs implements Step {
   constructor(public count: number) {}
 
   get name() {
-    return `Separate ${this.count} eggs.`;
+    return `Separate ${qty(this.count, 1, "egg", "eggs")}.`;
   }
 
   body = `
@@ -36,7 +37,7 @@ export class SeparateEggs implements Step {
  Throw out the shell.
 `;
 
-  until = "Eggs are separated";
+  until = `${plural(this.count, 1, "Egg is", "Eggs are")} separated`;
 
   requires = [new Ingredients.Egg(this.count)];
 
@@ -50,7 +51,12 @@ export class MeltButter implements Step {
   constructor(public tbsp: number) {}
 
   get name() {
-    return `Melt ${this.tbsp} tablespoons of butter.`;
+    return `Melt ${qty(
+      this.tbsp,
+      0.25,
+      "tablespoon",
+      "tablespoons"
+    )} of butter.`;
   }
 
   body = `

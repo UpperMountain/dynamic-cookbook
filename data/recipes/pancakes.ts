@@ -6,6 +6,7 @@ import {
   mergeApply
 } from "../../lib/graph";
 import Recipe from "../../lib/Recipe";
+import { qty, plural } from "../../lib/plural";
 import * as Ingredients from "../ingredients";
 import * as Steps from "../steps";
 
@@ -13,7 +14,7 @@ import * as Steps from "../steps";
 const PARTY = 6;
 
 interface Context {
-  separateEggs: Step | null;
+  separateEggs: Steps.SeparateEggs | null;
   serves: number;
   castIron: boolean;
 }
@@ -25,32 +26,43 @@ class WetIngredients implements Step {
 
   requires: Node[] = [];
 
+  cupsMilk = this.ctx.serves * (1.6 / PARTY);
+  numEggs = this.ctx.serves * (2 / PARTY);
+  tbspButter = this.ctx.serves * (2 / PARTY);
+
   constructor(public ctx: Context) {
-    this.requires.push(new Ingredients.Milk(ctx.serves * (1.75 / PARTY)));
+    this.requires.push(new Ingredients.Milk(this.cupsMilk));
     if (ctx.separateEggs !== null) {
       this.requires.push(ctx.separateEggs);
     } else {
-      this.requires.push(new Ingredients.Egg(ctx.serves * (2 / PARTY)));
+      this.requires.push(new Ingredients.Egg(this.numEggs));
     }
-    this.requires.push(new Steps.MeltButter(ctx.serves * (2 / PARTY)));
+    this.requires.push(new Steps.MeltButter(this.tbspButter));
   }
 
   name = "Mix together the wet ingredients";
 
   get body() {
+    const eggNoun = this.ctx.separateEggs ? "egg yolk" : "egg";
     return `
-Before starting, make sure your melted butter has cooled. You 
-don't want to cook your eggs with the heat from the butter.
+Before starting, __make sure your melted butter has cooled__. You don't want to cook your eggs with the heat from the butter.
 
-In a bowl, beat together the milk, 
-${this.ctx.separateEggs ? "egg yolks" : "eggs"}, 
-and melted butter.
-    `;
+In a bowl, beat together:
+
+- ${qty(this.cupsMilk, 0.25, "cup", "cups")} milk
+- ${qty(this.numEggs, 1, eggNoun, `${eggNoun}s`)}
+- ${qty(this.tbspButter, 0.25, "tbsp")} melted butter
+
+`;
   }
 
   until = "Ingredients are well combined";
 
-  merge = mergeByChildren; // ignore context, it's never used again
+  merge: MergeFunction = mergeApply((other: WetIngredients) => {
+    this.cupsMilk += other.cupsMilk;
+    this.numEggs += other.numEggs;
+    this.tbspButter += other.tbspButter;
+  });
 }
 
 class DryIngredients implements Step {
@@ -66,9 +78,9 @@ class DryIngredients implements Step {
     return `
 Into a bowl, sift and mix together:
 
-- ${this.cupsFlour} cups of flour
-- ${this.tbspSugar} tablespoons of sugar
-- ${this.tspBakingPowder} tsp of baking powder
+- ${qty(this.cupsFlour, 0.25, "cup", "cups")} of flour
+- ${qty(this.tbspSugar, 0.25, "tbsp")} of sugar
+- ${qty(this.tspBakingPowder, 0.25, "tsp")} of baking powder
     `;
   }
 
@@ -92,11 +104,9 @@ class MixIngredients implements Step {
   constructor(public ctx: Context) {}
   name = "Mix the wet and dry ingredients";
   body = `
-Gradually add the dry ingredients into the bowl with 
-the wet, while mixing gently. 
+Gradually add the dry ingredients into the bowl with the wet, while mixing gently. 
 
-Don't mix too vigorously---it's okay to have some lumps, as they lead 
-to fluffier pancakes.
+Don't mix too vigorously---it's okay to have some lumps, as they lead to fluffier pancakes.
   `;
   until = "Wet and dry ingredients are mixed";
   requires = [new WetIngredients(this.ctx), new DryIngredients(this.ctx)];
@@ -105,16 +115,33 @@ to fluffier pancakes.
 
 class BeatEggWhites implements Step {
   kind: "step" = "step";
+  count = this.ctx.separateEggs!.count;
   constructor(public ctx: Context) {
     if (!ctx.separateEggs) {
       throw "BeatEggWhites: must have separated eggs in `ctx`";
     }
   }
-  name = "Beat the egg whites";
-  body = `Using an egg beater or whisk, beat the egg whites. Stop at soft peaks.`;
-  until = "Egg whites are beaten";
+
+  get name() {
+    return `Beat the egg ${plural(this.count, 1, "white", "whites")}`;
+  }
+  get body() {
+    return `Using an egg beater or whisk, beat the egg ${plural(
+      this.count,
+      1,
+      "white",
+      "whites"
+    )}. Stop at soft peaks.`;
+  }
+  get until() {
+    return `Egg ${plural(this.count, 1, "white is", "whites are")} beaten`;
+  }
+
   requires = [this.ctx.separateEggs as Step];
-  merge = mergeByChildren; // ignore context, it's never used again
+
+  merge: MergeFunction = mergeApply((other: BeatEggWhites) => {
+    this.count += other.count;
+  });
 }
 
 class FoldEggWhites implements Step {
@@ -148,7 +175,7 @@ class HeatPan implements Step {
     }
   }
   get body() {
-    return `Put the ${this.noun} over medium heat.`;
+    return `Put the ${this.noun} over medium-low heat.`;
   }
   get timer() {
     if (this.ctx.castIron) {
@@ -173,7 +200,7 @@ class HeatPan implements Step {
 
 class Frying implements Step {
   // number of pancakes per batch
-  static BATCH_SIZE = 3;
+  static BATCH_SIZE = 1;
 
   kind: "step" = "step";
   requires: Node[] = [];
@@ -204,22 +231,21 @@ class Frying implements Step {
   get name() {
     const total = this.ctx.serves;
     const current = total - this.count;
-    return `Fry the pancakes (${total -
-      Math.min(current + Frying.BATCH_SIZE, total)}-${total -
-      current} of ${total})`;
+    return `Fry the pancakes (${total - current} of ${total})`;
   }
 
   get body() {
     const pan = this.ctx.castIron ? "cast iron skillet" : "pan";
-    const secondaryText = `Clean out the ${pan} with a paper towel, so the butter doesn't burn.`;
+    const secondaryText = `__Clean out the ${pan} with a paper towel, so the butter doesn't burn.__`;
     return `
-${this.first ? "" : secondaryText}
+${this.first ? "" : secondaryText + "\n"}
 Add a hunk of butter to the hot ${pan}, and let it melt.
 
-Add ${Frying.BATCH_SIZE} palm-sized dollops of batter into the pan. Add five 
-or six blueberries to each pancake.
+Add ${
+      Frying.BATCH_SIZE
+    } fist-sized dollop of batter into the pan. Add toppings to each pancake.
 
-Fry them until bubbles start to break through the top side, then flip.
+Fry until bubbles start to break through the top side, then flip. You can always look underneath to see if a side is done.
   `;
   }
   until = "Pancakes are added";

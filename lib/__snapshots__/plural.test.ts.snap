@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plural() passes snapshot tests 1`] = `
+Array [
+  "potatoes",
+  "potato",
+  "potatoes",
+  "potatoes",
+  "potato",
+  "potato",
+]
+`;
+
+exports[`qty() passes snapshot tests 1`] = `
+Array [
+  "12 potatoes",
+  "1 potato",
+  "1 tsp",
+  "124.5",
+  "13 potatoes",
+  "-12 potatoes",
+  "-12.25 potatoes",
+  "-12.5 potatoes",
+]
+`;
