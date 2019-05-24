@@ -58,6 +58,7 @@ export interface IntegerParameter extends ParameterBase {
   // bounds on the value, if no limit then null.
   min: number | null;
   max: number | null;
+  step?: number;
 
   // The default
   default: number;

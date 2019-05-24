@@ -63,22 +63,47 @@ function Configurator({
   onChange: (value: any) => void;
   value: any;
 }) {
-  if (parameterDef.kind == "integer") {
-    if (typeof value !== "number") {
-      onChange(parameterDef.default);
-    }
+  if (parameterDef.kind === "integer") {
+    const delta = (d: number) => {
+      let next = value + d * (parameterDef.step || 1);
+      if (parameterDef.max !== null && next > parameterDef.max) {
+        next = parameterDef.max;
+      }
+      if (parameterDef.min !== null && next < parameterDef.min) {
+        next = parameterDef.min;
+      }
+      onChange(next);
+    };
     return (
       <View
-        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          height: 60,
+          width: 200,
+          paddingLeft: 10,
+          paddingRight: 10,
+          borderRadius: 30,
+          backgroundColor: "rgba(0,0,0,0.1)"
+        }}
       >
-        <TouchableOpacity onPress={() => onChange(value - 1)}>
-          <MaterialIcons name="remove-circle" size={50} color="gray" />
+        <TouchableOpacity onPress={() => delta(-1)}>
+          <MaterialIcons
+            name="remove"
+            size={50}
+            color={value == parameterDef.min ? "rgba(0,0,0,0.1)" : "gray"}
+          />
         </TouchableOpacity>
-        <Text style={{ fontSize: 30, width: 100, textAlign: "center" }}>
+        <Text style={{ fontSize: 30, flex: 1, textAlign: "center" }}>
           {value}
         </Text>
-        <TouchableOpacity onPress={() => onChange(value + 1)}>
-          <MaterialIcons name="add-circle" size={50} color="gray" />
+        <TouchableOpacity onPress={() => delta(+1)}>
+          <MaterialIcons
+            name="add"
+            size={50}
+            color={value == parameterDef.max ? "rgba(0,0,0,0.1)" : "gray"}
+          />
         </TouchableOpacity>
       </View>
     );
