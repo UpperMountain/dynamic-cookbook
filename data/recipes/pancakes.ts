@@ -115,11 +115,13 @@ Don't mix too vigorously---it's okay to have some lumps, as they lead to fluffie
 
 class BeatEggWhites implements Step {
   kind: "step" = "step";
-  count = this.ctx.separateEggs!.count;
+
+  count: number;
   constructor(public ctx: Context) {
     if (!ctx.separateEggs) {
       throw "BeatEggWhites: must have separated eggs in `ctx`";
     }
+    this.count = ctx.separateEggs.count;
   }
 
   get name() {
