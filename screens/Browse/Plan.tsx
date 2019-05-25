@@ -32,7 +32,10 @@ function Section({
   );
 }
 
-export default function Plan({ screenProps }: NavigationScreenConfigProps) {
+export default function Plan({
+  screenProps,
+  navigation
+}: NavigationScreenConfigProps) {
   const { removeRecipe, recipes } = screenProps as RecipesScreenProps;
 
   if (Object.keys(recipes).length === 0) {
@@ -103,6 +106,9 @@ export default function Plan({ screenProps }: NavigationScreenConfigProps) {
                 body={recipe.body}
                 image={recipe.images[0] || undefined}
                 style={{ flex: 1 }}
+                onPress={() =>
+                  navigation.push("RecipeView", { recipeId: spec.id })
+                }
               />
               <Button
                 iconName="close"

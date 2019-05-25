@@ -118,44 +118,85 @@ function Configurator({
 }
 
 interface State {
-  config: { [key: string]: any };
+  config: { [key: string]: any }; // ignored if config is in mealRecipes map
 }
 
 class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
-  state = { config: {} };
+  state: State = { config: {} };
 
-  _setParam = (param: string, value: any) => {
-    this.setState(s => ({ config: { ...s.config, [param]: value } }));
-  };
-
-  render() {
+  getDataFromProps() {
     const { screenProps, navigation } = this.props;
-    const { config: storedConfig } = this.state;
-    const {
-      updateRecipe,
-      recipes: addedRecipes
-    } = screenProps as RecipesScreenProps;
 
     const recipeId: string | null = navigation.getParam("recipeId", null);
     if (recipeId == null) {
       throw "Can't open recipe view into null recipe";
     }
 
-    const recipe = recipes[recipeId];
-    if (typeof recipe === "undefined") {
+    const recipeDef = recipes[recipeId];
+    if (typeof recipeDef === "undefined") {
       throw "Recipe ID doesn't exist.";
     }
 
-    const defaults = getRecipeDefaults(recipe);
-    const config = { ...defaults, ...storedConfig };
+    const {
+      updateRecipe,
+      removeRecipe,
+      recipes: mealRecipes
+    } = screenProps as RecipesScreenProps;
 
+    return { recipeDef, id: recipeId, updateRecipe, removeRecipe, mealRecipes };
+  }
+
+  private setParam(param: string, value: any) {
+    const { updateRecipe, mealRecipes, id } = this.getDataFromProps();
+    if (typeof mealRecipes[id] === "undefined") {
+      this.setState(s => ({ config: { ...s.config, [param]: value } }));
+    } else {
+      const spec = mealRecipes[id];
+      updateRecipe({ id, config: { ...spec.config, [param]: value } });
+    }
+  }
+
+  private getParam(param: string): any {
+    const { config } = this.state;
+    const { recipeDef, mealRecipes, id } = this.getDataFromProps();
+
+    let val: any = null;
+    if (typeof mealRecipes[id] === "undefined") {
+      val = config[param] || null;
+    } else {
+      val = mealRecipes[id].config[param];
+    }
+    if (val === null) {
+      return getRecipeDefaults(recipeDef)[param];
+    } else {
+      return val;
+    }
+  }
+
+  private getConfig(): { [key: string]: any } {
+    const { recipeDef } = this.getDataFromProps();
+    const config: { [key: string]: any } = {};
+    for (let param of recipeDef.config) {
+      config[param.id] = this.getParam(param.id);
+    }
+    return config;
+  }
+
+  render() {
+    const {
+      recipeDef,
+      mealRecipes,
+      id,
+      updateRecipe,
+      removeRecipe
+    } = this.getDataFromProps();
     return (
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <ScrollView
           horizontal
           contentContainerStyle={{ paddingRight: padding }}
         >
-          {recipe.images.map((image: Asset, i: number) => (
+          {recipeDef.images.map((image: Asset, i: number) => (
             <Image
               key={i}
               source={image}
@@ -169,13 +210,13 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
           ))}
         </ScrollView>
         <Padded top horizontal>
-          <Text style={{ fontSize: 30 }}>{recipe.name}</Text>
+          <Text style={{ fontSize: 30 }}>{recipeDef.name}</Text>
         </Padded>
         <Padded top horizontal>
-          <Text>{recipe.body}</Text>
+          <Text>{recipeDef.body}</Text>
         </Padded>
         <Hr />
-        {recipe.config.map(parameterDef => (
+        {recipeDef.config.map(parameterDef => (
           <React.Fragment key={parameterDef.id}>
             <Padded top horizontal>
               <Text style={{ fontSize: 18 }}>{parameterDef.question}</Text>
@@ -183,20 +224,32 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
             <Padded all>
               <Configurator
                 parameterDef={parameterDef}
-                value={(config as any)[parameterDef.id]}
-                onChange={val => this._setParam(parameterDef.id, val)}
+                value={this.getParam(parameterDef.id)}
+                onChange={val => this.setParam(parameterDef.id, val)}
               />
             </Padded>
           </React.Fragment>
         ))}
         <Padded top horizontal>
-          <Button
-            onPress={() => updateRecipe({ id: recipeId, config })}
-            size={45}
-            color={colorPrimary}
-          >
-            {addedRecipes[recipeId] == null ? "Add to Meal" : "Update Recipe"}
-          </Button>
+          {mealRecipes[id] == null ? (
+            <Button
+              size={45}
+              color={colorPrimary}
+              iconColor="black"
+              iconName="add"
+              onPress={() => updateRecipe({ id, config: this.getConfig() })}
+            >
+              Add to Meal
+            </Button>
+          ) : (
+            <Button
+              size={45}
+              iconName="remove"
+              onPress={() => removeRecipe(id)}
+            >
+              Remove from Meal
+            </Button>
+          )}
         </Padded>
       </ScrollView>
     );
