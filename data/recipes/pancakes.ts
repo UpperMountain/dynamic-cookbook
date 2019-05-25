@@ -155,8 +155,7 @@ class FoldEggWhites implements Step {
   body = `
 Add the egg whites to the bowl with the batter.
 
-Very gently, __fold__ in the beaten egg whites. They need to be 
-incorporated evenly, without letting the air out.
+Very gently, __fold__ in the beaten egg whites. They need to be incorporated evenly, without letting the air out.
   `;
   until = "Egg whites are incorporated";
   duration = 60 * 2; // measured this
