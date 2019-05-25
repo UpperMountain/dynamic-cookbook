@@ -72,7 +72,7 @@ const Base = createMaterialBottomTabNavigator(
     inactiveTintColor: colorShade,
     barStyle: { backgroundColor: "white" },
     shifting: false,
-    labeled: false
+    labeled: true
   }
 );
 
