@@ -1,6 +1,17 @@
-import { simplify } from "./graph";
+import { simplify, isStep } from "./graph";
 import { ProcedureAll, ProcedureA, ProcedureB } from "../data/exampleData";
-import Sequencer, { Stage } from "./Sequencer";
+import Sequencer, { Stage, NextStatus } from "./Sequencer";
+
+function unspool(seq: Sequencer) {
+  const order = [];
+  while (true) {
+    const next = seq.next();
+    if (!isStep(next)) break;
+    order.push(next);
+    seq.setStage(next, Stage.Done);
+  }
+  return order;
+}
 
 it("should construct without blowing up", () => {
   const roots = [new ProcedureAll(), new ProcedureA()];
@@ -76,17 +87,35 @@ describe(".next()", () => {
     simplify(root);
     const seq = new Sequencer([root]);
 
-    const order = [];
-    while (true) {
-      const next = seq.next();
-      if (next == null) break;
-      order.push(next);
-      seq.setStage(next, Stage.Done);
-    }
+    // run out all steps
+    const order = unspool(seq);
 
     expect(order[0]).toBeInstanceOf(ProcedureB);
     expect(order[1]).toBeInstanceOf(ProcedureA);
     expect(order[2]).toBeInstanceOf(ProcedureAll);
+  });
+
+  it("should return Done at end of recipe", () => {
+    const root = new ProcedureAll();
+    simplify(root);
+    const seq = new Sequencer([root]);
+
+    // complete the recipe
+    unspool(seq);
+
+    expect(seq.next()).toEqual(NextStatus.Done);
+  });
+
+  it("should not return any candidates when one is active", () => {
+    const root = new ProcedureAll();
+    simplify(root);
+    const seq = new Sequencer([root]);
+
+    // mark A as active
+    seq.setStage(root!.requires[0], Stage.Active);
+
+    const next = seq.next();
+    expect(next).toEqual(NextStatus.Pending);
   });
 
   it("should not return candidates in progress", () => {
@@ -99,6 +128,6 @@ describe(".next()", () => {
     seq.setStage(root!.requires[1], Stage.Passive);
 
     const next = seq.next();
-    expect(next).toBeNull();
+    expect(next).toEqual(NextStatus.Pending);
   });
 });

@@ -1,5 +1,5 @@
 import { Combine } from "./pasta";
-import { Step, simplify, repr } from "../../lib/graph";
+import { Step, simplify, repr, isStep } from "../../lib/graph";
 import Sequencer, { Stage } from "../../lib/Sequencer";
 
 it("should create a Pasta without error", () => {
@@ -42,7 +42,7 @@ it("should work with Sequencer", () => {
   const steps: Step[] = [];
   while (true) {
     const next = seq.next();
-    if (next) {
+    if (isStep(next)) {
       steps.push(next);
       seq.setStage(next, Stage.Done);
     } else {

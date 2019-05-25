@@ -26,6 +26,15 @@ export enum Stage {
   Done = "done"
 }
 
+export enum NextStatus {
+  // The recipe is complete
+  Done = "done",
+
+  // The recipe is not complete, but we're waiting for items
+  // in passive time before we can start another step.
+  Pending = "pending"
+}
+
 export default class Sequencer {
   // Store the root Step.
   private root: Step;
@@ -134,28 +143,37 @@ export default class Sequencer {
   }
 
   // Get the node that's most favorable to start next, or null if nothing is available.
-  public next(): Step | null {
+  public next(): Step | NextStatus {
     // Get the possible steps
     let candidates = this.blockingLeaves();
+
+    // If we're working on any one of these steps, we can't start another
+    const hasActiveStep = candidates.some(
+      (e: Step) => this.stage(e) === Stage.Active
+    );
+    if (hasActiveStep) {
+      return NextStatus.Pending;
+    }
 
     // Only show steps that haven't been started
     candidates = candidates.filter(
       (s: Step) => this.stage(s) === Stage.Waiting
     );
 
+    // if we can't start anything, return Pending
+    if (candidates.length == 0) {
+      return NextStatus.Pending;
+    }
+
+    // If we're finished, return Done.
+    if (candidates.length === 1 && candidates[0] === this.root) {
+      return NextStatus.Done;
+    }
+
     // Sort them by `this.rank`
     candidates = candidates.sort((a: Step, b: Step) => this.rank(a, b));
 
-    // If we're finished, return null.
-    if (candidates.length === 1 && candidates[0] === this.root) {
-      return null;
-    }
-
-    // Return the first one.
-    if (candidates.length > 0) {
-      return candidates[0];
-    } else {
-      return null;
-    }
+    // Return the best candidate.
+    return candidates[0];
   }
 }

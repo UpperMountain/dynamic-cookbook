@@ -51,13 +51,17 @@ export interface Step extends Described {
 export type Node = Ingredient | Step;
 
 // Check if a Node is a Step
-export function isStep(obj: Node): obj is Step {
-  return obj.kind === "step";
+export function isStep(obj: any): obj is Step {
+  return typeof obj === "object" && obj !== null && obj.kind === "step";
 }
 
 // check if a Node is an Ingredient
-export function isIngredient(obj: Node): obj is Ingredient {
-  return obj.kind === "ingredient";
+export function isIngredient(obj: any): obj is Ingredient {
+  return typeof obj === "object" && obj !== null && obj.kind === "ingredient";
+}
+
+export function isNode(obj: any): obj is Node {
+  return isStep(obj) || isIngredient(obj);
 }
 
 // Function to check if any two objects are instances of the same class
