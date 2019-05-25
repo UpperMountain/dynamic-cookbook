@@ -25,6 +25,9 @@ interface Props {
   // Useful to pass 'height' for blank line
   style?: ViewProps["style"];
 
+  // Style of inner view
+  innerStyle?: ViewProps["style"];
+
   // Space between left edge of component and inner contents
   sideWidth?: number;
 
@@ -44,6 +47,7 @@ interface Props {
 export default function LeftLine(props: Props) {
   const {
     style,
+    innerStyle,
     overlap = false,
     children,
     aside,
@@ -56,7 +60,13 @@ export default function LeftLine(props: Props) {
         {aside}
         {!hidden && <View style={styles.fillLine} />}
       </View>
-      <View style={[{ marginLeft: overlap ? -sideWidth : 0 }, styles.rightCol]}>
+      <View
+        style={[
+          { marginLeft: overlap ? -sideWidth : 0 },
+          styles.rightCol,
+          innerStyle
+        ]}
+      >
         {children}
       </View>
     </View>

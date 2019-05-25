@@ -50,6 +50,7 @@ Array [
           Object {
             "flex": 1,
           },
+          undefined,
         ]
       }
     >
@@ -118,6 +119,7 @@ Array [
           Object {
             "flex": 1,
           },
+          undefined,
         ]
       }
     >
@@ -185,6 +187,7 @@ Array [
           Object {
             "flex": 1,
           },
+          undefined,
         ]
       }
     />
@@ -237,6 +240,7 @@ Array [
           Object {
             "flex": 1,
           },
+          undefined,
         ]
       }
     >
@@ -296,6 +300,7 @@ Array [
           Object {
             "flex": 1,
           },
+          undefined,
         ]
       }
     >
