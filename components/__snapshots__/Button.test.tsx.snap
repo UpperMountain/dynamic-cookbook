@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should pass snapshot tests 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#eaeaea",
+          "borderRadius": 17.5,
+          "flexDirection": "row",
+          "height": 35,
+          "justifyContent": "center",
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "width": undefined,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text />
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "fontSize": 14,
+          "paddingLeft": 5,
+          "textAlign": "left",
+        }
+      }
+    >
+      Home test
+    </Text>
+  </View>,
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#eaeaea",
+          "borderRadius": 17.5,
+          "flexDirection": "row",
+          "height": 35,
+          "justifyContent": "center",
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "width": 35,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text />
+  </View>,
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#eaeaea",
+        "borderRadius": 17.5,
+        "flexDirection": "row",
+        "height": 35,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 5,
+        "paddingRight": 5,
+        "width": 35,
+      }
+    }
+  >
+    <Text />
+  </View>,
+]
+`;

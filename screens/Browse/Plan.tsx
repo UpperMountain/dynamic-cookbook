@@ -1,10 +1,10 @@
 import React from "react";
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { ScrollView, Text, View } from "react-native";
 import { walkGroup, simplifyGroup, Ingredient } from "../../lib/graph";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./BrowseNavigator";
 import Padded from "../../components/Padded";
+import Button from "../../components/Button";
 import ListItem from "../../components/ListItem";
 import Card from "../../components/Card";
 import { recipes as allRecipes } from "../../data";
@@ -14,15 +14,18 @@ import { flatten } from "lodash";
 
 function Section({
   name,
+  aside,
   children
 }: {
   name: string;
+  aside?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <Card>
-      <Padded all>
-        <Text style={{ fontSize: 20 }}>{name}</Text>
+      <Padded all style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={{ fontSize: 20, flex: 1 }}>{name}</Text>
+        {aside}
       </Padded>
       {children}
     </Card>
@@ -101,20 +104,11 @@ export default function Plan({ screenProps }: NavigationScreenConfigProps) {
                 image={recipe.images[0] || undefined}
                 style={{ flex: 1 }}
               />
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "rgba(0,0,0,0.1)",
-                  width: 30,
-                  height: 30,
-                  marginLeft: padding / 2,
-                  borderRadius: 15,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+              <Button
+                iconName="close"
                 onPress={() => removeRecipe(spec.id)}
-              >
-                <MaterialIcons name="close" size={20} color="gray" />
-              </TouchableOpacity>
+                style={{ marginLeft: padding / 2 }}
+              />
             </Padded>
           );
         })}
@@ -135,7 +129,7 @@ export default function Plan({ screenProps }: NavigationScreenConfigProps) {
           </Padded>
         </View>
       </Section>
-      <Section name="Ingredients">
+      <Section name="Ingredients" aside={<Button width={75}>Save</Button>}>
         {ingredients.map((ing: Ingredient) => (
           <Padded horizontal bottom key={ing.name}>
             <ListItem name={ing.name} body={ing.body} />

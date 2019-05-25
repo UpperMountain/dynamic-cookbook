@@ -5,13 +5,12 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   AsyncStorage
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import Button from "../../components/Button";
 import { NavigationInjectedProps, NavigationContainer } from "react-navigation";
 import shadow from "../../lib/shadow";
-import { colorShade, colorPrimary } from "../../lib/theme";
+import { colorPrimary } from "../../lib/theme";
 import { RecipeSpec } from "../../lib/Recipe";
 
 const storageKey = "BrowseNavigator_recipesCache";
@@ -37,7 +36,9 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     bottom: getNavbarHeight() + 20,
-    height: 40,
+    height: 45,
+    paddingLeft: 5,
+    paddingRight: 5,
     backgroundColor: "white",
     borderRadius: 50,
     ...shadow(0.3),
@@ -46,30 +47,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between"
-  },
-  startButton: {
-    borderRadius: 30,
-    height: 30,
-    marginRight: 5,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: colorPrimary,
-
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  cancelButton: {
-    height: 30,
-    width: 30,
-    marginLeft: 5,
-    borderRadius: 30,
-    backgroundColor: "rgba(0,0,0,0.05)",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
   }
 });
 
@@ -147,21 +124,20 @@ export default function createBrowseNavigator(Base: NavigationContainer) {
           />
           {amount > 0 && (
             <View style={styles.floatingBar}>
-              <TouchableOpacity
-                style={styles.cancelButton}
+              <Button
+                iconName="close"
                 onPress={() => this.setState({ recipes: {} })}
-              >
-                <MaterialIcons name="close" size={20} color={colorShade} />
-              </TouchableOpacity>
+              />
               <Text style={{ marginLeft: 20 }}>
                 {amount} recipe{amount > 1 ? "s" : ""} in your meal
               </Text>
-              <TouchableOpacity
-                style={styles.startButton}
+              <Button
                 onPress={() => navigation.push("Meal", { recipes })}
+                width={100}
+                color={colorPrimary}
               >
-                <Text>Start</Text>
-              </TouchableOpacity>
+                Start
+              </Button>
             </View>
           )}
         </>

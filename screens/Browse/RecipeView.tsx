@@ -8,13 +8,14 @@ import {
   View
 } from "react-native";
 import Markdown from "react-native-markdown-renderer";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./BrowseNavigator";
 import { ParameterDef, getRecipeDefaults } from "../../lib/Recipe";
 import { recipes } from "../../data";
 import Padded from "../../components/Padded";
+import Button from "../../components/Button";
 import { padding, colorPrimary } from "../../lib/theme";
 
 const Hr = () => (
@@ -26,31 +27,12 @@ const Hr = () => (
 );
 
 const styles = StyleSheet.create({
-  adjustButton: {
-    height: 50,
-    width: 50,
-    borderRadius: 30,
-    backgroundColor: "rgba(0,0,0,0.05)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
   radio: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
     marginBottom: 10
-  },
-  radioInactive: {
-    height: 30,
-    width: 30,
-    borderRadius: 30,
-    marginRight: 20,
-    backgroundColor: "rgba(0,0,0,0.05)"
-  },
-  radioActive: {
-    backgroundColor: colorPrimary
   }
 });
 
@@ -116,11 +98,13 @@ function Configurator({
             style={styles.radio}
             onPress={() => onChange(id)}
           >
-            <View
-              style={[
-                styles.radioInactive,
-                id === value ? styles.radioActive : {}
-              ]}
+            <Button
+              iconTag={MaterialCommunityIcons}
+              iconName={id === value ? "checkbox-blank-circle" : null}
+              style={{ marginRight: padding }}
+              color={id === value ? colorPrimary : undefined}
+              iconColor="white"
+              iconPad={12}
             />
             <Markdown>{text}</Markdown>
           </TouchableOpacity>
@@ -206,24 +190,13 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
           </React.Fragment>
         ))}
         <Padded top horizontal>
-          <TouchableOpacity
-            style={{
-              backgroundColor: colorPrimary,
-              borderRadius: 30,
-              padding: 10,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
+          <Button
             onPress={() => updateRecipe({ id: recipeId, config })}
+            size={45}
+            color={colorPrimary}
           >
-            {addedRecipes[recipeId] == null ? (
-              <Text>Add to Meal</Text>
-            ) : (
-              <Text>Update Recipe</Text>
-            )}
-          </TouchableOpacity>
+            {addedRecipes[recipeId] == null ? "Add to Meal" : "Update Recipe"}
+          </Button>
         </Padded>
       </ScrollView>
     );

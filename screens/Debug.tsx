@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  AsyncStorage,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Text,
-  Platform
-} from "react-native";
+import { AsyncStorage, ScrollView, View, Text, Platform } from "react-native";
+import ButtonInner, { Props as ButtonProps } from "../components/Button";
 import { Updates, Constants, Segment } from "expo";
 
 function crash() {
@@ -52,20 +46,11 @@ function Info({ name, children }: { name: string; children: React.ReactNode }) {
   );
 }
 
-function Button({
-  children,
-  onPress
-}: {
-  children: React.ReactNode;
-  onPress: () => void;
-}) {
+function Button(props: ButtonProps) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{ margin: 10, padding: 10, backgroundColor: "rgba(0,0,0,0.05)" }}
-    >
-      <Text>{children}</Text>
-    </TouchableOpacity>
+    <View style={{ margin: 10 }}>
+      <ButtonInner {...props} />
+    </View>
   );
 }
 
@@ -82,17 +67,22 @@ export default function Debug() {
       contentContainerStyle={{ paddingBottom: 50 }}
     >
       <Header>Diagnostics</Header>
-      <Button onPress={() => crash()}>
+      <Button iconName="error" onPress={() => crash()}>
         Crash the app (sentry reporting test)
       </Button>
-      <Button onPress={() => Updates.reload()}>
+      <Button iconName="system-update" onPress={() => Updates.reload()}>
         Force OTA update to latest
       </Button>
-      <Button onPress={() => AsyncStorage.clear()}>Clear AsyncStorage</Button>
-      <Button onPress={() => Segment.setEnabledAsync(false)}>
+      <Button iconName="delete-sweep" onPress={() => AsyncStorage.clear()}>
+        Clear AsyncStorage
+      </Button>
+      <Button iconName="cancel" onPress={() => Segment.setEnabledAsync(false)}>
         Disable Segment tracking
       </Button>
-      <Button onPress={() => Segment.setEnabledAsync(true)}>
+      <Button
+        iconName="network-check"
+        onPress={() => Segment.setEnabledAsync(true)}
+      >
         Enable Segment tracking
       </Button>
       <Header>Build information</Header>
