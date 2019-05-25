@@ -218,7 +218,7 @@ class SimplifyRoot implements Step {
   kind: "step" = "step";
   constructor(public requires: Node[]) {}
   get name(): string {
-    throw "not an actual step";
+    throw new Error("not an actual step");
   }
   until = "";
 }

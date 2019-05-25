@@ -46,7 +46,7 @@ export interface Props {
 export default function StepAction(props: Props) {
   const { timer = false, remaining = null, until, onPress } = props;
   if (remaining !== null && !timer) {
-    throw "StepAction: passed time remaining without timer enabled";
+    throw new Error("StepAction: passed time remaining without timer enabled");
   }
   return (
     <Card

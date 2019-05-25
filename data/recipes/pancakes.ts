@@ -119,7 +119,7 @@ class BeatEggWhites implements Step {
   count: number;
   constructor(public ctx: Context) {
     if (!ctx.separateEggs) {
-      throw "BeatEggWhites: must have separated eggs in `ctx`";
+      throw new Error("BeatEggWhites: must have separated eggs in `ctx`");
     }
     this.count = ctx.separateEggs.count;
   }

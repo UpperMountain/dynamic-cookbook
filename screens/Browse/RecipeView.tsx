@@ -129,12 +129,12 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
 
     const recipeId: string | null = navigation.getParam("recipeId", null);
     if (recipeId == null) {
-      throw "Can't open recipe view into null recipe";
+      throw new Error("Can't open recipe view into null recipe");
     }
 
     const recipeDef = recipes[recipeId];
     if (typeof recipeDef === "undefined") {
-      throw "Recipe ID doesn't exist.";
+      throw new Error("Recipe ID doesn't exist.");
     }
 
     const {
