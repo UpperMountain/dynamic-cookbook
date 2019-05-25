@@ -245,7 +245,10 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
             <Button
               size={45}
               iconName="remove"
-              onPress={() => removeRecipe(id)}
+              onPress={() => {
+                this.setState({ config: this.getConfig() });
+                removeRecipe(id);
+              }}
             >
               Remove from Meal
             </Button>
