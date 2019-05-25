@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
+import { Share } from "react-native";
 import { walkGroup, simplifyGroup, Ingredient } from "../../lib/graph";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./BrowseNavigator";
@@ -29,6 +30,14 @@ function Section({
       </Padded>
       {children}
     </Card>
+  );
+}
+
+function shareIngredientsReport(ingredients: Ingredient[]) {
+  const text = ingredients.map(e => `${e.name}: ${e.body}`).join("\n");
+  Share.share(
+    { title: "Meal Plan", message: text },
+    { dialogTitle: "Send ingredients to..." }
   );
 }
 
@@ -135,7 +144,16 @@ export default function Plan({
           </Padded>
         </View>
       </Section>
-      <Section name="Ingredients" aside={<Button width={75}>Save</Button>}>
+      <Section
+        name="Ingredients"
+        aside={
+          <Button
+            onPress={() => shareIngredientsReport(ingredients)}
+            iconName="share"
+            iconPad={8}
+          />
+        }
+      >
         {ingredients.map((ing: Ingredient) => (
           <Padded horizontal bottom key={ing.name}>
             <ListItem name={ing.name} body={ing.body} />
