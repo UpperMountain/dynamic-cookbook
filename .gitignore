@@ -8,3 +8,6 @@ npm-debug.*
 coverage
 package-lock.json
 yarn-error.log
+
+# ignore error reports
+report.*.json
