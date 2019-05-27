@@ -14,6 +14,7 @@ interface Context {
   serves: number;
   frothStrategy: "whisk" | "machine";
   kettle: boolean;
+  dirty: boolean;
 }
 
 const cupsFinalChai = 1;
@@ -100,13 +101,13 @@ class BoilChai implements Step {
     return `
 ${getWater}
 
-Once the water has come to a steady boil, boil for 10 minutes.
+Once the water has come to a steady boil, boil for 15 minutes.
     `;
   }
 
   until = "The tea is boiling" /*, sis! */;
 
-  timer = { until: "Chai is dark in color", duration: 60 * 10 };
+  timer = { until: "Chai is opaque in color", duration: 60 * 15 };
 
   merge: MergeFunction = mergeApply((other: BoilChai) => {
     this.cups += other.cups;
@@ -119,10 +120,15 @@ class PourChai implements Step {
   requires: Step[] = [];
   constructor(public ctx: Context) {
     this.requires.push(new BoilChai(ctx));
+
     if (ctx.frothStrategy === "whisk") {
       this.requires.push(new WhiskFrothMilk(ctx.serves * cupsFinalMilk));
     } else if (ctx.frothStrategy === "machine") {
       this.requires.push(new MachineFrothMilk(ctx.serves * cupsFinalMilk));
+    }
+
+    if (ctx.dirty) {
+      this.requires.push(new Steps.Espresso(1));
     }
   }
   serves = this.ctx.serves;
@@ -132,6 +138,7 @@ class PourChai implements Step {
     return `
 Into ${plural(this.ctx.serves, 1, "a", "each")} mug:
 
+- pour one espresso shot
 - with a tea strainer, __strain__ ${qty(
       cupsFinalChai,
       0.25,
@@ -175,6 +182,16 @@ export const ChaiLatte: Recipe = {
       default: "machine"
     },
     {
+      id: "dirty",
+      kind: "categorical",
+      question: "Make it dirty (with an espresso shot?)",
+      options: {
+        dirty: "Yes please!",
+        clean: "No, thanks."
+      },
+      default: "clean"
+    },
+    {
       id: "kettle",
       kind: "categorical",
       question: "Do you have an electric kettle?",
@@ -185,7 +202,12 @@ export const ChaiLatte: Recipe = {
       default: "true"
     }
   ],
-  requires: ({ serves, froth, kettle }) => [
-    new PourChai({ serves, frothStrategy: froth, kettle: kettle == "true" })
+  requires: ({ serves, dirty, froth, kettle }) => [
+    new PourChai({
+      serves,
+      frothStrategy: froth,
+      kettle: kettle == "true",
+      dirty: dirty === "dirty"
+    })
   ]
 };

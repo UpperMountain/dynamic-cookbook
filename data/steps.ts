@@ -19,6 +19,25 @@ export class ChopOnion implements Step {
   );
 }
 
+export class Espresso implements Step {
+  kind: "step" = "step";
+  constructor(public count: number) {}
+
+  get name() {
+    return `Pull ${qty(this.count, 1, "espresso shot", "espresso shots")}`;
+  }
+
+  until = "Espresso is pulled";
+
+  body = `Use whichever method you prefer.`;
+
+  requires = [new Ingredients.Espresso(this.count)];
+
+  merge: MergeFunction = mergeApply((other: Espresso) => {
+    this.count += other.count;
+  });
+}
+
 export class BoilKettle implements Step {
   kind: "step" = "step";
   constructor(public cups: number) {}

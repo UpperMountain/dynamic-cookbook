@@ -174,3 +174,16 @@ export class Spaghetti implements Ingredient {
     (other: Spaghetti) => (this.serves += other.serves)
   );
 }
+
+export class Espresso implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public count: number) {}
+  name = "Coffee (for espresso)";
+  get body() {
+    return `Enough for ${qty(this.count, 1, "shot", "shots")}`;
+  }
+
+  merge: MergeFunction = mergeApply((other: Espresso) => {
+    this.count += other.count;
+  });
+}
