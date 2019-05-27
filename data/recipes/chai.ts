@@ -59,7 +59,7 @@ Use an espresso machine to froth ${qty(this.cups, 0.25, "cup", "cups")} of milk.
 class HeatChai implements Step {
   kind: "step" = "step";
   constructor(public ctx: Context) {}
-  spoons = this.ctx.serves;
+  spoons = this.ctx.serves * 2.5;
 
   name = "Heat up the chai";
   get body() {
@@ -89,7 +89,7 @@ class BoilChai implements Step {
       this.requires.push(new Steps.BoilKettle(this.cups));
     }
   }
-  cups = this.ctx.serves * cupsFinalChai * 2;
+  cups = this.ctx.serves * cupsFinalChai * 2.5;
 
   name = "Boil the chai";
   get body() {
