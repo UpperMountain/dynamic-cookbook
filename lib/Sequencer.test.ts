@@ -115,10 +115,10 @@ describe(".next()", () => {
     seq.setStage(root!.requires[0], Stage.Active);
 
     const next = seq.next();
-    expect(next).toEqual(NextStatus.Pending);
+    expect(next).toEqual(NextStatus.ActiveWaiting);
   });
 
-  it("should not return candidates in progress", () => {
+  it("should return the correct waiting status", () => {
     const root = new ProcedureAll();
     simplify(root);
     const seq = new Sequencer([root]);
@@ -127,7 +127,13 @@ describe(".next()", () => {
     seq.setStage(root!.requires[0], Stage.Active);
     seq.setStage(root!.requires[1], Stage.Passive);
 
-    const next = seq.next();
-    expect(next).toEqual(NextStatus.Pending);
+    let next = seq.next();
+    expect(next).toEqual(NextStatus.ActiveWaiting);
+
+    // Mark A as passive
+    seq.setStage(root!.requires[0], Stage.Passive);
+
+    next = seq.next();
+    expect(next).toEqual(NextStatus.PassiveWaiting);
   });
 });

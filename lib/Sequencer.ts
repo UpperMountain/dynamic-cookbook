@@ -30,9 +30,11 @@ export enum NextStatus {
   // The recipe is complete
   Done = "done",
 
-  // The recipe is not complete, but we're waiting for items
-  // in passive time before we can start another step.
-  Pending = "pending"
+  // Waiting on steps, some of which are in active time
+  ActiveWaiting = "activeWaiting",
+
+  // Waiting on steps, all of which are in passive time
+  PassiveWaiting = "passiveWaiting"
 }
 
 export default class Sequencer {
@@ -148,11 +150,12 @@ export default class Sequencer {
     let candidates = this.blockingLeaves();
 
     // If we're working on any one of these steps, we can't start another
+    // return ActiveWaiting
     const hasActiveStep = candidates.some(
       (e: Step) => this.stage(e) === Stage.Active
     );
     if (hasActiveStep) {
-      return NextStatus.Pending;
+      return NextStatus.ActiveWaiting;
     }
 
     // Only show steps that haven't been started
@@ -160,9 +163,10 @@ export default class Sequencer {
       (s: Step) => this.stage(s) === Stage.Waiting
     );
 
-    // if we can't start anything, return Pending
+    // if we can't start anything, return PassiveWaiting
+    // There's nothing in active time, so we must be waiting on passive steps.
     if (candidates.length == 0) {
-      return NextStatus.Pending;
+      return NextStatus.PassiveWaiting;
     }
 
     // If we're finished, return Done.

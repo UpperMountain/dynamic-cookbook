@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { simplifyGroup, Step } from "../../lib/graph";
+import { simplifyGroup, Step, isStep } from "../../lib/graph";
 import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipeSpec } from "../../lib/Recipe";
 import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
@@ -41,8 +41,7 @@ type Action = Readonly<ButtonAction | ActiveTimer>;
 interface State {
   steps: Step[];
   actions: Action[];
-  pending: boolean; // waiting for action, blocking next step
-  done: boolean; // finished with the entire meal
+  status: NextStatus | null; // active/passive waiting, doneness, or nothing.
 }
 
 class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
@@ -71,8 +70,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
     this.state = {
       steps: [],
       actions: [],
-      pending: false,
-      done: false
+      status: null
     };
   }
 
@@ -94,14 +92,14 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   private nextStep() {
     const next = this.seq.next();
 
-    // If there isn't anything to do, set pending.
-    if (next === NextStatus.Pending) {
-      this.setState({ pending: true });
-      return;
-    } else if (next === NextStatus.Done) {
-      this.setState({ pending: false, done: true });
+    // If there isn't anything to do, record that and return.
+    if (!isStep(next)) {
+      this.setState({ status: next });
       return;
     }
+
+    // We have something to do---clear status.
+    this.setState({ status: null });
 
     // Add the step, and its actions, to the UI
     const actionBase = { for: next, analyticsStart: Date.now() };
@@ -183,7 +181,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
 
   render() {
     // TODO: ui for pending state?
-    const { steps, actions, pending, done: _done } = this.state;
+    const { steps, actions, status } = this.state;
     return (
       <ScrollView
         ref={this.scroll}
@@ -197,7 +195,7 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
         {steps.map((step: Step, i: number) => (
           <StepView key={i} num={i + 1} step={step} />
         ))}
-        {pending && <PendingStep />}
+        {status == NextStatus.PassiveWaiting && <PendingStep />}
         {actions.map((action: Action, i: number) => (
           <LeftLine overlap key={i}>
             {action.kind === "activeTimer" && action.started ? (
