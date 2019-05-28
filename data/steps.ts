@@ -105,11 +105,8 @@ export class MeltButter implements Step {
   body = `
 You can melt butter either in a pan, or in a microwave:
 
- - In a pan: heat the butter until it foams, slighly. No more, 
-   no less---we don't want the butter to brown.
- - In a microwave: put the butter in a microwave-safe container. 
-   Microwave for 30s. Repeatedly microwave for 15s more, until the 
-   butter is completely melted.
+ - In a pan: heat the butter until it foams, slighly. No more, no less---we don't want the butter to brown.
+ - In a microwave: put the butter in a microwave-safe container. Microwave for 30s. Repeatedly microwave for 15s more, until the butter is completely melted.
 
 Set aside when it's melted.
 `;

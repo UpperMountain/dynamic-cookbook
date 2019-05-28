@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Step } from "../lib/graph";
 import LeftLine from "./LeftLine";
-import Markdown from "react-native-markdown-renderer";
 import Padded from "./Padded";
 import { padding } from "../lib/theme";
+import MD from "./CustomMarkdown";
 
 const topSize = 40;
 
@@ -58,7 +58,7 @@ export default function StepView(props: Props) {
           <Text style={{ fontSize: 20 }}>{step.name}</Text>
         </View>
         {step.body ? (
-          <Markdown>{step.body}</Markdown>
+          <MD>{step.body}</MD>
         ) : (
           <View style={{ height: padding }} />
         )}
