@@ -20,7 +20,7 @@ function Result({
 }) {
   if (result.kind == "ingredient") {
     return (
-      <ListItem name={result.ingredient.name} body={result.ingredient.body}>
+      <ListItem name={result.ingredient.name} body="Ingredient">
         <Padded top={1 / 2}>
           <Text style={{ color: "rgba(0,0,0,0.55)" }}>Found in:</Text>
         </Padded>

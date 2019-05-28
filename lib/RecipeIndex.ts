@@ -8,13 +8,13 @@ import Fuse, { FuseOptions } from "fuse.js";
 //   { kind: ingredient, ingredient: <ingredient>, foundIn: [<recipe>...] }
 // ]
 
-interface RecipeResult {
+export interface RecipeResult {
   kind: "recipe";
   id: string; // recipe ID
   recipe: Recipe;
 }
 
-interface IngredientResult {
+export interface IngredientResult {
   kind: "ingredient";
   ingredient: Ingredient;
   foundIn: RecipeResult[];
@@ -33,10 +33,9 @@ export default class RecipeIndex {
     // this should work, trust me on this one please
     // @ts-ignore
     keys: [
-      { name: "recipe.name", weight: 0.7 },
-      { name: "recipe.body", weight: 0.3 },
-      { name: "ingredient.name", weight: 0.7 },
-      { name: "ingredient.body", weight: 0.3 }
+      { name: "recipe.name", weight: 0.4 },
+      { name: "recipe.body", weight: 0.2 },
+      { name: "ingredient.name", weight: 0.4 }
     ]
   };
 
