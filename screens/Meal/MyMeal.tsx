@@ -193,7 +193,12 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
         }}
       >
         {steps.map((step: Step, i: number) => (
-          <StepView key={i} num={i + 1} step={step} />
+          <StepView
+            completed={this.seq.stage(step) === Stage.Done}
+            key={i}
+            num={i + 1}
+            step={step}
+          />
         ))}
         {status == NextStatus.PassiveWaiting && <PendingStep />}
         {actions.map((action: Action, i: number) => (

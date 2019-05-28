@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
     borderLeftColor: "black",
     borderLeftWidth: 1,
     flex: 1
+  },
+  completedLine: {
+    borderLeftColor: "#008300",
+    borderLeftWidth: 2,
+    flex: 1
   }
 });
 
@@ -42,6 +47,9 @@ interface Props {
 
   // If true, don't show the line.
   hidden?: boolean;
+
+  // If true, turns line green
+  completed?: boolean;
 }
 
 export default function LeftLine(props: Props) {
@@ -58,7 +66,11 @@ export default function LeftLine(props: Props) {
     <View style={[styles.container, style]}>
       <View style={[{ width: sideWidth }, styles.leftCol]}>
         {aside}
-        {!hidden && <View style={styles.fillLine} />}
+        {!hidden && (
+          <View
+            style={props.completed ? styles.completedLine : styles.fillLine}
+          />
+        )}
       </View>
       <View
         style={[

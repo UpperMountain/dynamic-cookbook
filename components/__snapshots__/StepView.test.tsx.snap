@@ -30,23 +30,29 @@ Array [
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "borderColor": "black",
-            "borderRadius": 25,
-            "borderWidth": 1,
-            "display": "flex",
-            "height": 40,
-            "justifyContent": "center",
-            "width": 40,
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 25,
+              "borderWidth": 1,
+              "display": "flex",
+              "height": 40,
+              "justifyContent": "center",
+              "width": 40,
+            },
+            undefined,
+          ]
         }
       >
         <Text
           style={
-            Object {
-              "fontSize": 18,
-            }
+            Array [
+              Object {
+                "color": undefined,
+                "fontSize": 18,
+              },
+            ]
           }
         >
           1
@@ -163,23 +169,29 @@ Array [
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "borderColor": "black",
-            "borderRadius": 25,
-            "borderWidth": 1,
-            "display": "flex",
-            "height": 40,
-            "justifyContent": "center",
-            "width": 40,
-          }
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 25,
+              "borderWidth": 1,
+              "display": "flex",
+              "height": 40,
+              "justifyContent": "center",
+              "width": 40,
+            },
+            undefined,
+          ]
         }
       >
         <Text
           style={
-            Object {
-              "fontSize": 18,
-            }
+            Array [
+              Object {
+                "color": undefined,
+                "fontSize": 18,
+              },
+            ]
           }
         >
           2

@@ -10,21 +10,30 @@ const topSize = 40;
 
 interface CircledProps {
   children: React.ReactNode;
+  completed?: boolean;
 }
 function Circled(props: CircledProps) {
-  const { children } = props;
+  const { children, completed = false } = props;
   return (
     <View
-      style={{
-        width: topSize,
-        height: topSize,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "black",
-        borderRadius: 25
-      }}
+      style={[
+        {
+          width: topSize,
+          height: topSize,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderWidth: 1,
+          borderColor: "black",
+          borderRadius: 25
+        },
+        completed
+          ? {
+              borderColor: "#008300",
+              backgroundColor: "#008300"
+            }
+          : undefined
+      ]}
     >
       {children}
     </View>
@@ -34,15 +43,20 @@ function Circled(props: CircledProps) {
 export interface Props {
   step: Step;
   num: number;
+  completed?: boolean;
 }
-
 export default function StepView(props: Props) {
-  const { step, num } = props;
+  const { step, num, completed = false } = props;
   return (
     <LeftLine
+      completed={completed}
       aside={
-        <Circled>
-          <Text style={{ fontSize: 18 }}>{num.toString()}</Text>
+        <Circled completed={completed}>
+          <Text
+            style={[{ fontSize: 18, color: completed ? "white" : undefined }]}
+          >
+            {num.toString()}
+          </Text>
         </Circled>
       }
     >
