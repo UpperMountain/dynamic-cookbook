@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { Step } from "../lib/graph";
 import LeftLine from "./LeftLine";
 import Padded from "./Padded";
+import Heading, { Heading2 } from "./Heading";
 import { padding } from "../lib/theme";
 import MD from "./CustomMarkdown";
 
@@ -52,11 +53,7 @@ export default function StepView(props: Props) {
       completed={completed}
       aside={
         <Circled completed={completed}>
-          <Text
-            style={[{ fontSize: 18, color: completed ? "white" : undefined }]}
-          >
-            {num.toString()}
-          </Text>
+          <Heading2>{num.toString()}</Heading2>
         </Circled>
       }
     >
@@ -69,7 +66,7 @@ export default function StepView(props: Props) {
             justifyContent: "center"
           }}
         >
-          <Text style={{ fontSize: 20 }}>{step.name}</Text>
+          <Heading>{step.name}</Heading>
         </View>
         {step.body ? (
           <MD>{step.body}</MD>

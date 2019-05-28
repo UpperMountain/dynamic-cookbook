@@ -130,9 +130,12 @@ Array [
               >
                 <Text
                   style={
-                    Object {
-                      "fontSize": 20,
-                    }
+                    Array [
+                      Object {
+                        "fontSize": 22,
+                      },
+                      undefined,
+                    ]
                   }
                 >
                   until text
@@ -282,9 +285,12 @@ Array [
                 <Text />
                 <Text
                   style={
-                    Object {
-                      "fontSize": 20,
-                    }
+                    Array [
+                      Object {
+                        "fontSize": 22,
+                      },
+                      undefined,
+                    ]
                   }
                 >
                   until text
@@ -434,9 +440,12 @@ Array [
                 <Text />
                 <Text
                   style={
-                    Object {
-                      "fontSize": 20,
-                    }
+                    Array [
+                      Object {
+                        "fontSize": 22,
+                      },
+                      undefined,
+                    ]
                   }
                 >
                   until text
@@ -586,9 +595,12 @@ Array [
                 <Text />
                 <Text
                   style={
-                    Object {
-                      "fontSize": 20,
-                    }
+                    Array [
+                      Object {
+                        "fontSize": 22,
+                      },
+                      undefined,
+                    ]
                   }
                 >
                   until text
@@ -728,9 +740,12 @@ Array [
               >
                 <Text
                   style={
-                    Object {
-                      "fontSize": 20,
-                    }
+                    Array [
+                      Object {
+                        "fontSize": 22,
+                      },
+                      undefined,
+                    ]
                   }
                 >
                   until text

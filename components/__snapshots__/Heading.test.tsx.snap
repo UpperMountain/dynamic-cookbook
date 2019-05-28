@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Heading1/> should pass snapshot tests 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "fontSize": 22,
+      },
+      undefined,
+    ]
+  }
+>
+  testing
+</Text>
+`;
+
+exports[`<Heading2/> should pass snapshot tests 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "fontSize": 17,
+      },
+      undefined,
+    ]
+  }
+>
+  testing
+</Text>
+`;

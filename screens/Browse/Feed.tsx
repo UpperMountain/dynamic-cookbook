@@ -10,6 +10,7 @@ import {
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
 import Card from "../../components/Card";
+import Heading from "../../components/Heading";
 import { NavigationScreenConfigProps } from "react-navigation";
 import Recipe from "../../lib/Recipe";
 import SafeView from "../../components/SafeView";
@@ -50,7 +51,7 @@ function FeedItem({ recipe, onPress }: FeedItemProps) {
           />
         </View>
         <Padded horizontal top>
-          <Text style={{ fontSize: 30 }}>{recipe.name}</Text>
+          <Heading>{recipe.name}</Heading>
         </Padded>
         <Padded horizontal top={1 / 2} bottom={3 / 2}>
           <Text>{recipe.body}</Text>

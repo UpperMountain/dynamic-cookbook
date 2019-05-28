@@ -15,24 +15,17 @@ import { RecipesScreenProps } from "./BrowseNavigator";
 import { ParameterDef, getRecipeDefaults } from "../../lib/Recipe";
 import { recipes } from "../../data";
 import Padded from "../../components/Padded";
+import Heading, { Heading2 } from "../../components/Heading";
 import Button from "../../components/Button";
+import Card from "../../components/Card";
 import { padding, colorPrimary } from "../../lib/theme";
-
-const Hr = () => (
-  <Padded top={5 / 2} bottom={3 / 2}>
-    <View
-      style={{ borderBottomColor: "rgba(0,0,0,0.3)", borderBottomWidth: 1 }}
-    />
-  </Padded>
-);
 
 const styles = StyleSheet.create({
   radio: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
-    marginBottom: 10
+    justifyContent: "flex-start"
   }
 });
 
@@ -99,12 +92,13 @@ function Configurator({
             onPress={() => onChange(id)}
           >
             <Button
+              size={30}
               iconTag={MaterialCommunityIcons}
               iconName={id === value ? "checkbox-blank-circle" : null}
-              style={{ marginRight: padding }}
+              style={{ marginRight: padding / 2 }}
               color={id === value ? colorPrimary : undefined}
               iconColor="white"
-              iconPad={12}
+              iconPad={8}
             />
             <Markdown>{text}</Markdown>
           </TouchableOpacity>
@@ -191,69 +185,89 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
       removeRecipe
     } = this.getDataFromProps();
     return (
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: padding * 4,
+          backgroundColor: "rgba(0,0,0,0.05)"
+        }}
+      >
         <ScrollView
           horizontal
           contentContainerStyle={{ paddingRight: padding }}
         >
           {recipeDef.images.map((image: Asset, i: number) => (
-            <Image
+            <Card
               key={i}
-              source={image}
-              style={{
-                height: 350,
-                width: 350,
-                marginLeft: padding,
-                marginTop: padding
+              shadowAmt={0.3}
+              innerStyle={{
+                margin: padding * 0.75,
+                padding: padding * 0.25,
+                marginRight: 0
               }}
-            />
+              style={{ paddingBottom: 0 }}
+            >
+              <Image
+                key={i}
+                source={image}
+                style={{
+                  height: 350,
+                  width: 350
+                }}
+              />
+            </Card>
           ))}
         </ScrollView>
-        <Padded top horizontal>
-          <Text style={{ fontSize: 30 }}>{recipeDef.name}</Text>
-        </Padded>
-        <Padded top horizontal>
-          <Text>{recipeDef.body}</Text>
-        </Padded>
-        <Hr />
-        {recipeDef.config.map(parameterDef => (
-          <React.Fragment key={parameterDef.id}>
-            <Padded top horizontal>
-              <Text style={{ fontSize: 18 }}>{parameterDef.question}</Text>
-            </Padded>
-            <Padded all>
-              <Configurator
-                parameterDef={parameterDef}
-                value={this.getParam(parameterDef.id)}
-                onChange={val => this.setParam(parameterDef.id, val)}
-              />
-            </Padded>
-          </React.Fragment>
-        ))}
-        <Padded top horizontal>
-          {mealRecipes[id] == null ? (
-            <Button
-              size={45}
-              color={colorPrimary}
-              iconColor="black"
-              iconName="add"
-              onPress={() => updateRecipe({ id, config: this.getConfig() })}
-            >
-              Add to Meal
-            </Button>
-          ) : (
-            <Button
-              size={45}
-              iconName="remove"
-              onPress={() => {
-                this.setState({ config: this.getConfig() });
-                removeRecipe(id);
-              }}
-            >
-              Remove from Meal
-            </Button>
-          )}
-        </Padded>
+        <Card>
+          <Padded all>
+            <Heading>{recipeDef.name}</Heading>
+          </Padded>
+          <Padded bottom horizontal>
+            <Text>{recipeDef.body}</Text>
+          </Padded>
+        </Card>
+        <Card>
+          <Padded all>
+            <Heading>Recipe Options</Heading>
+          </Padded>
+          {recipeDef.config.map(parameterDef => (
+            <React.Fragment key={parameterDef.id}>
+              <Padded horizontal bottom={1 / 2}>
+                <Heading2>{parameterDef.question}</Heading2>
+              </Padded>
+              <Padded horizontal bottom={1.5}>
+                <Configurator
+                  parameterDef={parameterDef}
+                  value={this.getParam(parameterDef.id)}
+                  onChange={val => this.setParam(parameterDef.id, val)}
+                />
+              </Padded>
+            </React.Fragment>
+          ))}
+          <Padded all>
+            {mealRecipes[id] == null ? (
+              <Button
+                size={45}
+                color={colorPrimary}
+                iconColor="black"
+                iconName="add"
+                onPress={() => updateRecipe({ id, config: this.getConfig() })}
+              >
+                Add to Meal
+              </Button>
+            ) : (
+              <Button
+                size={45}
+                iconName="remove"
+                onPress={() => {
+                  this.setState({ config: this.getConfig() });
+                  removeRecipe(id);
+                }}
+              >
+                Remove from Meal
+              </Button>
+            )}
+          </Padded>
+        </Card>
       </ScrollView>
     );
   }

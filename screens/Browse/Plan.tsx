@@ -6,6 +6,7 @@ import { NavigationScreenConfigProps } from "react-navigation";
 import { RecipesScreenProps } from "./BrowseNavigator";
 import Padded from "../../components/Padded";
 import Button from "../../components/Button";
+import Heading from "../../components/Heading";
 import ListItem from "../../components/ListItem";
 import Card from "../../components/Card";
 import { recipes as allRecipes } from "../../data";
@@ -25,7 +26,7 @@ function Section({
   return (
     <Card>
       <Padded all style={{ flexDirection: "row", alignItems: "center" }}>
-        <Text style={{ fontSize: 20, flex: 1 }}>{name}</Text>
+        <Heading style={{ flex: 1 }}>{name}</Heading>
         {aside}
       </Padded>
       {children}
@@ -49,20 +50,24 @@ export default function Plan({
 
   if (Object.keys(recipes).length === 0) {
     return (
-      <View style={{ flex: 1 }}>
-        <Padded horizontal={2} vertical={3}>
-          <Card shadowAmt={0.5}>
-            <Padded horizontal={2} vertical={2}>
-              <Text style={{ fontSize: 20, marginBottom: padding / 2 }}>
-                No recipes
-              </Text>
-              <Text>
-                You haven't added any recipes yet. Try searching for your
-                favorite food, or scrolling through the recommended recipes.
-              </Text>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "rgba(0,0,0,0.05)",
+          paddingTop: padding * 2
+        }}
+      >
+        <Card>
+          <Padded all>
+            <Padded bottom>
+              <Heading>No recipes</Heading>
             </Padded>
-          </Card>
-        </Padded>
+            <Text>
+              You haven't added any recipes yet. Try searching for your favorite
+              food, or scrolling through the recommended recipes.
+            </Text>
+          </Padded>
+        </Card>
       </View>
     );
   }

@@ -49,9 +49,9 @@ Array [
           style={
             Array [
               Object {
-                "color": undefined,
-                "fontSize": 18,
+                "fontSize": 17,
               },
+              undefined,
             ]
           }
         >
@@ -106,9 +106,12 @@ Array [
         >
           <Text
             style={
-              Object {
-                "fontSize": 20,
-              }
+              Array [
+                Object {
+                  "fontSize": 22,
+                },
+                undefined,
+              ]
             }
           >
             name 1
@@ -188,9 +191,9 @@ Array [
           style={
             Array [
               Object {
-                "color": undefined,
-                "fontSize": 18,
+                "fontSize": 17,
               },
+              undefined,
             ]
           }
         >
@@ -245,9 +248,12 @@ Array [
         >
           <Text
             style={
-              Object {
-                "fontSize": 20,
-              }
+              Array [
+                Object {
+                  "fontSize": 22,
+                },
+                undefined,
+              ]
             }
           >
             name 2
