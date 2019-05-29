@@ -6,6 +6,7 @@ import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
 import LeftLine from "../../components/LeftLine";
 import StepView, { PendingStep } from "../../components/StepView";
 import StepAction from "../../components/StepAction";
+import Heading from "../../components/Heading";
 import Padded from "../../components/Padded";
 
 function now() {
@@ -245,6 +246,12 @@ class MyMeal extends React.Component<MealContext, State> {
             )}
           </LeftLine>
         ))}
+        {status === NextStatus.Done && (
+          <LeftLine>
+            <Heading>Done cooking.</Heading>
+            <Text>Enjoy your food!</Text>
+          </LeftLine>
+        )}
 
         {/* take up the remaining space */}
         <LeftLine style={{ flexGrow: 1, height: 100 }} />
