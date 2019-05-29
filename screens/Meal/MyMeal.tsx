@@ -1,11 +1,12 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { View, ScrollView, ActivityIndicator, Text } from "react-native";
 import { Step, isStep } from "../../lib/graph";
 import { MealContext, MealContextConsumer } from "../../lib/mealContext";
 import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
 import LeftLine from "../../components/LeftLine";
 import StepView, { PendingStep } from "../../components/StepView";
 import StepAction from "../../components/StepAction";
+import Padded from "../../components/Padded";
 
 function now() {
   return Math.floor(Date.now() / 1000);
@@ -43,21 +44,41 @@ interface State {
 
 class MyMeal extends React.Component<MealContext, State> {
   scroll: React.RefObject<ScrollView> = React.createRef();
-  seq: Sequencer;
 
-  constructor(props: MealContext) {
-    super(props);
+  // Null iff the mealContext is working to produce steps
+  seq: Sequencer | null = null;
 
+  state = {
+    steps: [],
+    actions: [],
+    status: null
+  };
+
+  // Create the sequencer, start the UI display.
+  private start() {
     const { requires } = this.props;
 
-    // construct a Sequencer with the requirements
+    // Make a sequencer with the requirements
     this.seq = new Sequencer(requires);
 
-    this.state = {
-      steps: [],
-      actions: [],
-      status: null
-    };
+    // Grab the first step, render it to the UI.
+    this.nextStep();
+  }
+
+  componentDidUpdate(prevProps: MealContext) {
+    const { working } = this.props;
+
+    if (!working && prevProps.working) {
+      // If we just got a finished set of requirements, initialize the component.
+      this.start();
+
+      return;
+    }
+
+    if (working !== prevProps.working) {
+      // Something is changing underneath this component. That's bad
+      throw new Error("MyMeal: unexpected context prop change");
+    }
   }
 
   updateInterval: NodeJS.Timeout | null = null;
@@ -67,8 +88,11 @@ class MyMeal extends React.Component<MealContext, State> {
     // the side benefit of updating all the timer displays in sync.
     this.updateInterval = setInterval(() => this.forceUpdate(), 1000);
 
-    // Grab the first step, render it to the UI.
-    this.nextStep();
+    // If we've already calculated the requirements, start right away.
+    const { working } = this.props;
+    if (!working) {
+      this.start();
+    }
   }
 
   componentWillUnmount() {
@@ -76,7 +100,7 @@ class MyMeal extends React.Component<MealContext, State> {
   }
 
   private nextStep() {
-    const next = this.seq.next();
+    const next = this.seq!.next();
 
     // If there isn't anything to do, record that and return.
     if (!isStep(next)) {
@@ -101,7 +125,7 @@ class MyMeal extends React.Component<MealContext, State> {
     }));
 
     // Mark the step as active in the sequencer
-    this.seq.setStage(next, Stage.Active);
+    this.seq!.setStage(next, Stage.Active);
   }
 
   // Advances an action.
@@ -116,7 +140,7 @@ class MyMeal extends React.Component<MealContext, State> {
     // For active timers, start them, and update UI
     if (action.kind === "activeTimer" && action.started === null) {
       // Mark as passive
-      this.seq.setStage(action.for, Stage.Passive);
+      this.seq!.setStage(action.for, Stage.Passive);
 
       // Start timer, replace in the UI
       const newAction = { ...action, started: now() };
@@ -129,7 +153,7 @@ class MyMeal extends React.Component<MealContext, State> {
     } else {
       // Everything else:
 
-      this.seq.setStage(action.for, Stage.Done); // Mark as done
+      this.seq!.setStage(action.for, Stage.Done); // Mark as done
 
       // remove from UI
       this.setState(old => ({
@@ -166,8 +190,24 @@ class MyMeal extends React.Component<MealContext, State> {
   }
 
   render() {
-    // TODO: ui for pending state?
     const { steps, actions, status } = this.state;
+
+    // We're still waiting for the recipe to be built.
+    if (this.seq === null) {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Padded all={3} style={{ flexDirection: "row" }}>
+            <ActivityIndicator />
+            <Padded left>
+              <Text>Calculating requirements...</Text>
+            </Padded>
+          </Padded>
+        </View>
+      );
+    }
+
     return (
       <ScrollView
         ref={this.scroll}
@@ -180,7 +220,7 @@ class MyMeal extends React.Component<MealContext, State> {
       >
         {steps.map((step: Step, i: number) => (
           <StepView
-            completed={this.seq.stage(step) === Stage.Done}
+            completed={this.seq!.stage(step) === Stage.Done}
             key={i}
             num={i + 1}
             step={step}
