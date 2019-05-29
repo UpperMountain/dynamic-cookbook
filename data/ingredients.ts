@@ -218,7 +218,19 @@ export class CherryTomatoes implements Ingredient {
   constructor(public count: number) {}
   name = "Cherry Tomatoes";
   get body() {
-    return `about ${qty(this.count, 0.5)}`;
+    return `about ${qty(this.count, 1)}`;
+  }
+  merge: MergeFunction = mergeApply((other: CherryTomatoes) => {
+    this.count += other.count;
+  });
+}
+
+export class Asparagus implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public count: number) {}
+  name = "Asparagus";
+  get body() {
+    return `about ${qty(this.count, 1)} spears`;
   }
   merge: MergeFunction = mergeApply((other: CherryTomatoes) => {
     this.count += other.count;
