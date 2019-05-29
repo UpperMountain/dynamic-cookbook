@@ -1,9 +1,9 @@
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, ActivityIndicator } from "react-native";
 import { Share } from "react-native";
-import { walkGroup, simplifyGroup, Ingredient } from "../../lib/graph";
+import { walkGroup, Ingredient } from "../../lib/graph";
+import { MealContext, MealContextConsumer } from "../../lib/mealContext";
 import { NavigationScreenConfigProps } from "react-navigation";
-import { RecipesScreenProps } from "./BrowseNavigator";
 import Padded from "../../components/Padded";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
@@ -12,7 +12,6 @@ import Card from "../../components/Card";
 import { recipes as allRecipes } from "../../data";
 import { RecipeSpec } from "../../lib/Recipe";
 import { padding } from "../../lib/theme";
-import { flatten } from "lodash";
 
 function Section({
   name,
@@ -42,12 +41,13 @@ function shareIngredientsReport(ingredients: Ingredient[]) {
   );
 }
 
-export default function Plan({
-  screenProps,
-  navigation
-}: NavigationScreenConfigProps) {
-  const { removeRecipe, recipes } = screenProps as RecipesScreenProps;
-
+export function Plan({
+  navigation,
+  requires,
+  recipes,
+  working,
+  removeRecipe
+}: NavigationScreenConfigProps & MealContext) {
   if (Object.keys(recipes).length === 0) {
     return (
       <View
@@ -72,15 +72,7 @@ export default function Plan({
     );
   }
 
-  // Generate and simplify the recipe
-  const specProcedures = Object.values(recipes).map((spec: RecipeSpec) =>
-    allRecipes[spec.id].requires(spec.config)
-  );
-  let requires = flatten(specProcedures);
-
-  // group-simplify the required Procedures
-  requires = simplifyGroup(requires);
-
+  // If this takes a long time, move it to mealContext
   const ingredients: Ingredient[] = [];
   for (let node of walkGroup(requires)) {
     if (node.kind === "ingredient") {
@@ -88,6 +80,7 @@ export default function Plan({
     }
   }
 
+  // If this takes a long time, move it to mealContext
   let activeTime = 0;
   let passiveTime = 0;
   for (let node of walkGroup(requires)) {
@@ -96,6 +89,8 @@ export default function Plan({
       passiveTime += node.timer ? node.timer.duration : 0;
     }
   }
+
+  const hasInformation = requires.length !== 0;
 
   return (
     <ScrollView
@@ -133,38 +128,62 @@ export default function Plan({
           );
         })}
       </Section>
-      <Section name="Estimated Time">
-        <View style={{ flexDirection: "row" }}>
-          <Padded horizontal bottom>
-            <Text>Active Time</Text>
-            <Text style={{ fontSize: 25 }}>
-              {Math.round(activeTime / 60)} min
-            </Text>
+      {(!hasInformation || working) && (
+        <Card>
+          <Padded all style={{ flexDirection: "row" }}>
+            <ActivityIndicator style={{ marginRight: padding }} />
+            {hasInformation ? (
+              <Text>Recalculating requirements...</Text>
+            ) : (
+              <Text>Calculating requirements...</Text>
+            )}
           </Padded>
-          <Padded horizontal bottom>
-            <Text>Passive Time</Text>
-            <Text style={{ fontSize: 25 }}>
-              {Math.round(passiveTime / 60)} min
-            </Text>
-          </Padded>
-        </View>
-      </Section>
-      <Section
-        name="Ingredients"
-        aside={
-          <Button
-            onPress={() => shareIngredientsReport(ingredients)}
-            iconName="share"
-            iconPad={8}
-          />
-        }
-      >
-        {ingredients.map((ing: Ingredient) => (
-          <Padded horizontal bottom key={ing.name}>
-            <ListItem name={ing.name} body={ing.body} />
-          </Padded>
-        ))}
-      </Section>
+        </Card>
+      )}
+      {hasInformation && (
+        <>
+          <Section name="Estimated Time">
+            <View style={{ flexDirection: "row" }}>
+              <Padded horizontal bottom>
+                <Text>Active Time</Text>
+                <Text style={{ fontSize: 25 }}>
+                  {Math.round(activeTime / 60)} min
+                </Text>
+              </Padded>
+              <Padded horizontal bottom>
+                <Text>Passive Time</Text>
+                <Text style={{ fontSize: 25 }}>
+                  {Math.round(passiveTime / 60)} min
+                </Text>
+              </Padded>
+            </View>
+          </Section>
+          <Section
+            name="Ingredients"
+            aside={
+              <Button
+                onPress={() => shareIngredientsReport(ingredients)}
+                iconName="share"
+                iconPad={8}
+              />
+            }
+          >
+            {ingredients.map((ing: Ingredient) => (
+              <Padded horizontal bottom key={ing.name}>
+                <ListItem name={ing.name} body={ing.body} />
+              </Padded>
+            ))}
+          </Section>
+        </>
+      )}
     </ScrollView>
+  );
+}
+
+export default function PlanContainer(props: NavigationScreenConfigProps) {
+  return (
+    <MealContextConsumer>
+      {ctx => <Plan {...props} {...ctx} />}
+    </MealContextConsumer>
   );
 }

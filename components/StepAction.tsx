@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import LeftLine from "./LeftLine";
 import Padded from "./Padded";
-import Heading from "./Heading";
+import { Heading2 } from "./Heading";
 import Card from "./Card";
 import { padding } from "../lib/theme";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -106,7 +106,7 @@ export default function StepAction(props: Props) {
                   style={{ marginRight: 5 }}
                 />
               )}
-              <Heading>{until}</Heading>
+              <Heading2>{until}</Heading2>
             </View>
           </Padded>
         </LeftLine>

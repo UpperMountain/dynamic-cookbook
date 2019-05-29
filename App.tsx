@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
 import { trackNavStateChange } from "./lib/screenTracking";
+import { MealContextProvider } from "./lib/mealContext";
 import Sentry from "sentry-expo";
 
 export const navStatePersistenceKey = "navStatePersistence";
@@ -73,10 +74,12 @@ export default class App extends React.Component {
       return (
         <>
           <StatusBar barStyle="default" />
-          <AppContainer
-            onNavigationStateChange={trackNavStateChange}
-            persistenceKey={navStatePersistenceKey}
-          />
+          <MealContextProvider>
+            <AppContainer
+              onNavigationStateChange={trackNavStateChange}
+              persistenceKey={navStatePersistenceKey}
+            />
+          </MealContextProvider>
         </>
       );
     }

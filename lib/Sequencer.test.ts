@@ -19,18 +19,18 @@ it("should construct without blowing up", () => {
 });
 
 describe(".blockingLeaves()", () => {
-  it("should return [] for ingredients", () => {
+  it("should return [] for ingredients", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     const ing = root!.requires[0]!.requires[0];
     expect(seq.blockingLeaves(ing)).toHaveLength(0);
   });
 
-  it("should return one element if it only depends on ingredients", () => {
+  it("should return one element if it only depends on ingredients", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     const el = root!.requires[0];
@@ -38,9 +38,9 @@ describe(".blockingLeaves()", () => {
     expect(seq.blockingLeaves(el)[0]).toBe(el);
   });
 
-  it("should return multiple Steps", () => {
+  it("should return multiple Steps", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     // Nothing has been started
@@ -52,9 +52,9 @@ describe(".blockingLeaves()", () => {
 });
 
 describe(".timeBlocked()", () => {
-  it("should return total blocked time", () => {
+  it("should return total blocked time", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     const total = seq.blockedTime(root!.requires[0]!.requires[0]);
@@ -64,9 +64,9 @@ describe(".timeBlocked()", () => {
     expect(total).toEqual(child1 + child2);
   });
 
-  it("should return the correct value for the root node", () => {
+  it("should return the correct value for the root node", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     expect(seq.blockedTime(root)).toEqual(30);
@@ -74,17 +74,17 @@ describe(".timeBlocked()", () => {
 });
 
 describe(".next()", () => {
-  it("should return a next candidate with the longest timer", () => {
+  it("should return a next candidate with the longest timer", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     expect(seq.next()).toBeInstanceOf(ProcedureB);
   });
 
-  it("should return next candidates in correct sequence", () => {
+  it("should return next candidates in correct sequence", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     // run out all steps
@@ -95,9 +95,9 @@ describe(".next()", () => {
     expect(order[2]).toBeInstanceOf(ProcedureAll);
   });
 
-  it("should return Done at end of recipe", () => {
+  it("should return Done at end of recipe", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     // complete the recipe
@@ -106,9 +106,9 @@ describe(".next()", () => {
     expect(seq.next()).toEqual(NextStatus.Done);
   });
 
-  it("should not return any candidates when one is active", () => {
+  it("should not return any candidates when one is active", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     // mark A as active
@@ -118,9 +118,9 @@ describe(".next()", () => {
     expect(next).toEqual(NextStatus.ActiveWaiting);
   });
 
-  it("should return the correct waiting status", () => {
+  it("should return the correct waiting status", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
     const seq = new Sequencer([root]);
 
     // mark A, B as active

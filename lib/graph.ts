@@ -1,4 +1,5 @@
 import { uniq, omit, sortBy } from "lodash";
+import AsyncSlicer from "./AsyncSlicer";
 
 // A duration, in minutes.
 export type Duration = number;
@@ -177,7 +178,10 @@ export function repr(node: Node, tab: number = 0): string {
  *       if it worked:
  *         change all references to B into A-references
  */
-export function simplifyOne(root: Node): boolean {
+export async function simplifyOne(
+  root: Node,
+  slicer: AsyncSlicer = new AsyncSlicer()
+): Promise<boolean> {
   // TODO: make this perform in less obnoxious time complexity
 
   // Iterate over every node pair in the tree.
@@ -197,11 +201,14 @@ export function simplifyOne(root: Node): boolean {
             newReqs = uniq(newReqs);
             node.requires = newReqs;
           }
+          await slicer.pause();
         }
 
         // we successfully simplified a node.
         return true;
       }
+
+      await slicer.pause();
     }
   }
 
@@ -210,8 +217,19 @@ export function simplifyOne(root: Node): boolean {
 }
 
 // Repeatedly call simplifyOne() until it can't merge anything.
-export function simplify(root: Node) {
-  while (simplifyOne(root)) {}
+export async function simplify(
+  root: Node,
+  slicer: AsyncSlicer = new AsyncSlicer()
+): Promise<void> {
+  for (let i = 0; ; i++) {
+    // Attempt to simplify one, if it doesn't work, return
+    const cont = await simplifyOne(root, slicer);
+    if (!cont) {
+      break;
+    }
+
+    await slicer.pause();
+  }
 }
 
 class SimplifyRoot implements Step {
@@ -224,9 +242,12 @@ class SimplifyRoot implements Step {
 }
 
 // Simplify a group of Nodes.
-export function simplifyGroup(roots: Node[]): Node[] {
+export async function simplifyGroup(
+  roots: Node[],
+  slicer: AsyncSlicer = new AsyncSlicer()
+): Promise<Node[]> {
   const root = new SimplifyRoot(roots);
-  simplify(root);
+  await simplify(root, slicer);
   return root.requires;
 }
 

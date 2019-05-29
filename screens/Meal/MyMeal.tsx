@@ -1,11 +1,8 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { simplifyGroup, Step, isStep } from "../../lib/graph";
-import { NavigationScreenConfigProps } from "react-navigation";
-import { RecipeSpec } from "../../lib/Recipe";
+import { Step, isStep } from "../../lib/graph";
+import { MealContext, MealContextConsumer } from "../../lib/mealContext";
 import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
-import { recipes } from "../../data";
-import { flatten } from "lodash";
 import LeftLine from "../../components/LeftLine";
 import StepView, { PendingStep } from "../../components/StepView";
 import StepAction from "../../components/StepAction";
@@ -44,25 +41,14 @@ interface State {
   status: NextStatus | null; // active/passive waiting, doneness, or nothing.
 }
 
-class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
+class MyMeal extends React.Component<MealContext, State> {
   scroll: React.RefObject<ScrollView> = React.createRef();
   seq: Sequencer;
 
-  constructor(props: NavigationScreenConfigProps) {
+  constructor(props: MealContext) {
     super(props);
 
-    const specs: RecipeSpec[] = Object.values(
-      this.props.navigation.getParam("recipes", {})
-    );
-
-    // render the recipe specifications into Procedures
-    const specProcedures = specs.map(spec =>
-      recipes[spec.id].requires(spec.config)
-    );
-    let requires = flatten(specProcedures);
-
-    // group-simplify the required Procedures
-    requires = simplifyGroup(requires);
+    const { requires } = this.props;
 
     // construct a Sequencer with the requirements
     this.seq = new Sequencer(requires);
@@ -230,4 +216,8 @@ class MyMeal extends React.Component<NavigationScreenConfigProps, State> {
   }
 }
 
-export default MyMeal;
+export default function MyMealContainer(_props: object) {
+  return (
+    <MealContextConsumer>{ctx => <MyMeal {...ctx} />}</MealContextConsumer>
+  );
+}

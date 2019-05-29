@@ -11,7 +11,7 @@ it("should get attributes from a Pasta without error", () => {
   const _name = a.name;
 });
 
-it("should work with simplify()", () => {
+it("should work with simplify()", async () => {
   class TwoPastas implements Step {
     kind: "step" = "step";
     constructor(public servesA: number, public servesB: number) {}
@@ -22,7 +22,7 @@ it("should work with simplify()", () => {
   }
 
   const root = new TwoPastas(1, 3);
-  simplify(root);
+  await simplify(root);
 
   // The recipe must merge with itself properly.
   const reprA = repr(root.requires[0]);
@@ -34,9 +34,9 @@ it("should work with simplify()", () => {
   expect(reprA).toEqual(reprB);
 });
 
-it("should work with Sequencer", () => {
+it("should work with Sequencer", async () => {
   const root = new Combine(4);
-  simplify(root);
+  await simplify(root);
   const seq = new Sequencer([root]);
 
   const steps: Step[] = [];

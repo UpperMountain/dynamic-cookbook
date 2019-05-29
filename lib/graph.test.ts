@@ -75,29 +75,29 @@ describe("repr()", () => {
 });
 
 describe("simplifyOne()", () => {
-  it("should work without errors", () => {
+  it("should work without errors", async () => {
     const root = new ProcedureAll();
-    simplifyOne(root);
+    await simplifyOne(root);
   });
 
-  it("should decrease the node count", () => {
+  it("should decrease the node count", async () => {
     const root = new ProcedureAll();
     const n = nodeCount(root);
-    simplifyOne(root);
+    await simplifyOne(root);
     expect(nodeCount(root)).toBeLessThan(n);
   });
 });
 
 describe("simplifyAll()", () => {
-  it("should work without errors", () => {
+  it("should work without errors", async () => {
     const root = new ProcedureAll();
-    simplify(root);
+    await simplify(root);
   });
 
-  it("should simplify to the correct node count", () => {
+  it("should simplify to the correct node count", async () => {
     const root = new ProcedureAll();
     expect(nodeCount(root)).toBe(ProcedureAll.unsimplifiedNodeCount);
-    simplify(root);
+    await simplify(root);
     expect(nodeCount(root)).toBe(ProcedureAll.simplifiedNodeCount);
   });
 });

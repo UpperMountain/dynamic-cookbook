@@ -51,6 +51,9 @@ interface State {
   // https://fusejs.io/#examples
   query: string; // max length 32
 
+  // If the RecipeIndex is ready yet.
+  ready: boolean;
+
   results: QueryResult[];
 }
 
@@ -59,18 +62,23 @@ export default class Search extends React.Component<
   State
 > {
   state = {
+    ready: false,
     query: "",
     results: []
   };
 
   index?: RecipeIndex;
 
-  componentDidMount() {
+  async componentDidMount() {
     // Generate the search index
     this.index = new RecipeIndex(recipes);
+    await this.index.ready;
+    this.setState({ ready: true }, () => this.search(this.state.query));
   }
 
   private search = (query: string) => {
+    const { ready } = this.state;
+
     // immediately update field
     this.setState({ query });
 
@@ -80,9 +88,11 @@ export default class Search extends React.Component<
       navigation.push("Debug");
     }
 
-    // run the search
-    const index = this.index as RecipeIndex; // definitely not undefined
-    this.setState({ results: index.find(query) });
+    // Run the search, iff the index is ready.
+    if (ready) {
+      const index = this.index as RecipeIndex; // definitely not undefined
+      this.setState({ results: index.find(query) });
+    }
   };
 
   render() {

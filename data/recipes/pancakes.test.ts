@@ -1,5 +1,6 @@
 import { Pancakes } from "./pancakes";
 import { ParameterDef } from "../../lib/Recipe";
+import AsyncSlicer from "../../lib/AsyncSlicer";
 import {
   simplifyGroup,
   walk,
@@ -17,6 +18,10 @@ function getOptionsForId(id: string): string[] {
     throw `options of id=${id} are not categorical`;
   }
 }
+
+// Do all the work synchronously
+// This gives a *massive* performance speedup
+const slicer = new AsyncSlicer(null);
 
 for (const serves of [2, 20]) {
   for (const skillet of getOptionsForId("skillet")) {
@@ -40,20 +45,20 @@ for (const serves of [2, 20]) {
             }
           });
 
-          it("should not explode when simplified", () => {
+          it("should not explode when simplified", async () => {
             const a = Pancakes.requires(params);
             const b = Pancakes.requires(params);
-            simplifyGroup(a.concat(b));
+            await simplifyGroup(a.concat(b), slicer);
           });
 
-          it("should simplify properly with itself", () => {
+          it("should simplify properly with itself", async () => {
             const original = Pancakes.requires({
               ...params,
               serves: 2 * params.serves
             });
             const a = Pancakes.requires(params);
             const b = Pancakes.requires(params);
-            simplifyGroup(a.concat(b));
+            await simplifyGroup(a.concat(b), slicer);
 
             // should mostly simplify most of the way
             const originalCount = nodeCount(original[0]);

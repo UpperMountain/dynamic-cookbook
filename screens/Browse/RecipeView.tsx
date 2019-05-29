@@ -11,9 +11,9 @@ import Markdown from "react-native-markdown-renderer";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo";
 import { NavigationScreenConfigProps } from "react-navigation";
-import { RecipesScreenProps } from "./BrowseNavigator";
 import { ParameterDef, getRecipeDefaults } from "../../lib/Recipe";
-import { recipes } from "../../data";
+import { MealContext, MealContextConsumer } from "../../lib/mealContext";
+import { recipes as allRecipes } from "../../data";
 import Padded from "../../components/Padded";
 import Heading, { Heading2 } from "../../components/Heading";
 import Button from "../../components/Button";
@@ -115,27 +115,26 @@ interface State {
   config: { [key: string]: any }; // ignored if config is in mealRecipes map
 }
 
-class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
+class RecipeView extends React.Component<
+  NavigationScreenConfigProps & MealContext,
+  State
+> {
   state: State = { config: {} };
 
   getDataFromProps() {
-    const { screenProps, navigation } = this.props;
+    const { navigation } = this.props;
 
     const recipeId: string | null = navigation.getParam("recipeId", null);
     if (recipeId == null) {
       throw new Error("Can't open recipe view into null recipe");
     }
 
-    const recipeDef = recipes[recipeId];
+    const recipeDef = allRecipes[recipeId];
     if (typeof recipeDef === "undefined") {
       throw new Error("Recipe ID doesn't exist.");
     }
 
-    const {
-      updateRecipe,
-      removeRecipe,
-      recipes: mealRecipes
-    } = screenProps as RecipesScreenProps;
+    const { updateRecipe, removeRecipe, recipes: mealRecipes } = this.props;
 
     return { recipeDef, id: recipeId, updateRecipe, removeRecipe, mealRecipes };
   }
@@ -273,4 +272,12 @@ class RecipeView extends React.Component<NavigationScreenConfigProps, State> {
   }
 }
 
-export default RecipeView;
+export default function RecipeViewContainer(
+  props: NavigationScreenConfigProps
+) {
+  return (
+    <MealContextConsumer>
+      {ctx => <RecipeView {...props} {...ctx} />}
+    </MealContextConsumer>
+  );
+}

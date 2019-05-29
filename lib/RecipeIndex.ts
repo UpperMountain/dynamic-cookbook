@@ -23,8 +23,11 @@ export interface IngredientResult {
 export type QueryResult = RecipeResult | IngredientResult;
 
 export default class RecipeIndex {
-  recipes: { [key: string]: Recipe };
-  fuse: Fuse<QueryResult>;
+  // If not ready, the search index is null. Await `this.ready` to get it.
+  fuse: Fuse<QueryResult> | null = null;
+
+  // Ready promise
+  ready: Promise<Fuse<QueryResult>>;
 
   private static fuseOptions: FuseOptions<QueryResult> = {
     threshold: 0.5,
@@ -40,7 +43,15 @@ export default class RecipeIndex {
   };
 
   constructor(recipes: { [key: string]: Recipe }) {
-    this.recipes = recipes;
+    this.ready = this.makeIndex(recipes);
+    this.ready.then(fuse => (this.fuse = fuse));
+  }
+
+  // This is called by the constructor to index the recipes. It resolves with a working
+  // Fuse instance.
+  private async makeIndex(recipes: {
+    [key: string]: Recipe;
+  }): Promise<Fuse<QueryResult>> {
     type item = [string, Recipe];
 
     // index the recipes
@@ -57,7 +68,7 @@ export default class RecipeIndex {
     for (let r of recipeItems) {
       // Run the recipe, gathering its ingredients
       const requires = r.recipe.requires(getRecipeDefaults(r.recipe));
-      const roots = simplifyGroup(requires);
+      const roots = await simplifyGroup(requires);
       let recipeIngredients: Ingredient[] = [];
       for (let root of roots) {
         const ingredientsIter = walkWhere(
@@ -85,11 +96,17 @@ export default class RecipeIndex {
     }
 
     const allItems = [...recipeItems, ...ingredients.values()];
-    this.fuse = new Fuse(allItems, RecipeIndex.fuseOptions);
+    return new Fuse(allItems, RecipeIndex.fuseOptions);
   }
 
   // cutoff: between 0 (only allow perfect matches) and 1 (allow awful matches)
   find(query: string): QueryResult[] {
+    // If we're not ready yet, throw.
+    if (this.fuse === null) {
+      throw new Error("RecipeIndex: not yet ready");
+    }
+
+    // Return the search query
     return this.fuse.search(query);
   }
 }
