@@ -29,6 +29,7 @@
     "lodash": "^4.17.11",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-confetti": "^0.1.0",
     "react-native-markdown-renderer": "^3.2.8",
     "react-native-paper": "^2.13.0",
     "react-native-screens": "^1.0.0-alpha.22",

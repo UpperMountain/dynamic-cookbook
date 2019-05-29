@@ -1,13 +1,21 @@
 import React from "react";
-import { View, ScrollView, ActivityIndicator, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  ActivityIndicator,
+  Text,
+  Dimensions
+} from "react-native";
 import { Step, isStep } from "../../lib/graph";
 import { MealContext, MealContextConsumer } from "../../lib/mealContext";
 import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
 import LeftLine from "../../components/LeftLine";
 import StepView, { PendingStep } from "../../components/StepView";
 import StepAction from "../../components/StepAction";
-import Heading from "../../components/Heading";
 import Padded from "../../components/Padded";
+import CompleteButton from "../../components/Complete";
+//@ts-ignore
+import Confetti from "react-native-confetti";
 
 function now() {
   return Math.floor(Date.now() / 1000);
@@ -83,6 +91,8 @@ class MyMeal extends React.Component<MealContext, State> {
   }
 
   updateInterval: NodeJS.Timeout | null = null;
+
+  confetti: React.RefObject<Confetti> = React.createRef();
   componentDidMount() {
     // For timers, instead of registering N different intervals, just update
     // the whole component every second and do subtraction in render(). Has
@@ -210,55 +220,74 @@ class MyMeal extends React.Component<MealContext, State> {
     }
 
     return (
-      <ScrollView
-        ref={this.scroll}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingTop: 20,
-          display: "flex",
-          flexDirection: "column"
-        }}
-      >
-        {steps.map((step: Step, i: number) => (
-          <StepView
-            completed={this.seq!.stage(step) === Stage.Done}
-            key={i}
-            num={i + 1}
-            step={step}
+      <View>
+        <View
+          style={{
+            position: "absolute",
+            height: Dimensions.get("window").height
+          }}
+        >
+          <Confetti
+            timeout={10}
+            bsize={0.5}
+            duration={4000}
+            ref={this.confetti}
           />
-        ))}
-        {status == NextStatus.PassiveWaiting && <PendingStep />}
-        {actions.map((action: Action, i: number) => (
-          <LeftLine overlap key={i}>
-            {action.kind === "activeTimer" && action.started ? (
-              <StepAction
-                until={action.for.timer!.until}
-                onPress={() => this.advance(action)}
-                remaining={action.started + action.for.timer!.duration - now()}
-                timer={true}
-              />
-            ) : (
-              <StepAction
-                until={action.for.until || `"${action.for.name}" done`}
-                onPress={() => this.advance(action)}
-                timer={!!action.for.timer}
-              />
-            )}
-          </LeftLine>
-        ))}
-        {status === NextStatus.Done && (
-          <LeftLine>
-            <Heading>Done cooking.</Heading>
-            <Text>Enjoy your food!</Text>
-          </LeftLine>
-        )}
-
-        {/* take up the remaining space */}
-        <LeftLine style={{ flexGrow: 1, height: 100 }} />
-
-        {/* add extra line for overscroll on iOS */}
-        <LeftLine style={{ height: 1000, marginBottom: -1000 }} />
-      </ScrollView>
+        </View>
+        <ScrollView
+          ref={this.scroll}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingTop: 20,
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          {steps.map((step: Step, i: number) => (
+            <StepView
+              completed={this.seq!.stage(step) === Stage.Done}
+              key={i}
+              num={i + 1}
+              step={step}
+            />
+          ))}
+          {status == NextStatus.PassiveWaiting && <PendingStep />}
+          {actions.map((action: Action, i: number) => (
+            <LeftLine overlap key={i}>
+              {action.kind === "activeTimer" && action.started ? (
+                <StepAction
+                  until={action.for.timer!.until}
+                  onPress={() => this.advance(action)}
+                  remaining={
+                    action.started + action.for.timer!.duration - now()
+                  }
+                  timer={true}
+                />
+              ) : (
+                <StepAction
+                  until={action.for.until || `"${action.for.name}" done`}
+                  onPress={() => this.advance(action)}
+                  timer={!!action.for.timer}
+                />
+              )}
+            </LeftLine>
+          ))}
+          {status === NextStatus.Done ? (
+            <CompleteButton
+              onPress={() => {
+                this.confetti.current.startConfetti();
+              }}
+            />
+          ) : (
+            <View>
+              {/* take up the remaining space */}
+              <LeftLine style={{ flexGrow: 1, height: 100 }} />
+              {/* add extra line for overscroll on iOS */}
+              <LeftLine style={{ height: 1000, marginBottom: -1000 }} />
+            </View>
+          )}
+        </ScrollView>
+      </View>
     );
   }
 }

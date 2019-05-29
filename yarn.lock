@@ -12681,6 +12681,11 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
+react-native-confetti@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-confetti/-/react-native-confetti-0.1.0.tgz#9ec93c07f845de5ebeaed700043fd5218792b6f1"
+  integrity sha512-+cXJvnPXKc0i/eTQcuzcjrlfIxmn/xFw4UyuVKQOWNK6BfWABvO6Ms6Zp6ivF1E8Vxt2vJkzJlNyoBvMh9FxKA==
+
 react-native-fit-image@^1.5.2:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/react-native-fit-image/-/react-native-fit-image-1.5.4.tgz#73d2fccc7ad902cf2ffcd008a2a74749ad50134a"
