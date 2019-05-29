@@ -163,44 +163,6 @@ Very gently, __fold__ in the beaten egg whites. They need to be incorporated eve
   merge = mergeByChildren; // ignore context, it's never used again
 }
 
-class HeatPan implements Step {
-  kind: "step" = "step";
-
-  noun: string; // the <NOUN> is on the heat
-  constructor(public ctx: Context) {
-    this.noun = this.ctx.castIron ? "skillet" : "pan";
-  }
-  get name() {
-    if (this.ctx.castIron) {
-      return "Heat up the cast iron skillet";
-    } else {
-      return "Heat up the pan";
-    }
-  }
-  get body() {
-    return `Put the ${this.noun} over medium heat.`;
-  }
-  get timer() {
-    if (this.ctx.castIron) {
-      return { duration: 60 * 3, until: "The cast iron is hot" };
-    } else {
-      return { duration: 30, until: "The pan is hot" };
-    }
-  }
-  get until() {
-    return `The ${this.noun} is on the heat`;
-  }
-  requires = [];
-
-  merge(other: Node) {
-    if (other instanceof HeatPan && other.ctx.castIron === this.ctx.castIron) {
-      return this;
-    }
-
-    return null;
-  }
-}
-
 class Frying implements Step {
   // number of pancakes per batch
   static BATCH_SIZE = 1;
@@ -216,7 +178,9 @@ class Frying implements Step {
 
     if (this.first) {
       // Heat the pan once
-      this.requires.push(new HeatPan(this.ctx));
+      this.requires.push(
+        new Steps.HeatPan(this.ctx.castIron ? "cast iron skillet" : "pan")
+      );
 
       this.requires.push(new Ingredients.Butter(1 / 2));
 

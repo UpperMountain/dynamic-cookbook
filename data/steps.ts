@@ -1,4 +1,4 @@
-import { Step, MergeFunction, mergeApply } from "../lib/graph";
+import { Step, Node, MergeFunction, mergeApply } from "../lib/graph";
 import * as Ingredients from "./ingredients";
 import { qty, plural } from "../lib/plural";
 
@@ -120,4 +120,84 @@ Set aside when it's melted.
   );
 
   requires = [new Ingredients.Butter(this.tbsp)];
+}
+
+export class HeatOven implements Step {
+  kind: "step" = "step";
+  constructor(public degrees: number) {}
+  get name() {
+    return `Preheat an oven to ${qty(this.degrees, 1, "degrees")}.`;
+  }
+
+  until = "Oven is heating up";
+  timer = { until: "Oven has preheated", duration: 60 * 20 };
+
+  requires = [];
+  merge(other: Node) {
+    if (other instanceof HeatOven && other.degrees === this.degrees) {
+      return this;
+    }
+    return null;
+  }
+}
+
+export class HeatPan implements Step {
+  kind: "step" = "step";
+
+  // the <NOUN> is on the heat
+  // wait for N seconds for it to heat up
+  constructor(public noun: "cast iron skillet" | "pan") {}
+  wait: number = this.noun == "cast iron skillet" ? 60 * 3 : 40;
+
+  get name() {
+    return `Heat up the ${this.noun}`;
+  }
+  get body() {
+    return `Put the ${this.noun} over medium heat.`;
+  }
+  get timer() {
+    return { duration: this.wait, until: `The ${this.noun} is hot.` };
+  }
+  get until() {
+    return `The ${this.noun} is on the heat`;
+  }
+  requires = [];
+
+  merge(other: Node) {
+    if (other instanceof HeatPan && other.noun === this.noun) {
+      return this;
+    }
+
+    return null;
+  }
+}
+
+export class CrushGarlic implements Step {
+  kind: "step" = "step";
+  constructor(public cloves: number) {}
+
+  get name() {
+    return `Crush ${qty(this.cloves, 0.5, "clove", "cloves")} of garlic.`;
+  }
+  body = `The easiest way is with a garlic press, if you have one. If not, mash each clove with the flat of a knife, pull off the skin, and chop finely.`;
+  until = "The garlic is crushed";
+  requires = [new Ingredients.Garlic(this.cloves)];
+  merge: MergeFunction = mergeApply((other: CrushGarlic) => {
+    this.cloves += other.cloves;
+  });
+}
+
+export class ChopRosemary implements Step {
+  kind: "step" = "step";
+  constructor(public sprigs: number) {}
+
+  get name() {
+    return `Crush ${qty(this.sprigs, 0.5, "sprig", "sprigs")} of rosemary.`;
+  }
+  body = `You'll want to separate and discard the larger stems first---it's the leaves you want to eat. Then, chop the rosemary using a sharp knife. `;
+  until = "The rosemary is chopped";
+  requires = [new Ingredients.Rosemary(this.sprigs)];
+  merge: MergeFunction = mergeApply((other: ChopRosemary) => {
+    this.sprigs += other.sprigs;
+  });
 }

@@ -187,3 +187,28 @@ export class Espresso implements Ingredient {
     this.count += other.count;
   });
 }
+
+export class BoneInRibeye implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public count: number) {}
+  name = "Bone-in Ribeye";
+  get body() {
+    return `${qty(this.count, 1, "steak", "steaks")}, 1.75 pounds each.`;
+  }
+
+  merge: MergeFunction = mergeApply((other: BoneInRibeye) => {
+    this.count += other.count;
+  });
+}
+
+export class Rosemary implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public sprigs: number) {}
+  name = "Rosemary";
+  get body() {
+    return qty(this.sprigs, 0.5, "sprig", "sprigs");
+  }
+  merge: MergeFunction = mergeApply((other: Rosemary) => {
+    this.sprigs += other.sprigs;
+  });
+}
