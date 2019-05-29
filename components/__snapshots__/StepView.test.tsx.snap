@@ -51,7 +51,9 @@ Array [
               Object {
                 "fontSize": 17,
               },
-              undefined,
+              Object {
+                "color": undefined,
+              },
             ]
           }
         >
@@ -193,7 +195,9 @@ Array [
               Object {
                 "fontSize": 17,
               },
-              undefined,
+              Object {
+                "color": undefined,
+              },
             ]
           }
         >

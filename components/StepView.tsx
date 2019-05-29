@@ -53,7 +53,9 @@ export default function StepView(props: Props) {
       completed={completed}
       aside={
         <Circled completed={completed}>
-          <Heading2>{num.toString()}</Heading2>
+          <Heading2 style={{ color: completed ? "white" : undefined }}>
+            {num.toString()}
+          </Heading2>
         </Circled>
       }
     >
