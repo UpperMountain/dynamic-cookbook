@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should pass snapshot tests 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <Text>
+      contents
+    </Text>
+    <ExponentLinearGradient
+      colors={
+        Array [
+          16777215,
+          2164260863,
+          4294967295,
+        ]
+      }
+      locations={
+        Array [
+          0,
+          0.2,
+          0.8,
+        ]
+      }
+      style={
+        Object {
+          "bottom": 0,
+          "paddingTop": 20,
+          "position": "absolute",
+          "width": "100%",
+        }
+      }
+    >
+      <Text>
+        third
+      </Text>
+    </ExponentLinearGradient>
+  </View>,
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <Text>
+      contents
+    </Text>
+  </View>,
+]
+`;
