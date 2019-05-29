@@ -2,7 +2,6 @@ import { createStackNavigator } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import tabIcon, { communityTabIcon } from "../../components/tabIcon";
 import { colorShade, colorPrimary } from "../../lib/theme";
-import createBrowseNavigator from "./BrowseNavigator";
 
 import Feed from "./Feed";
 import Search from "./Search";
@@ -41,7 +40,7 @@ const PlanStack = createStackNavigator({
   ...RecipePage
 });
 
-const Base = createMaterialBottomTabNavigator(
+const BrowseNavigator = createMaterialBottomTabNavigator(
   {
     Feed: {
       screen: FeedStack,
@@ -76,4 +75,4 @@ const Base = createMaterialBottomTabNavigator(
   }
 );
 
-export default createBrowseNavigator(Base);
+export default BrowseNavigator;

@@ -9,9 +9,11 @@ import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import ListItem from "../../components/ListItem";
 import Card from "../../components/Card";
+import LowerThird from "../../components/LowerThird";
 import { recipes as allRecipes } from "../../data";
 import { RecipeSpec } from "../../lib/Recipe";
-import { padding } from "../../lib/theme";
+import shadow from "../../lib/shadow";
+import { colorPrimary, padding } from "../../lib/theme";
 
 function Section({
   name,
@@ -93,90 +95,105 @@ export function Plan({
   const hasInformation = requires.length !== 0;
 
   return (
-    <ScrollView
-      style={{ backgroundColor: "rgba(0,0,0,0.05)" }}
-      contentContainerStyle={{
-        paddingTop: padding,
-        paddingBottom: padding * 4
-      }}
-    >
-      <Section name="Recipes">
-        {Object.values(recipes).map((spec: RecipeSpec) => {
-          const recipe = allRecipes[spec.id];
-          return (
-            <Padded
-              horizontal
-              bottom
-              key={spec.id}
-              style={{ flexDirection: "row", alignItems: "center" }}
-            >
-              <ListItem
-                name={recipe.name}
-                body={recipe.body}
-                image={recipe.images[0] || undefined}
-                style={{ flex: 1 }}
-                onPress={() =>
-                  navigation.push("RecipeView", { recipeId: spec.id })
-                }
-              />
-              <Button
-                iconName="close"
-                onPress={() => removeRecipe(spec.id)}
-                style={{ marginLeft: padding / 2 }}
-              />
-            </Padded>
-          );
-        })}
-      </Section>
-      {(!hasInformation || working) && (
-        <Card>
-          <Padded all style={{ flexDirection: "row" }}>
-            <ActivityIndicator style={{ marginRight: padding }} />
-            {hasInformation ? (
-              <Text>Recalculating requirements...</Text>
-            ) : (
-              <Text>Calculating requirements...</Text>
-            )}
-          </Padded>
-        </Card>
-      )}
-      {hasInformation && (
-        <>
-          <Section name="Estimated Time">
-            <View style={{ flexDirection: "row" }}>
-              <Padded horizontal bottom>
-                <Text>Active Time</Text>
-                <Text style={{ fontSize: 25 }}>
-                  {Math.round(activeTime / 60)} min
-                </Text>
-              </Padded>
-              <Padded horizontal bottom>
-                <Text>Passive Time</Text>
-                <Text style={{ fontSize: 25 }}>
-                  {Math.round(passiveTime / 60)} min
-                </Text>
-              </Padded>
-            </View>
-          </Section>
-          <Section
-            name="Ingredients"
-            aside={
-              <Button
-                onPress={() => shareIngredientsReport(ingredients)}
-                iconName="share"
-                iconPad={8}
-              />
-            }
+    <LowerThird
+      third={
+        <Padded bottom horizontal>
+          <Button
+            color={colorPrimary}
+            size={50}
+            onPress={() => navigation.navigate("MyMeal")}
+            style={shadow(0.2)}
           >
-            {ingredients.map((ing: Ingredient) => (
-              <Padded horizontal bottom key={ing.name}>
-                <ListItem name={ing.name} body={ing.body} />
+            Start Cooking!
+          </Button>
+        </Padded>
+      }
+    >
+      <ScrollView
+        style={{ backgroundColor: "rgba(0,0,0,0.05)" }}
+        contentContainerStyle={{
+          paddingTop: padding,
+          paddingBottom: padding * 4
+        }}
+      >
+        <Section name="Recipes">
+          {Object.values(recipes).map((spec: RecipeSpec) => {
+            const recipe = allRecipes[spec.id];
+            return (
+              <Padded
+                horizontal
+                bottom
+                key={spec.id}
+                style={{ flexDirection: "row", alignItems: "center" }}
+              >
+                <ListItem
+                  name={recipe.name}
+                  body={recipe.body}
+                  image={recipe.images[0] || undefined}
+                  style={{ flex: 1 }}
+                  onPress={() =>
+                    navigation.push("RecipeView", { recipeId: spec.id })
+                  }
+                />
+                <Button
+                  iconName="close"
+                  onPress={() => removeRecipe(spec.id)}
+                  style={{ marginLeft: padding / 2 }}
+                />
               </Padded>
-            ))}
-          </Section>
-        </>
-      )}
-    </ScrollView>
+            );
+          })}
+        </Section>
+        {(!hasInformation || working) && (
+          <Card>
+            <Padded all style={{ flexDirection: "row" }}>
+              <ActivityIndicator style={{ marginRight: padding }} />
+              {hasInformation ? (
+                <Text>Recalculating requirements...</Text>
+              ) : (
+                <Text>Calculating requirements...</Text>
+              )}
+            </Padded>
+          </Card>
+        )}
+        {hasInformation && (
+          <>
+            <Section name="Estimated Time">
+              <View style={{ flexDirection: "row" }}>
+                <Padded horizontal bottom>
+                  <Text>Active Time</Text>
+                  <Text style={{ fontSize: 25 }}>
+                    {Math.round(activeTime / 60)} min
+                  </Text>
+                </Padded>
+                <Padded horizontal bottom>
+                  <Text>Passive Time</Text>
+                  <Text style={{ fontSize: 25 }}>
+                    {Math.round(passiveTime / 60)} min
+                  </Text>
+                </Padded>
+              </View>
+            </Section>
+            <Section
+              name="Ingredients"
+              aside={
+                <Button
+                  onPress={() => shareIngredientsReport(ingredients)}
+                  iconName="share"
+                  iconPad={8}
+                />
+              }
+            >
+              {ingredients.map((ing: Ingredient) => (
+                <Padded horizontal bottom key={ing.name}>
+                  <ListItem name={ing.name} body={ing.body} />
+                </Padded>
+              ))}
+            </Section>
+          </>
+        )}
+      </ScrollView>
+    </LowerThird>
   );
 }
 

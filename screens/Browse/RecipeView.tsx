@@ -183,6 +183,7 @@ class RecipeView extends React.Component<
       updateRecipe,
       removeRecipe
     } = this.getDataFromProps();
+    const { navigation } = this.props;
     return (
       <ScrollView
         contentContainerStyle={{
@@ -249,7 +250,11 @@ class RecipeView extends React.Component<
                 color={colorPrimary}
                 iconColor="black"
                 iconName="add"
-                onPress={() => updateRecipe({ id, config: this.getConfig() })}
+                onPress={() => {
+                  updateRecipe({ id, config: this.getConfig() });
+                  navigation.goBack();
+                  navigation.navigate("Plan");
+                }}
               >
                 Add to Meal
               </Button>
@@ -260,6 +265,7 @@ class RecipeView extends React.Component<
                 onPress={() => {
                   this.setState({ config: this.getConfig() });
                   removeRecipe(id);
+                  navigation.goBack();
                 }}
               >
                 Remove from Meal
