@@ -49,7 +49,7 @@ export class MealContextProvider extends React.Component<Props, State> {
     this.setState(old => {
       const recipes = { ...old.value.recipes };
       delete recipes[id];
-      return { ...old, working: true, value: { ...old.value, recipes } };
+      return { ...old, value: { ...old.value, working: true, recipes } };
     });
   };
 
@@ -112,13 +112,6 @@ export class MealContextProvider extends React.Component<Props, State> {
         MealContextProvider.storageKey,
         JSON.stringify(currentState.value.recipes)
       );
-
-      // If we forgot to set { working: true } in state, throw
-      if (!currentState.value.working) {
-        throw new Error(
-          "mealContext: changed recipes without setting { working:true } in state"
-        );
-      }
     }
   }
 

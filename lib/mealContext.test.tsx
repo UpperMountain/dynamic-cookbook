@@ -164,6 +164,29 @@ describe("removeRecipe()", () => {
     call = updateFn.mock.calls[0][0];
     expect(call.recipes).toEqual({});
   });
+
+  it("should set working:true", async () => {
+    const updateFn = jest.fn();
+    const { removeRecipe, updateRecipe } = await testMount(updateFn);
+
+    const spec = { id: "Pasta", config: getRecipeDefaults(Pasta) };
+    updateRecipe(spec);
+    expect(updateFn).toHaveBeenCalled();
+    let call = updateFn.mock.calls[0][0];
+    expect(call.working).toBe(true);
+
+    // wait for second resolution, w/ complete calculation
+    updateFn.mockClear();
+    await new Promise(resolve => updateFn.mockImplementation(() => resolve()));
+    call = updateFn.mock.calls[0][0];
+    expect(call.working).toBe(false);
+
+    updateFn.mockClear();
+    removeRecipe("Pasta");
+    expect(updateFn).toHaveBeenCalled();
+    call = updateFn.mock.calls[0][0];
+    expect(call.working).toBe(true);
+  });
 });
 
 it("should simplify multiple recipes together", done =>
