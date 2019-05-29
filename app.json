@@ -22,7 +22,8 @@
       "bundleIdentifier": "io.uppermountain.cookie"
     },
     "android": {
-      "package": "io.uppermountain.cookie"
+      "package": "io.uppermountain.cookie",
+      "permissions": []
     },
     "hooks": {
       "postPublish": [
