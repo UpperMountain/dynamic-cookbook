@@ -1,5 +1,6 @@
 import {
   Step,
+  Ingredient,
   Node,
   MergeFunction,
   mergeByChildren,
@@ -16,10 +17,9 @@ const PARTY = 6;
 interface Context {
   separateEggs: Steps.SeparateEggs | null;
   serves: number;
+  premade: boolean;
   castIron: boolean;
 }
-
-// TODO: premade mix
 
 class WetIngredients implements Step {
   kind: "step" = "step";
@@ -99,9 +99,40 @@ Into a bowl, sift and mix together:
   });
 }
 
-class MixIngredients implements Step {
+class BaggedMix implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public serves: number) {}
+  name = "Pancake mix";
+  get body() {
+    return `enough for ${qty(this.serves, 1)}`;
+  }
+  merge: MergeFunction = mergeApply((other: BaggedMix) => {
+    this.serves += other.serves;
+  });
+}
+
+class BaggedDryIngredients implements Step {
   kind: "step" = "step";
   constructor(public ctx: Context) {}
+  name = "Pour out dry mix";
+  get body() {
+    return `Pour the dry ingredients (from the bag of pancake mix) into a mixing bowl.`;
+  }
+  until = "Dry ingredients are poured out";
+  requires = [new BaggedMix(this.ctx.serves)];
+}
+
+class MixIngredients implements Step {
+  kind: "step" = "step";
+  requires: Node[] = [];
+  constructor(public ctx: Context) {
+    this.requires.push(new WetIngredients(this.ctx));
+    if (this.ctx.premade) {
+      this.requires.push(new BaggedDryIngredients(this.ctx));
+    } else {
+      this.requires.push(new DryIngredients(this.ctx));
+    }
+  }
   name = "Mix the wet and dry ingredients";
   body = `
 Gradually add the dry ingredients into the bowl with the wet, while mixing gently. 
@@ -109,7 +140,6 @@ Gradually add the dry ingredients into the bowl with the wet, while mixing gentl
 Don't mix too vigorously---it's okay to have some lumps, as they lead to fluffier pancakes.
   `;
   until = "Wet and dry ingredients are mixed";
-  requires = [new WetIngredients(this.ctx), new DryIngredients(this.ctx)];
   merge = mergeByChildren; // ignore context, it's never used again
 }
 
@@ -261,14 +291,15 @@ export const Pancakes: Recipe = {
       default: "separated"
     }
   ],
-  requires: ({ serves, skillet, eggWhites }) => [
+  requires: ({ serves, skillet, eggWhites, premade }) => [
     new Frying(serves, {
       separateEggs:
         eggWhites === "separated"
           ? new Steps.SeparateEggs(serves * (2 / PARTY))
           : null,
       serves,
-      castIron: skillet === "true"
+      castIron: skillet === "true",
+      premade: premade === "premade"
     })
   ],
 
