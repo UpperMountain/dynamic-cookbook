@@ -212,3 +212,15 @@ export class Rosemary implements Ingredient {
     this.sprigs += other.sprigs;
   });
 }
+
+export class CherryTomatoes implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public count: number) {}
+  name = "Cherry Tomatoes";
+  get body() {
+    return `about ${qty(this.count, 0.5)}`;
+  }
+  merge: MergeFunction = mergeApply((other: CherryTomatoes) => {
+    this.count += other.count;
+  });
+}

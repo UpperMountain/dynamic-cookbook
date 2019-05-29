@@ -13,12 +13,12 @@
 // funky imports to get the right order of the exports map
 // because everything has to be an `export const`
 // yep, that's a dirty hack
-import { Pasta as _Pasta } from "./pasta";
 import { Pancakes as _Pancakes } from "./pancakes";
 import { ChaiLatte as _ChaiLatte } from "./chai";
 import { Steak as _Steak } from "./steak";
+import { RoastedTomatoes as _RoastedTomatoes } from "./roastedTomatoes";
 
 export const Steak = _Steak;
 export const Pancakes = _Pancakes;
 export const ChaiLatte = _ChaiLatte;
-// export const Pasta = _Pasta;
+export const RoastedTomatoes = _RoastedTomatoes;
