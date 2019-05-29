@@ -21,4 +21,4 @@ import { Steak as _Steak } from "./steak";
 export const Steak = _Steak;
 export const Pancakes = _Pancakes;
 export const ChaiLatte = _ChaiLatte;
-export const Pasta = _Pasta;
+// export const Pasta = _Pasta;

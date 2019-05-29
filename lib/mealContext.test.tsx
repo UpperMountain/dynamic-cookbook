@@ -5,7 +5,7 @@ import {
   MealContext
 } from "./mealContext";
 import { getRecipeDefaults } from "./Recipe";
-import { Pasta } from "../data/recipes/pasta";
+import { Pancakes } from "../data/recipes/pancakes";
 import { ChaiLatte } from "../data/recipes/chai";
 import { walkGroup } from "./graph";
 import * as Ingredients from "../data/ingredients";
@@ -61,7 +61,7 @@ it("should have a working test fixture", async () => {
   expect(removeRecipe).not.toBeFalsy();
   expect(updateRecipe).not.toBeFalsy();
 
-  updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+  updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
   expect(updateFn).toHaveBeenCalled();
 });
 
@@ -70,35 +70,35 @@ describe("updateRecipe()", () => {
     const updateFn = jest.fn();
     const { updateRecipe } = await testMount(updateFn);
 
-    updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+    updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
     expect(updateFn).toHaveBeenCalled();
     const call = updateFn.mock.calls[0][0];
 
-    expect(call.recipes).toHaveProperty("Pasta");
-    expect(call.recipes["Pasta"]).toMatchObject({ id: "Pasta" });
+    expect(call.recipes).toHaveProperty("Pancakes");
+    expect(call.recipes["Pancakes"]).toMatchObject({ id: "Pancakes" });
   });
 
   it("should update recipe configuration", async () => {
     const updateFn = jest.fn();
     const { updateRecipe } = await testMount(updateFn);
 
-    updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+    updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
     let call = updateFn.mock.calls[0][0];
-    expect(call.recipes).toHaveProperty("Pasta");
-    expect(call.recipes["Pasta"]).toMatchObject({
-      id: "Pasta",
-      config: getRecipeDefaults(Pasta)
+    expect(call.recipes).toHaveProperty("Pancakes");
+    expect(call.recipes["Pancakes"]).toMatchObject({
+      id: "Pancakes",
+      config: getRecipeDefaults(Pancakes)
     });
 
     updateFn.mockClear();
     updateRecipe({
-      id: "Pasta",
-      config: { ...getRecipeDefaults(Pasta), serves: 10 }
+      id: "Pancakes",
+      config: { ...getRecipeDefaults(Pancakes), serves: 10 }
     });
     call = updateFn.mock.calls[0][0];
-    expect(call.recipes).toHaveProperty("Pasta");
-    expect(call.recipes["Pasta"]).toMatchObject({
-      id: "Pasta",
+    expect(call.recipes).toHaveProperty("Pancakes");
+    expect(call.recipes["Pancakes"]).toMatchObject({
+      id: "Pancakes",
       config: { serves: 10 }
     });
   });
@@ -107,7 +107,7 @@ describe("updateRecipe()", () => {
     const updateFn = jest.fn();
     const { updateRecipe } = await testMount(updateFn);
 
-    updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+    updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
     let call = updateFn.mock.calls[0][0];
 
     // Immediately, should be working.
@@ -119,7 +119,7 @@ describe("updateRecipe()", () => {
     (async () => {
       const updateFn = jest.fn();
       const { updateRecipe } = await testMount(updateFn);
-      updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+      updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
       updateFn.mockClear();
 
       updateFn.mockImplementation((ctx: MealContext) => {
@@ -135,7 +135,7 @@ describe("removeRecipe()", () => {
     const updateFn = jest.fn();
     const { removeRecipe, updateRecipe } = await testMount(updateFn);
 
-    const spec = { id: "Pasta", config: getRecipeDefaults(Pasta) };
+    const spec = { id: "Pancakes", config: getRecipeDefaults(Pancakes) };
     updateRecipe(spec);
     expect(updateFn).toHaveBeenCalled();
     let call = updateFn.mock.calls[0][0];
@@ -153,13 +153,13 @@ describe("removeRecipe()", () => {
     const updateFn = jest.fn();
     const { removeRecipe, updateRecipe } = await testMount(updateFn);
 
-    const spec = { id: "Pasta", config: getRecipeDefaults(Pasta) };
+    const spec = { id: "Pancakes", config: getRecipeDefaults(Pancakes) };
     updateRecipe(spec);
     expect(updateFn).toHaveBeenCalled();
     let call = updateFn.mock.calls[0][0];
 
     updateFn.mockClear();
-    removeRecipe("Pasta");
+    removeRecipe("Pancakes");
     expect(updateFn).toHaveBeenCalled();
     call = updateFn.mock.calls[0][0];
     expect(call.recipes).toEqual({});
@@ -169,7 +169,7 @@ describe("removeRecipe()", () => {
     const updateFn = jest.fn();
     const { removeRecipe, updateRecipe } = await testMount(updateFn);
 
-    const spec = { id: "Pasta", config: getRecipeDefaults(Pasta) };
+    const spec = { id: "Pancakes", config: getRecipeDefaults(Pancakes) };
     updateRecipe(spec);
     expect(updateFn).toHaveBeenCalled();
     let call = updateFn.mock.calls[0][0];
@@ -182,7 +182,7 @@ describe("removeRecipe()", () => {
     expect(call.working).toBe(false);
 
     updateFn.mockClear();
-    removeRecipe("Pasta");
+    removeRecipe("Pancakes");
     expect(updateFn).toHaveBeenCalled();
     call = updateFn.mock.calls[0][0];
     expect(call.working).toBe(true);
@@ -193,12 +193,12 @@ it("should simplify multiple recipes together", done =>
   (async () => {
     const updateFn = jest.fn();
     const { updateRecipe } = await testMount(updateFn);
-    updateRecipe({ id: "Pasta", config: getRecipeDefaults(Pasta) });
+    updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
     updateRecipe({ id: "ChaiLatte", config: getRecipeDefaults(ChaiLatte) });
     updateFn.mockClear();
 
     let hasChai = false;
-    let hasPasta = false;
+    let hasPancakes = false;
 
     updateFn.mockImplementation((ctx: MealContext) => {
       expect(ctx.working).toBe(false); // not working
@@ -206,10 +206,10 @@ it("should simplify multiple recipes together", done =>
 
       for (let node of walkGroup(ctx.requires)) {
         if (node instanceof Ingredients.Chai) hasChai = true;
-        if (node instanceof Ingredients.Spaghetti) hasPasta = true;
+        if (node instanceof Ingredients.Flour) hasPancakes = true;
       }
 
-      if (hasChai && hasPasta) {
+      if (hasChai && hasPancakes) {
         done();
       }
     });
