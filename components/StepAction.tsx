@@ -108,6 +108,7 @@ export default function StepAction(props: Props) {
               )}
               <Heading2>{until}</Heading2>
             </View>
+            {remaining == null && timer && <Text>Start timer</Text>}
           </Padded>
         </LeftLine>
       </TouchableOpacity>

@@ -751,6 +751,9 @@ Array [
                   until text
                 </Text>
               </View>
+              <Text>
+                Start timer
+              </Text>
             </View>
           </View>
         </View>
