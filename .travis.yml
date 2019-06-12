@@ -13,11 +13,16 @@ install:
   - yarn install --dev --frozen-lockfile
 script: "./scripts/ci.sh"
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: bash ./scripts/deploy.sh
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: bash ./scripts/deploy.sh
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: bash ./scripts/submit_expo_build.sh
+    on:
+      tags: true
 notifications:
   slack:
     secure: jMkJ8s+GPVp9wLNl1yMdsYJLwHZcqKEPCHBmjfJv34Xdi9lMYa6gM1ktw2rIDQW3hbdQ/yqbiFz8NW/FtuIi5BRl6X3av3j3RyCDejKlaLJTuWIeR8JvImVrrXYslHR4tW4hLknAll+iIFfqHNN7HknxstrlGVR7uojBZ5+3nqqwYkwF0iaVHgVivrAkhEJE1UUXEoPHTl7h0s2YziNut3aZ7aMo+yhWWRKEv87oaS8yPrM8C7KSxRhGY+ipfFgjP2WeYK2GTn+MBM9vxpTXDBJQGWseW5h4TRLrjFrmHGq+0vw788C3OQEd9vgTgOSwVVnzETqozjeUc5YHg1NYYx6IYCdwJCA/fFoeYYaYO0WfiY+PMtkMGoohInDadjT5+6IC7ptiLYyV37QwxXK19D30HVL9oltdL8TxHWhEW+PVrBMTGtTCbnv4SNK1sSggQm/PFUUdWcTQKLP2fa1yXm7JTFEvRvYDPnzXQ7AytvYdayd7WHP0x4qemqBz/9939HMNOPSgsnvqdfaIVp+qWHRCUW9RbGwdSxiHfjxJ6E/KZbpFThUhZROAFqVZwuVNt2mXgU3RJmXlERApi7rraA0RoYC/8oCzutVZYy3jvZNR9Xx3McgvMEEZSwL8qWDZjD4s4bKQX3KjpcKjFGASSnDO2wnP/zihPlIx4cy+nV8=

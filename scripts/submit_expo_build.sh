@@ -6,10 +6,9 @@ export root="$(dirname $dir)"
 source "$dir/_env.sh"
 source "$dir/_expo.sh"
 
-
 echo "----- Signing in to Expo..."
 _expo_login
 
-echo "----- Publishing expo app..."
-_expo publish
+echo "----- Submitting Android build..."
+_expo build:android --no-wait
 
