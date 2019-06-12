@@ -11,8 +11,8 @@ function crash() {
 // Note: this file is cached in the build, so it must be changed
 // to see updated env vars.
 const env = {
-  NODE_ENV: process.env.NODE_ENV,
   commit: process.env.COOKIE_BUILD_COMMIT,
+  tag: process.env.COOOKIE_BUILD_TAG,
   commitMessage: process.env.COOKIE_BUILD_COMMIT_MESSAGE,
   buildJobNumber: process.env.COOKIE_BUILD_JOB_NUMBER,
   nodeVersion: process.env.COOKIE_BUILD_NODE_VERSION
@@ -86,11 +86,11 @@ export default function Debug() {
         Enable Segment tracking
       </Button>
       <Header>Build information</Header>
-      <Info name="NODE_ENV">{env.NODE_ENV}</Info>
-      <Info name="Node Version">{env.nodeVersion}</Info>
+      <Info name="Version Tag">{env.tag}</Info>
       <Info name="Commit">{env.commit}</Info>
       <Info name="Commit Message">{env.commitMessage}</Info>
       <Info name="Job Number">{env.buildJobNumber}</Info>
+      <Info name="Node Version">{env.nodeVersion}</Info>
       <Header>Constants</Header>
       <Info name="Expo Version">{Constants.expoVersion}</Info>
       <Info name="App Ownership">{Constants.appOwnership}</Info>

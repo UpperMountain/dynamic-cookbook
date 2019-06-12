@@ -23,6 +23,7 @@ yes | _expo login -u "$EXPO_USERNAME" -p "$EXPO_PASSWORD"
 
 # Export Travis environment to the app, for Debug view
 export COOKIE_BUILD_COMMIT="$TRAVIS_COMMIT"
+export COOKIE_BUILD_TAG="$TRAVIS_TAG"
 export COOKIE_BUILD_COMMIT_MESSAGE="$TRAVIS_COMMIT_MESSAGE"
 export COOKIE_BUILD_JOB_NUMBER="$TRAVIS_JOB_NUMBER"
 export COOKIE_BUILD_NODE_VERSION="$TRAVIS_NODE_VERSION"
@@ -30,7 +31,8 @@ export COOKIE_BUILD_NODE_VERSION="$TRAVIS_NODE_VERSION"
 echo "----- Publishing expo app..."
 _expo publish
 
-if [[ ! -z "${SUBMIT_BUILDS+x}" ]]; then
+# Only submit builds for tagged releases
+if [[ ! -z "${TRAVIS_TAG+x}" ]]; then
 	echo "----- Submitting Android build..."
 	_expo build:android --no-wait --no-publish
 fi
