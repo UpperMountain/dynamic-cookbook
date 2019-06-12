@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
-    "version": "2.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,6 +23,7 @@
     },
     "android": {
       "package": "io.uppermountain.cookie",
+      "versionCode": 3,
       "permissions": []
     },
     "hooks": {
