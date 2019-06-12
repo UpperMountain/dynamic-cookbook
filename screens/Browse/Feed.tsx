@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Linking
 } from "react-native";
 import { padding } from "../../lib/theme";
 import Padded from "../../components/Padded";
@@ -77,6 +78,13 @@ function Feed({ navigation }: NavigationScreenConfigProps) {
             onPress={() => navigation.push("RecipeView", { recipeId: id })}
           />
         ))}
+        <TouchableOpacity
+          onPress={() => Linking.openURL("https://git.io/fj2vS")}
+        >
+          <Text style={{ textAlign: "center", color: "rgba(0,0,0,0.5)" }}>
+            Privacy Policy
+          </Text>
+        </TouchableOpacity>
       </SafeView>
     </ScrollView>
   );
