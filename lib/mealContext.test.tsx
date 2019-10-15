@@ -1,4 +1,5 @@
 import React from "react";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   MealContextProvider,
   MealContextConsumer,
@@ -10,6 +11,11 @@ import { ChaiLatte } from "../data/recipes/chai";
 import { walkGroup } from "./graph";
 import * as Ingredients from "../data/ingredients";
 import renderer from "react-test-renderer";
+
+beforeEach(async () => {
+  // Clear async storage mock
+  await AsyncStorage.clear();
+});
 
 // Test the behavior of the context, without needing to mount things.
 async function testMount(

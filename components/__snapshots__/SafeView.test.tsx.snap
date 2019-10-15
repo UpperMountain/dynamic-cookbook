@@ -2,6 +2,7 @@
 
 exports[`should consistently handle a style prop 1`] = `
 <RCTSafeAreaView
+  emulateUnlessSupported={true}
   style={
     Array [
       Object {
@@ -22,6 +23,7 @@ exports[`should consistently handle a style prop 1`] = `
 
 exports[`should pass snapshot tests 1`] = `
 <RCTSafeAreaView
+  emulateUnlessSupported={true}
   style={
     Array [
       Object {

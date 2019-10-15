@@ -12,20 +12,22 @@ Array [
     <Text>
       contents
     </Text>
-    <ExponentLinearGradient
-      colors={
-        Array [
-          16777215,
-          2164260863,
-          4294967295,
-        ]
-      }
-      locations={
-        Array [
-          0,
-          0.2,
-          0.8,
-        ]
+    <ViewManagerAdapter_ExpoLinearGradient
+      proxiedProperties={
+        Object {
+          "colors": Array [
+            16777215,
+            2164260863,
+            4294967295,
+          ],
+          "endPoint": undefined,
+          "locations": Array [
+            0,
+            0.2,
+            0.8,
+          ],
+          "startPoint": undefined,
+        }
       }
       style={
         Object {
@@ -39,7 +41,7 @@ Array [
       <Text>
         third
       </Text>
-    </ExponentLinearGradient>
+    </ViewManagerAdapter_ExpoLinearGradient>
   </View>,
   <View
     style={

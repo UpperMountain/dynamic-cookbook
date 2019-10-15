@@ -21,6 +21,7 @@ exports[`passes snapshot tests 1`] = `
     onFocus={[Function]}
     placeholder="Find recipes, ingredients..."
     placeholderTextColor="rgba(0,0,0,0.5)"
+    rejectResponderTermination={true}
     style={
       Object {
         "flex": 1,

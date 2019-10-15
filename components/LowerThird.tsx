@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { LinearGradient } from "expo";
+import { LinearGradient } from "expo-linear-gradient";
 import { padding } from "../lib/theme";
 
 export interface Props {

@@ -1,5 +1,6 @@
 import React from "react";
-import { AsyncStorage, InteractionManager } from "react-native";
+import { InteractionManager } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { Node, simplifyGroup } from "./graph";
 import { RecipeSpec } from "./Recipe";
 import { recipes as allRecipes } from "../data";

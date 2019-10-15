@@ -10,7 +10,9 @@ expoPreset.testMatch = [
   "**/?(*.)+(spec|test).{js,ts,tsx}"
 ];
 
-expoPreset.moduleFileExtensions = ["js", "ts", "tsx"];
+expoPreset.transformIgnorePatterns = [
+  "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|sentry-expo|native-base)"
+];
 
 expoPreset.globals = {
   "ts-jest": {
@@ -19,6 +21,8 @@ expoPreset.globals = {
     }
   }
 };
+
+expoPreset.setupFiles = [...expoPreset.setupFiles, "./jest-setup.tsx"];
 
 expoPreset.collectCoverageFrom = [
   "./{**/,}*.{js,ts,tsx}",
