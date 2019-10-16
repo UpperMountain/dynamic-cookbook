@@ -169,7 +169,7 @@ class RecipeView extends React.Component<
   private getConfig(): { [key: string]: any } {
     const { recipeDef } = this.getDataFromProps();
     const config: { [key: string]: any } = {};
-    for (let param of recipeDef.config) {
+    for (const param of recipeDef.config) {
       config[param.id] = this.getParam(param.id);
     }
     return config;

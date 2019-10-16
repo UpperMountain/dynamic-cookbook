@@ -35,12 +35,12 @@ for (const serves of [2, 20]) {
 
           it("should produce nodes with working getters", () => {
             const root = Pancakes.requires(params);
-            for (let node of walk(root[0])) {
-              let _1 = node.name;
-              let _2 = node.body;
+            for (const node of walk(root[0])) {
+              const _1 = node.name;
+              const _2 = node.body;
               if (node.kind === "step") {
-                let _3 = node.timer;
-                let _4 = node.until;
+                const _3 = node.timer;
+                const _4 = node.until;
               }
             }
           });

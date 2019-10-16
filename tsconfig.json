@@ -9,6 +9,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "skipLibCheck": true,
     "jsx": "react-native",
     "lib": ["es6"],
     "moduleResolution": "node",

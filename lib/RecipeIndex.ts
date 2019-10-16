@@ -65,12 +65,12 @@ export default class RecipeIndex {
 
     // Map (ingredient.name) => IngredientResult
     const ingredients = new Map<string, IngredientResult>();
-    for (let r of recipeItems) {
+    for (const r of recipeItems) {
       // Run the recipe, gathering its ingredients
       const requires = r.recipe.requires(getRecipeDefaults(r.recipe));
       const roots = await simplifyGroup(requires);
       let recipeIngredients: Ingredient[] = [];
-      for (let root of roots) {
+      for (const root of roots) {
         const ingredientsIter = walkWhere(
           root,
           (el: Node) => el.kind === "ingredient"
@@ -80,7 +80,7 @@ export default class RecipeIndex {
       }
 
       // upsert the ingredients into the main mapping
-      for (let ing of recipeIngredients) {
+      for (const ing of recipeIngredients) {
         let stored = ingredients.get(ing.constructor.name);
         if (typeof stored === "undefined") {
           stored = {

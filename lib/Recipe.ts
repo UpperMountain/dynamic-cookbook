@@ -68,7 +68,7 @@ export type ParameterDef = IntegerParameter | CategoricalParameter;
 
 export function getRecipeDefaults(recipe: Recipe) {
   const defaults: { [key: string]: any } = {};
-  for (let param of recipe.config) {
+  for (const param of recipe.config) {
     defaults[param.id] = param.default;
   }
   return defaults;

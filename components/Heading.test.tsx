@@ -6,7 +6,7 @@ it("has a Heading which is really Heading1", () => {
   expect(Heading).toBe(Heading1);
 });
 
-for (let Cmp of [Heading1, Heading2]) {
+for (const Cmp of [Heading1, Heading2]) {
   describe(`<${Cmp.name}/>`, () => {
     it("should render without exploding", () => {
       renderer.create(<Cmp>testing</Cmp>).unmount();

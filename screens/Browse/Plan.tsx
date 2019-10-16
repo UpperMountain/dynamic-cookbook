@@ -76,7 +76,7 @@ export function Plan({
 
   // If this takes a long time, move it to mealContext
   const ingredients: Ingredient[] = [];
-  for (let node of walkGroup(requires)) {
+  for (const node of walkGroup(requires)) {
     if (node.kind === "ingredient") {
       ingredients.push(node);
     }
@@ -85,7 +85,7 @@ export function Plan({
   // If this takes a long time, move it to mealContext
   let activeTime = 0;
   let passiveTime = 0;
-  for (let node of walkGroup(requires)) {
+  for (const node of walkGroup(requires)) {
     if (node.kind === "step") {
       activeTime += node.duration || 30;
       passiveTime += node.timer ? node.timer.duration : 0;

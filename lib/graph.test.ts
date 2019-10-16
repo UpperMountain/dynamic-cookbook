@@ -107,7 +107,7 @@ describe("walk()", () => {
     const root = new ProcedureAll();
 
     let count = 0;
-    for (let _ of walk(root)) {
+    for (const _ of walk(root)) {
       count++;
     }
 
@@ -119,7 +119,7 @@ describe("walk()", () => {
     proc1.requires[0].requires = [...proc1.requires[1].requires];
 
     let count = 0;
-    for (let _ of walk(proc1)) {
+    for (const _ of walk(proc1)) {
       count++;
     }
 
@@ -142,7 +142,7 @@ describe("walkWhere()", () => {
     const root = new ProcedureAll();
     let count = 0;
     const nodes = walkWhere(root, (el: Node) => el.kind === "ingredient");
-    for (let el of nodes) {
+    for (const el of nodes) {
       expect(el.kind).toEqual("ingredient");
       count += 1;
     }

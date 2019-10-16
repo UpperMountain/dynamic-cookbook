@@ -68,7 +68,7 @@ export default class Sequencer {
   // Add, recursively, parent information for a node to this.parents
   private discoverParents(root: Node, parent: Step | null = null) {
     if (parent !== null) {
-      let currentParents = this.parents.get(root);
+      const currentParents = this.parents.get(root);
       if (currentParents) {
         currentParents.push(parent);
       } else {
@@ -77,7 +77,7 @@ export default class Sequencer {
     }
 
     if (root.kind === "step") {
-      for (let req of root.requires) {
+      for (const req of root.requires) {
         this.discoverParents(req, root);
       }
     }
@@ -107,7 +107,7 @@ export default class Sequencer {
       return timeSum;
     }
 
-    for (let parent of parents) {
+    for (const parent of parents) {
       timeSum += this.blockedTime(parent);
     }
     return timeSum;

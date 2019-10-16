@@ -1,4 +1,5 @@
-import { uniq, omit, sortBy } from "lodash";
+import { omit, sortBy, uniq } from "lodash";
+
 import AsyncSlicer from "./AsyncSlicer";
 
 // A duration, in minutes.
@@ -66,7 +67,7 @@ export function isNode(obj: any): obj is Node {
 }
 
 // Function to check if any two objects are instances of the same class
-function sameClass<T>(a: T, b: any): b is T {
+function sameClass<T extends any>(a: T, b: any): b is T {
   return b.constructor === a.constructor;
 }
 
@@ -97,7 +98,8 @@ export function totalTime(node: Node): Duration {
   return 0;
 }
 
-// A MergeFunction which merges children when it encounters a Node of the same class.
+// A MergeFunction which merges children when it encounters a Node of the same
+// class.
 export const mergeByChildren: MergeFunction = function(
   this: Step,
   other: Node
@@ -111,7 +113,8 @@ export const mergeByChildren: MergeFunction = function(
   return null;
 };
 
-// mergeApply() creates a merge function which merges children, then applies `apply`, for other Nodes of the same class.
+// mergeApply() creates a merge function which merges children, then applies
+// `apply`, for other Nodes of the same class.
 export function mergeApply<T extends Node>(
   apply: (other: T) => void
 ): MergeFunction {
@@ -152,22 +155,20 @@ export function repr(node: Node, tab: number = 0): string {
     .map(([k, v]: [string, any]) => `${k}=${JSON.stringify(v)}`) // ... sort of.
     .join(" ");
 
-  const labels = {
-    ingredient: "=",
-    step: "|"
-  };
+  const labels = { ingredient: "=", step: "|" };
 
   let out = `${indent}${labels[node.kind]} "${node.name}" ${infoString}\n`;
 
   if (node.kind == "step") {
-    for (let req of node.requires) {
+    for (const req of node.requires) {
       out += repr(req, tab + 1);
     }
   }
   return out;
 }
 
-/* Attempt to merge two requirements. Return true if successful, false otherwise.
+/* Attempt to merge two requirements. Return true if successful, false
+ * otherwise.
  *
  * Basic overview of simplification algorithm:
  *
@@ -185,8 +186,8 @@ export async function simplifyOne(
   // TODO: make this perform in less obnoxious time complexity
 
   // Iterate over every node pair in the tree.
-  for (let a of walk(root)) {
-    for (let b of walk(root)) {
+  for (const a of walk(root)) {
+    for (const b of walk(root)) {
       // Skip the pair if they're the same thing.
       if (a === b) {
         continue;
@@ -195,7 +196,7 @@ export async function simplifyOne(
       // If merge is possible, do it.
       if (a.merge && a.merge(b)) {
         // update all dependencies on the old node.
-        for (let node of walk(root)) {
+        for (const node of walk(root)) {
           if (node.kind === "step") {
             let newReqs = node.requires.map(e => (e === b ? a : e));
             newReqs = uniq(newReqs);
@@ -260,7 +261,7 @@ export function* walk(
   if (root.kind === "ingredient") {
     return;
   }
-  for (let req of root.requires) {
+  for (const req of root.requires) {
     if (!visited.has(req)) {
       visited.add(req);
       yield* walk(req, visited);
@@ -278,7 +279,7 @@ export function* walkGroup(roots: Node[]): IterableIterator<Node> {
 
 // Traverse every requirement for a given Node which satisfies a predicate
 export function* walkWhere(root: Node, predicate: (el: Node) => boolean) {
-  for (let item of walk(root)) {
+  for (const item of walk(root)) {
     if (predicate(item)) {
       yield item;
     }
@@ -288,7 +289,7 @@ export function* walkWhere(root: Node, predicate: (el: Node) => boolean) {
 // Counts the requirements for a node.
 export function nodeCount(root: Node): number {
   let count = 0;
-  for (let _ of walk(root)) {
+  for (const _ of walk(root)) {
     count += 1;
   }
   return count;
@@ -297,7 +298,7 @@ export function nodeCount(root: Node): number {
 // Counts the requirements for a group of nodes.
 export function nodeCountGroup(roots: Node[]): number {
   let count = 0;
-  for (let _ of walkGroup(roots)) {
+  for (const _ of walkGroup(roots)) {
     count += 1;
   }
   return count;

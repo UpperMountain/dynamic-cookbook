@@ -114,7 +114,7 @@ describe("updateRecipe()", () => {
     const { updateRecipe } = await testMount(updateFn);
 
     updateRecipe({ id: "Pancakes", config: getRecipeDefaults(Pancakes) });
-    let call = updateFn.mock.calls[0][0];
+    const call = updateFn.mock.calls[0][0];
 
     // Immediately, should be working.
     expect(call.working).toBe(true);
@@ -210,7 +210,7 @@ it("should simplify multiple recipes together", done =>
       expect(ctx.working).toBe(false); // not working
       expect(ctx.requires.length).toBeGreaterThan(0);
 
-      for (let node of walkGroup(ctx.requires)) {
+      for (const node of walkGroup(ctx.requires)) {
         if (node instanceof Ingredients.Chai) hasChai = true;
         if (node instanceof Ingredients.Flour) hasPancakes = true;
       }

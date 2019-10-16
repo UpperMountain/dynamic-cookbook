@@ -5,7 +5,6 @@ import { qty } from "../lib/plural";
 export class NYI implements Ingredient {
   kind: "ingredient" = "ingredient";
 
-  constructor() {}
   name = "[ Not yet implemented ]";
   body = "This recipe is incomplete.";
 
