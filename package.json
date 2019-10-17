@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.1",
-    "@react-native-community/async-storage": "^1.6.2",
     "@types/expo": "^32.0.12",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/react-native": "^0.57.51",
@@ -80,7 +79,7 @@
       "git add"
     ],
     "*.{js,ts,tsx}": [
-      "eslint --fix",
+      "eslint --fix --ignore-pattern '*.config.js'",
       "git add"
     ]
   },

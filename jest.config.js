@@ -22,8 +22,6 @@ expoPreset.globals = {
   }
 };
 
-expoPreset.setupFiles = [...expoPreset.setupFiles, "./jest-setup.tsx"];
-
 expoPreset.collectCoverageFrom = [
   "./{**/,}*.{js,ts,tsx}",
   "!./{**/,}*.config.js",
