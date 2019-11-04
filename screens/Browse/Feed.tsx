@@ -62,7 +62,7 @@ function FeedItem({ recipe, onPress }: FeedItemProps) {
   );
 }
 
-function Feed({ navigation }: NavigationScreenConfigProps) {
+function Feed({ navigation }: NavigationScreenConfigProps<any, any>) {
   return (
     <ScrollView
       contentContainerStyle={{

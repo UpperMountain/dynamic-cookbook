@@ -1,10 +1,10 @@
-import {
-  NavigationState,
-  NavigationLeafRoute,
-  NavigationParams
-} from "react-navigation";
-import { Segment } from "expo";
+import * as Segment from "expo-analytics-segment";
 import { isEqual } from "lodash";
+import {
+  NavigationLeafRoute,
+  NavigationParams,
+  NavigationState
+} from "react-navigation";
 
 // adapted from https://reactnavigation.org/docs/en/screen-tracking.html
 

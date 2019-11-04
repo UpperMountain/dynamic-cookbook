@@ -116,7 +116,7 @@ interface State {
 }
 
 class RecipeView extends React.Component<
-  NavigationScreenConfigProps & MealContext,
+  NavigationScreenConfigProps<any, any> & MealContext,
   State
 > {
   state: State = { config: {} };
@@ -279,7 +279,7 @@ class RecipeView extends React.Component<
 }
 
 export default function RecipeViewContainer(
-  props: NavigationScreenConfigProps
+  props: NavigationScreenConfigProps<any, any>
 ) {
   return (
     <MealContextConsumer>

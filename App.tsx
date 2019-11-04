@@ -1,12 +1,15 @@
 import React from "react";
 import { Alert, StatusBar, AsyncStorage } from "react-native";
-import { Constants, Segment, Font, AppLoading, ErrorRecovery } from "expo";
+import { AppLoading, ErrorRecovery } from "expo";
+import * as Font from "expo-font";
+import Constants from "expo-constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
 import { trackNavStateChange } from "./lib/screenTracking";
 import { MealContextProvider } from "./lib/mealContext";
-import Sentry from "sentry-expo";
+import * as Sentry from "sentry-expo";
+import * as Segment from "expo-analytics-segment";
 
 export const navStatePersistenceKey = "navStatePersistence";
 
@@ -14,9 +17,10 @@ export const navStatePersistenceKey = "navStatePersistence";
 const AppContainer = createAppContainer(RootNavigator);
 
 // Register Sentry for error reporting
-Sentry.config(
-  "https://40e9befbb61c4ba9b0e3e2d181fd24f0@sentry.io/1464818"
-).install();
+Sentry.init({
+  dsn: "https://40e9befbb61c4ba9b0e3e2d181fd24f0@sentry.io/1464818",
+  enableInExpoDevelopment: false
+});
 
 if (!__DEV__) {
   // Only initialize Segment in prod.
@@ -77,7 +81,16 @@ export default class App extends React.Component {
           <MealContextProvider>
             <AppContainer
               onNavigationStateChange={trackNavStateChange}
-              persistenceKey={navStatePersistenceKey}
+              persistNavigationState={async state =>
+                !__DEV__ &&
+                AsyncStorage.setItem(
+                  navStatePersistenceKey,
+                  JSON.stringify(state)
+                )
+              }
+              loadNavigationState={async () =>
+                !__DEV__ && AsyncStorage.getItem(navStatePersistenceKey)
+              }
             />
           </MealContextProvider>
         </>

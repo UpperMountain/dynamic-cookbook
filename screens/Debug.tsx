@@ -1,7 +1,9 @@
 import React from "react";
 import { AsyncStorage, ScrollView, View, Text, Platform } from "react-native";
 import ButtonInner, { Props as ButtonProps } from "../components/Button";
-import { Updates, Constants, Segment } from "expo";
+import { Updates } from "expo";
+import * as Segment from "expo-analytics-segment";
+import Constants from "expo-constants";
 
 function crash() {
   throw new Error("Crash test for Sentry");
@@ -104,8 +106,8 @@ export default function Debug() {
           <>
             <Info name="Platform">iOS</Info>
             <Info name="Version">{Platform.Version}</Info>
-            <Info name="Model">{Constants.platform.ios!.model}</Info>
-            <Info name="Internal ID">{Constants.platform.ios!.platform}</Info>
+            <Info name="Model">{Constants.platform!.ios!.model}</Info>
+            <Info name="Internal ID">{Constants.platform!.ios!.platform}</Info>
           </>
         ),
         android: () => (
@@ -113,7 +115,7 @@ export default function Debug() {
             <Info name="Platform">Android</Info>
             <Info name="Version">{Platform.Version}</Info>
             <Info name="Version Code">
-              {Constants.platform.android!.versionCode}
+              {Constants.platform!.android!.versionCode}
             </Info>
           </>
         )

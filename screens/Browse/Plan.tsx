@@ -49,7 +49,7 @@ export function Plan({
   recipes,
   working,
   removeRecipe
-}: NavigationScreenConfigProps & MealContext) {
+}: NavigationScreenConfigProps<any, any> & MealContext) {
   if (Object.keys(recipes).length === 0) {
     return (
       <View
@@ -197,7 +197,9 @@ export function Plan({
   );
 }
 
-export default function PlanContainer(props: NavigationScreenConfigProps) {
+export default function PlanContainer(
+  props: NavigationScreenConfigProps<any, any>
+) {
   return (
     <MealContextConsumer>
       {ctx => <Plan {...props} {...ctx} />}

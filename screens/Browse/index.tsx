@@ -1,4 +1,4 @@
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import tabIcon, { communityTabIcon } from "../../components/tabIcon";
 import { colorShade, colorPrimary } from "../../lib/theme";

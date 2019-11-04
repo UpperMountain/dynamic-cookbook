@@ -58,7 +58,7 @@ interface State {
 }
 
 export default class Search extends React.Component<
-  NavigationScreenConfigProps,
+  NavigationScreenConfigProps<any, any>,
   State
 > {
   state = {

@@ -1,4 +1,4 @@
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 import Browse from "./Browse";
 import Meal from "./Meal";
