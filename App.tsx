@@ -11,8 +11,6 @@ import { MealContextProvider } from "./lib/mealContext";
 import * as Sentry from "sentry-expo";
 import * as Segment from "expo-analytics-segment";
 
-export const navStatePersistenceKey = "navStatePersistence";
-
 // Create root app navigator
 const AppContainer = createAppContainer(RootNavigator);
 
@@ -79,19 +77,7 @@ export default class App extends React.Component {
         <>
           <StatusBar barStyle="default" />
           <MealContextProvider>
-            <AppContainer
-              onNavigationStateChange={trackNavStateChange}
-              persistNavigationState={async state =>
-                !__DEV__ &&
-                AsyncStorage.setItem(
-                  navStatePersistenceKey,
-                  JSON.stringify(state)
-                )
-              }
-              loadNavigationState={async () =>
-                !__DEV__ && AsyncStorage.getItem(navStatePersistenceKey)
-              }
-            />
+            <AppContainer onNavigationStateChange={trackNavStateChange} />
           </MealContextProvider>
         </>
       );
