@@ -187,6 +187,24 @@ export class Espresso implements Ingredient {
   });
 }
 
+export class BeanCoffee implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public grams: number) {}
+  name = "Coffee (whole bean)";
+  get body() {
+    return qty(this.grams, 1, "gram", "grams");
+  }
+}
+
+export class GroundCoffee implements Ingredient {
+  kind: "ingredient" = "ingredient";
+  constructor(public grams: number) {}
+  name = "Coffee (pre-ground)";
+  get body() {
+    return qty(this.grams, 1, "gram", "grams");
+  }
+}
+
 export class BoneInRibeye implements Ingredient {
   kind: "ingredient" = "ingredient";
   constructor(public count: number) {}

@@ -18,7 +18,9 @@ import { ChaiLatte as _ChaiLatte } from "./chai";
 import { Steak as _Steak } from "./steak";
 import { RoastedTomatoes as _RoastedTomatoes } from "./roastedTomatoes";
 import { SauteedAsparagus as _SauteedAsparagus } from "./sauteedAsparagus";
+import { FrenchPressCoffee as _FrenchPressCoffee } from "./frenchPressCoffee";
 
+export const FrenchPressCoffee = _FrenchPressCoffee;
 export const Steak = _Steak;
 export const Pancakes = _Pancakes;
 export const ChaiLatte = _ChaiLatte;

@@ -10,7 +10,7 @@
     "test": "jest --watch",
     "test:ci": "jest --ci --coverage --verbose",
     "test:quick": "jest --only-changed",
-    "lint": "eslint --ext .js,.ts,.tsx --ignore-path .gitignore --ignore-pattern '*.config.js' components lib screens",
+    "lint": "eslint --ext .js,.ts,.tsx --ignore-path .gitignore --ignore-pattern '*.config.js' components lib screens data",
     "types": "tsc"
   },
   "dependencies": {
