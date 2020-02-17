@@ -100,7 +100,7 @@ export default function Debug() {
       <Info name="Session ID">{Constants.sessionId}</Info>
       <Info name="Year Class">{Constants.deviceYearClass}</Info>
       <Header>Platform</Header>
-      {Platform.select!({
+      {Platform.select({
         /* eslint-disable react/display-name */
         ios: () => (
           <>
@@ -120,7 +120,7 @@ export default function Debug() {
           </>
         )
         /* eslint-enable */
-      })()}
+      })!()}
     </ScrollView>
   );
 }
