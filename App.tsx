@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, StatusBar, AsyncStorage } from "react-native";
-import { AppLoading, ErrorRecovery } from "expo";
+import { AppLoading } from "expo";
+import * as ErrorRecovery from "expo-error-recovery";
 import * as Font from "expo-font";
 import Constants from "expo-constants";
 import { MaterialIcons } from "@expo/vector-icons";

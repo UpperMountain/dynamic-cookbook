@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  ScrollView,
-  ActivityIndicator,
-  Text,
-  Dimensions
-} from "react-native";
+import { View, ScrollView, ActivityIndicator, Text } from "react-native";
 import { Step, isStep } from "../../lib/graph";
 import { MealContext, MealContextConsumer } from "../../lib/mealContext";
 import Sequencer, { Stage, NextStatus } from "../../lib/Sequencer";
@@ -220,20 +214,8 @@ class MyMeal extends React.Component<MealContext, State> {
     }
 
     return (
-      <View>
-        <View
-          style={{
-            position: "absolute",
-            height: Dimensions.get("window").height
-          }}
-        >
-          <Confetti
-            timeout={10}
-            bsize={0.5}
-            duration={4000}
-            ref={this.confetti}
-          />
-        </View>
+      <View style={{ flexGrow: 1 }}>
+        <Confetti timeout={10} bsize={2} duration={1000} ref={this.confetti} />
         <ScrollView
           ref={this.scroll}
           contentContainerStyle={{
