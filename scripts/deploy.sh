@@ -13,3 +13,8 @@ _expo_login
 echo "----- Publishing expo app..."
 _expo publish
 
+if [[ -n "$TRAVIS_TAG" ]]; then
+	echo "----- Submitting Expo Android build..."
+	_expo build:android --type app-bundle
+fi
+
