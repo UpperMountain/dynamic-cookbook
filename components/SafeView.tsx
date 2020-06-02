@@ -1,6 +1,6 @@
 import React from "react";
 import { ViewProps } from "react-native";
-import { SafeAreaView, Platform, StatusBar } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props extends ViewProps {
   children: React.ReactNode;
@@ -11,11 +11,7 @@ const SafeView = ({ children, style, ...rest }: Props) => (
   <SafeAreaView
     style={[
       {
-        flex: 1,
-        paddingTop: Platform.select({
-          android: StatusBar.currentHeight,
-          ios: 0
-        })
+        flex: 1
       },
       style
     ]}

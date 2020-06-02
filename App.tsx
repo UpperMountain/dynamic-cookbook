@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { RootNavigator } from "./screens";
 import { trackNavStateChange } from "./lib/screenTracking";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MealContextProvider } from "./lib/mealContext";
 import * as Sentry from "sentry-expo";
 import * as Segment from "expo-analytics-segment";
@@ -43,7 +44,7 @@ export default class App extends React.Component {
 
     // @ts-ignore
     const { exp } = this.props;
-    if (typeof exp.errorRecovery !== "undefined") {
+    if (exp.errorRecovery && exp.errorRecovery.didCrash) {
       this.crashed = true;
     }
 
@@ -76,10 +77,11 @@ export default class App extends React.Component {
     if (ready) {
       return (
         <>
-          <StatusBar barStyle="default" />
-          <MealContextProvider>
-            <AppContainer onNavigationStateChange={trackNavStateChange} />
-          </MealContextProvider>
+          <SafeAreaProvider>
+            <MealContextProvider>
+              <AppContainer onNavigationStateChange={trackNavStateChange} />
+            </MealContextProvider>
+          </SafeAreaProvider>
         </>
       );
     }
